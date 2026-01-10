@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Apprends l'anglais! 🌟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-light: #a8e6cf;
+            --green-main: #56ab2f;
+            --green-dark: #2d5016;
+            --yellow: #ffd93d;
+            --orange: #ff9f43;
+            --pink: #ff6b9d;
+            --purple: #a55eea;
+            --blue: #45aaf2;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: rgba(255,255,255,0.95);
+            --shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* User Selection Screen */
+        .user-selection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        
+        .user-selection.hidden {
+            display: none;
+        }
+        
+        .user-selection-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            animation: modalPop 0.4s ease;
+        }
+        
+        .user-selection h2 {
+            font-size: 2rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+        }
+        
+        .user-selection p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .user-profiles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .user-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Fredoka', sans-serif;
+            text-align: left;
+        }
+        
+        .user-profile-btn:hover {
+            border-color: var(--purple);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .user-avatar.avatar-1 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .user-avatar.avatar-2 { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        .user-avatar.avatar-3 { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
+        .user-avatar.avatar-4 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .user-progress-mini {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 3px;
+        }
+        
+        .user-delete-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: opacity 0.2s;
+            padding: 10px;
+        }
+        
+        .user-delete-btn:hover {
+            opacity: 1;
+        }
+        
+        .add-user-section {
+            border-top: 2px dashed #e0e0e0;
+            padding-top: 25px;
+            margin-top: 10px;
+        }
+        
+        .add-user-form {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .add-user-form.active {
+            display: flex;
+        }
+        
+        .add-user-input {
+            padding: 15px 20px;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        
+        .add-user-input:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+        
+        .avatar-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .avatar-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .avatar-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .avatar-option.selected {
+            border-color: var(--purple);
+            transform: scale(1.15);
+        }
+        
+        .add-user-btn {
+            background: linear-gradient(135deg, var(--green-main), #2d8a1e);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .add-user-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .add-user-btn.secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .show-add-form-btn {
+            background: none;
+            border: 3px dashed #ccc;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .show-add-form-btn:hover {
+            border-color: var(--purple);
+            color: var(--purple);
+        }
+        
+        /* Current user indicator */
+        .current-user-bar {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .current-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .current-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        
+        .current-user-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .reset-user-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.2s;
+            padding: 5px;
+            border-radius: 50%;
+        }
+        
+        .reset-user-btn:hover {
+            opacity: 1;
+            background: #fee;
+        }
+        
+        .switch-user-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .switch-user-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        /* Floating bubbles background */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+        
+        .bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-delay: 0s; }
+        .bubble:nth-child(2) { left: 20%; width: 20px; height: 20px; animation-delay: 2s; }
+        .bubble:nth-child(3) { left: 35%; width: 50px; height: 50px; animation-delay: 4s; }
+        .bubble:nth-child(4) { left: 50%; width: 30px; height: 30px; animation-delay: 1s; }
+        .bubble:nth-child(5) { left: 65%; width: 25px; height: 25px; animation-delay: 3s; }
+        .bubble:nth-child(6) { left: 80%; width: 45px; height: 45px; animation-delay: 5s; }
+        .bubble:nth-child(7) { left: 90%; width: 35px; height: 35px; animation-delay: 2.5s; }
+        
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            color: white;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+        }
+        
+        header h1 span {
+            display: inline-block;
+            animation: bounce 0.5s ease infinite alternate;
+        }
+        
+        header h1 span:nth-child(2) { animation-delay: 0.1s; }
+        header h1 span:nth-child(3) { animation-delay: 0.2s; }
+        header h1 span:nth-child(4) { animation-delay: 0.3s; }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+        
+        /* Progress Overview */
+        .progress-overview {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .progress-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-bar-container {
+            background: #e0e0e0;
+            border-radius: 15px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green-main), var(--yellow));
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            min-width: 40px;
+        }
+        
+        .progress-text {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        
+        .stars-display {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .star {
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+        
+        .star.earned {
+            opacity: 1;
+            animation: starPop 0.5s ease;
+        }
+        
+        @keyframes starPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Sections Grid */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            border-radius: 17px 17px 0 0;
+        }
+        
+        .section-card[data-section="greetings"]::before { background: #3498db; }
+        .section-card[data-section="polite"]::before { background: #e91e63; }
+        .section-card[data-section="opinions"]::before { background: #ff9800; }
+        .section-card[data-section="clarification"]::before { background: #00bcd4; }
+        .section-card[data-section="help"]::before { background: #9c27b0; }
+        .section-card[data-section="permissions"]::before { background: #ffc107; }
+        .section-card[data-section="teamwork"]::before { background: #4caf50; }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+        }
+        
+        .section-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .section-card.locked:hover {
+            transform: none;
+        }
+        
+        .section-card.mastered {
+            border-color: var(--green-main);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-top: 5px;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .section-badge {
+            background: var(--green-light);
+            color: var(--green-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .section-badge.locked {
+            background: #e0e0e0;
+            color: #888;
+        }
+        
+        .section-badge.mastered {
+            background: var(--green-main);
+            color: white;
+        }
+        
+        .section-progress {
+            background: #e8e8e8;
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .section-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green-light), var(--green-main));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .section-stars {
+            display: flex;
+            gap: 3px;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .section-level-info {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 8px;
+        }
+        
+        /* Game Area */
+        .game-area {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .game-area.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        
+        .game-level {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        
+        .back-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.05);
+        }
+        
+        /* Matching Game */
+        .matching-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 200px;
+        }
+        
+        .matching-column h3 {
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        
+        .match-item {
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            user-select: none;
+        }
+        
+        .match-item:hover:not(.matched):not(.disabled) {
+            border-color: var(--blue);
+            transform: scale(1.02);
+        }
+        
+        .match-item.selected {
+            border-color: var(--purple);
+            background: #f0e6ff;
+            transform: scale(1.05);
+        }
+        
+        .match-item.matched {
+            border-color: var(--green-main);
+            background: var(--green-light);
+            cursor: default;
+        }
+        
+        .match-item.wrong {
+            animation: shake 0.5s ease;
+            border-color: #ff6b6b;
+            background: #ffe0e0;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        /* Quiz Game */
+        .quiz-question {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-prompt {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-word {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple);
+            padding: 20px;
+            background: #f8f4ff;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .quiz-option {
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover:not(.disabled) {
+            border-color: var(--blue);
+            transform: translateY(-3px);
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--green-main);
+            background: var(--green-light);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #ff6b6b;
+            background: #ffe0e0;
+        }
+        
+        /* Score Display */
+        .score-display {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            margin-top: 25px;
+            border: 3px solid #dee2e6;
+        }
+        
+        .score-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .score-item {
+            text-align: center;
+        }
+        
+        .score-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .score-item .score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--green-main);
+        }
+        
+        .score-item.errors .score-value {
+            color: #ff6b6b;
+        }
+        
+        /* Results Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            animation: modalPop 0.3s ease;
+        }
+        
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .modal-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        
+        .modal h2 {
+            font-size: 2rem;
+            color: var(--green-dark);
+            margin-bottom: 15px;
+        }
+        
+        .modal p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        
+        .modal-stars {
+            font-size: 3rem;
+            margin-bottom: 25px;
+        }
+        
+        .modal-btn {
+            background: linear-gradient(135deg, var(--green-main), #2d8a1e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 5px;
+        }
+        
+        .modal-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .modal-btn.secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        /* Level Selection */
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .level-btn {
+            aspect-ratio: 1;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            background: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .level-btn:hover:not(.locked) {
+            transform: scale(1.1);
+            border-color: var(--purple);
+        }
+        
+        .level-btn.completed {
+            background: var(--green-light);
+            border-color: var(--green-main);
+            color: var(--green-dark);
+        }
+        
+        .level-btn.current {
+            background: #f0e6ff;
+            border-color: var(--purple);
+            color: var(--purple);
+            animation: pulse 1.5s ease infinite;
+        }
+        
+        .level-btn.locked {
+            background: #f5f5f5;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .level-btn.final {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            border: none;
+        }
+        
+        .level-btn.final.locked {
+            background: #e0e0e0;
+            color: #999;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(165, 94, 234, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(165, 94, 234, 0); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .matching-container {
+                flex-direction: column;
+            }
+            
+            .matching-column {
+                width: 100%;
+            }
+            
+            .game-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .level-grid {
+                grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            }
+        }
+        
+        /* Instructions */
+        .instructions {
+            background: #f8f4ff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .instructions strong {
+            color: var(--purple);
+        }
+        
+        /* Level Selection Screen */
+        .level-selection {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .level-selection.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .level-selection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .level-selection-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        
+        .level-description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- User Selection Screen -->
+    <div class="user-selection" id="userSelection">
+        <div class="user-selection-card">
+            <h2>👋 Qui joue?</h2>
+            <p>Choisis ton profil pour continuer ta progression</p>
+            
+            <div class="user-profiles" id="userProfiles">
+                <!-- Profiles loaded by JS -->
+            </div>
+            
+            <div class="add-user-section">
+                <button class="show-add-form-btn" id="showAddFormBtn" onclick="showAddUserForm()">
+                    ➕ Ajouter un joueur
+                </button>
+                
+                <div class="add-user-form" id="addUserForm">
+                    <input type="text" class="add-user-input" id="newUserName" placeholder="Ton prénom" maxlength="20">
+                    
+                    <div class="avatar-selector" id="avatarSelector">
+                        <div class="avatar-option avatar-1 selected" data-avatar="1" onclick="selectAvatar(1)">🦋</div>
+                        <div class="avatar-option avatar-2" data-avatar="2" onclick="selectAvatar(2)">🌟</div>
+                        <div class="avatar-option avatar-3" data-avatar="3" onclick="selectAvatar(3)">🌸</div>
+                        <div class="avatar-option avatar-4" data-avatar="4" onclick="selectAvatar(4)">🦄</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button class="add-user-btn secondary" onclick="hideAddUserForm()" style="flex:1">Annuler</button>
+                        <button class="add-user-btn" onclick="createUser()" style="flex:1">Créer</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section Sauvegarde -->
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px dashed #ddd;">
+                <div style="font-size: 0.9rem; color: #888; margin-bottom: 10px; text-align: center;">💾 Sauvegarde</div>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button type="button" onclick="exportProgress()" style="background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka, sans-serif; font-size: 0.9rem; cursor: pointer;">📤 Exporter</button>
+                    <button type="button" onclick="document.getElementById('importFile').click()" style="background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka, sans-serif; font-size: 0.9rem; cursor: pointer;">📥 Importer</button>
+                    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importProgress(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background bubbles -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>
+                <span>🌟</span>
+                <span>Apprends</span>
+                <span>l'anglais!</span>
+                <span>🌟</span>
+            </h1>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Useful Language - Expressions utiles</p>
+        </header>
+        
+        <!-- Current User Bar -->
+        <div class="current-user-bar" id="currentUserBar">
+            <div class="current-user-info">
+                <div class="current-user-avatar avatar-1" id="currentUserAvatar">🦋</div>
+                <span class="current-user-name" id="currentUserName">Joueur</span>
+                <button class="reset-user-btn" onclick="resetProgress()" title="Réinitialiser ma progression">🔄</button>
+            </div>
+            <button class="switch-user-btn" onclick="showUserSelection()">Changer de joueur</button>
+        </div>
+        
+        <!-- Progress Overview -->
+        <div class="progress-overview" id="progressOverview">
+            <div class="progress-title">📊 Ma progression globale</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="globalProgress" style="width: 0%">
+                    <span class="progress-text" id="globalProgressText">0%</span>
+                </div>
+            </div>
+            <div class="stars-display" id="globalStars">
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+            </div>
+        </div>
+        
+        <!-- Sections Grid -->
+        <div class="sections-grid" id="sectionsGrid">
+            <!-- Sections will be generated by JS -->
+        </div>
+        
+        <!-- Level Selection Screen -->
+        <div class="level-selection" id="levelSelection">
+            <div class="level-selection-header">
+                <button class="back-btn" onclick="goBackToSections()">← Retour</button>
+                <h2 class="level-selection-title" id="levelSelectionTitle">Section</h2>
+                <div></div>
+            </div>
+            <p class="level-description" id="levelDescription">Choisis un niveau</p>
+            <div class="level-grid" id="levelGrid">
+                <!-- Levels will be generated by JS -->
+            </div>
+        </div>
+        
+        <!-- Game Area -->
+        <div class="game-area" id="gameArea">
+            <div class="game-header">
+                <button class="back-btn" onclick="goBackToLevels()">← Retour</button>
+                <h2 class="game-title" id="gameTitle">Section</h2>
+                <div class="game-level" id="gameLevel">Niveau 1</div>
+            </div>
+            
+            <div class="instructions" id="gameInstructions"></div>
+            
+            <div id="gameContent">
+                <!-- Game content will be inserted here -->
+            </div>
+            
+            <div class="score-display">
+                <div class="score-row">
+                    <div class="score-item">
+                        <div class="score-label">✓ Bonnes réponses</div>
+                        <div class="score-value" id="scoreValue">0</div>
+                    </div>
+                    <div class="score-item errors">
+                        <div class="score-label">✗ Erreurs</div>
+                        <div class="score-value" id="errorsValue">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Results Modal -->
+    <div class="modal-overlay" id="resultModal">
+        <div class="modal">
+            <div class="modal-icon" id="modalIcon">🎉</div>
+            <h2 id="modalTitle">Bravo!</h2>
+            <p id="modalMessage">Tu as terminé ce niveau!</p>
+            <div class="modal-stars" id="modalStars">⭐⭐⭐</div>
+            <button class="modal-btn" id="modalNextBtn">Continuer →</button>
+            <button class="modal-btn secondary" onclick="closeModal()">Menu</button>
+        </div>
+    </div>
+    
+    <script>
+        // ==================== DATA ====================
+        const sectionsData = {
+            greetings: {
+                name: "Greetings & Introductions",
+                nameFr: "Salutations",
+                color: "#3498db",
+                colorLight: "#e8f4fc",
+                icon: "👋",
+                pairs: [
+                    { en: "Good morning", fr: "Bonjour (matin)" },
+                    { en: "Good afternoon", fr: "Bonjour (après-midi)" },
+                    { en: "Hi, my name is {NAME}", fr: "Salut, je m'appelle {NAME}" },
+                    { en: "Hello, I'm {NAME}", fr: "Bonjour, je suis {NAME}" },
+                    { en: "How are you today", fr: "Comment vas-tu aujourd'hui" },
+                    { en: "I'm fine, thank you", fr: "Je vais bien, merci" },
+                    { en: "This is my friend {NAME}", fr: "C'est mon ami(e) {NAME}" },
+                    { en: "Hi, {NAME}, nice to meet you", fr: "Salut {NAME}, enchanté(e)" },
+                    { en: "See you later", fr: "À plus tard" },
+                    { en: "Goodbye", fr: "Au revoir" },
+                    { en: "Bye", fr: "Salut / Bye" }
+                ]
+            },
+            polite: {
+                name: "Being Polite",
+                nameFr: "Être poli",
+                color: "#e91e63",
+                colorLight: "#fce4ec",
+                icon: "🙏",
+                pairs: [
+                    { en: "Excuse me", fr: "Excusez-moi" },
+                    { en: "I'm sorry", fr: "Je suis désolé(e)" },
+                    { en: "Thank you", fr: "Merci" },
+                    { en: "Thanks", fr: "Merci" },
+                    { en: "Thank you very much", fr: "Merci beaucoup" },
+                    { en: "You're welcome", fr: "De rien" },
+                    { en: "Please", fr: "S'il te plaît" }
+                ]
+            },
+            opinions: {
+                name: "Agreeing, Disagreeing & Opinions",
+                nameFr: "Opinions",
+                color: "#ff9800",
+                colorLight: "#fff3e0",
+                icon: "💭",
+                pairs: [
+                    { en: "Do you agree", fr: "Es-tu d'accord" },
+                    { en: "I agree", fr: "Je suis d'accord" },
+                    { en: "I think you're right", fr: "Je pense que tu as raison" },
+                    { en: "That's right", fr: "C'est vrai" },
+                    { en: "I don't agree", fr: "Je ne suis pas d'accord" },
+                    { en: "I disagree", fr: "Je ne suis pas d'accord" },
+                    { en: "I think you're wrong", fr: "Je pense que tu as tort" },
+                    { en: "I don't think so", fr: "Je ne pense pas" },
+                    { en: "What do you think", fr: "Qu'est-ce que tu penses" },
+                    { en: "I think that...", fr: "Je pense que..." },
+                    { en: "What's your opinion", fr: "Quelle est ton opinion" },
+                    { en: "In my opinion...", fr: "À mon avis..." }
+                ]
+            },
+            clarification: {
+                name: "Clarification",
+                nameFr: "Clarification",
+                color: "#00bcd4",
+                colorLight: "#e0f7fa",
+                icon: "❓",
+                pairs: [
+                    { en: "I don't understand", fr: "Je ne comprends pas" },
+                    { en: "I don't know", fr: "Je ne sais pas" },
+                    { en: "Can you repeat please", fr: "Peux-tu répéter s'il te plaît" },
+                    { en: "How do you say 'collation' in English", fr: "Comment dit-on 'collation' en anglais" },
+                    { en: "How do you spell 'snack'", fr: "Comment épelle-t-on 'snack'" },
+                    { en: "What does 'binder' mean in French", fr: "Que veut dire 'binder' en français" },
+                    { en: "It means 'cartable'", fr: "Ça veut dire 'cartable'" }
+                ]
+            },
+            help: {
+                name: "Help",
+                nameFr: "Aide",
+                color: "#9c27b0",
+                colorLight: "#f3e5f5",
+                icon: "🆘",
+                pairs: [
+                    { en: "Can you help me please", fr: "Peux-tu m'aider s'il te plaît" },
+                    { en: "Can I help you", fr: "Puis-je t'aider" },
+                    { en: "I need help", fr: "J'ai besoin d'aide" },
+                    { en: "Help me please", fr: "Aide-moi s'il te plaît" }
+                ]
+            },
+            permissions: {
+                name: "Permissions",
+                nameFr: "Permissions",
+                color: "#ffc107",
+                colorLight: "#fff8e1",
+                icon: "✋",
+                pairs: [
+                    { en: "Can I speak French", fr: "Puis-je parler français" },
+                    { en: "May I go to the washroom please", fr: "Puis-je aller aux toilettes" },
+                    { en: "Can I go drink please", fr: "Puis-je aller boire" },
+                    { en: "Can I borrow your dictionary please", fr: "Puis-je emprunter ton dictionnaire" },
+                    { en: "Can I turn on the light", fr: "Puis-je allumer la lumière" },
+                    { en: "Can I go get my snack please", fr: "Puis-je aller chercher ma collation" }
+                ]
+            },
+            teamwork: {
+                name: "Team Work",
+                nameFr: "Travail d'équipe",
+                color: "#4caf50",
+                colorLight: "#e8f5e9",
+                icon: "🤝",
+                pairs: [
+                    { en: "Whose turn is it", fr: "C'est à qui le tour" },
+                    { en: "It's my turn", fr: "C'est mon tour" },
+                    { en: "It's your turn", fr: "C'est ton tour" },
+                    { en: "Do you want to work with me", fr: "Veux-tu travailler avec moi" },
+                    { en: "Good job / Well done / Way to go", fr: "Bon travail / Bravo" }
+                ]
+            }
+        };
+        
+        const sectionOrder = ['greetings', 'polite', 'opinions', 'clarification', 'help', 'permissions', 'teamwork'];
+        
+        const avatarEmojis = ['🦋', '🌟', '🌸', '🦄'];
+        
+        // ==================== STATE ====================
+        let appState = {
+            users: [],
+            currentUserId: null
+        };
+        
+        let gameState = {
+            progress: {},
+            currentSection: null,
+            currentLevel: 0, // 1-based, 0 means not playing
+            score: 0,
+            totalPairs: 0,
+            matchedPairs: 0,
+            errors: 0,
+            errorPairs: [],
+            selectedItem: null,
+            isRevision: false,
+            isFinalRevision: false
+        };
+        
+        let selectedAvatar = 1;
+        
+        // ==================== USER MANAGEMENT ====================
+        function loadAppState() {
+            const saved = localStorage.getItem('englishGameAppV2');
+            if (saved) {
+                appState = JSON.parse(saved);
+            }
+        }
+        
+        function saveAppState() {
+            localStorage.setItem('englishGameAppV2', JSON.stringify(appState));
+        }
+        
+        // ==================== EXPORT/IMPORT ====================
+        function exportProgress() {
+            const dataStr = JSON.stringify(appState, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const date = new Date();
+            const dateStr = date.getFullYear() + '-' + 
+                          String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                          String(date.getDate()).padStart(2, '0');
+            const filename = 'anglais-sauvegarde-' + dateStr + '.json';
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Sauvegarde exportée!\n\nGarde ce fichier pour restaurer ta progression.');
+        }
+        
+        function importProgress(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (!importedData.users || !Array.isArray(importedData.users)) {
+                        throw new Error('Format invalide');
+                    }
+                    
+                    if (confirm('Importer ' + importedData.users.length + ' profil(s)?\n\nCeci remplacera toutes les données actuelles.')) {
+                        appState = importedData;
+                        saveAppState();
+                        renderUserProfiles();
+                        alert('✅ Progression restaurée!');
+                    }
+                } catch (err) {
+                    alert('❌ Erreur: Fichier invalide.');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+        
+        function renderUserProfiles() {
+            const container = document.getElementById('userProfiles');
+            container.innerHTML = '';
+            
+            appState.users.forEach(user => {
+                const progressPercent = calculateUserProgress(user);
+                
+                const div = document.createElement('div');
+                div.className = 'user-profile-btn';
+                div.innerHTML = `
+                    <div class="user-avatar avatar-${user.avatar}">${avatarEmojis[user.avatar - 1]}</div>
+                    <div class="user-info">
+                        <div class="user-name">${user.name}</div>
+                        <div class="user-progress-mini">Progression: ${progressPercent}%</div>
+                    </div>
+                    <button class="user-delete-btn" onclick="event.stopPropagation(); deleteUser('${user.id}')" title="Supprimer">🗑️</button>
+                `;
+                div.onclick = () => selectUser(user.id);
+                container.appendChild(div);
+            });
+            
+            if (appState.users.length === 0) {
+                container.innerHTML = '<p style="color: #888; padding: 20px;">Aucun joueur. Crée ton profil!</p>';
+            }
+        }
+        
+        function calculateUserProgress(user) {
+            let totalLevels = 0;
+            let completedLevels = 0;
+            
+            sectionOrder.forEach(sectionId => {
+                const section = sectionsData[sectionId];
+                const numPairs = section.pairs.length;
+                // Each section has numPairs levels + 1 final revision
+                totalLevels += numPairs + 1;
+                
+                const sectionProgress = user.progress[sectionId] || { currentLevel: 0, completedLevels: [] };
+                completedLevels += sectionProgress.completedLevels ? sectionProgress.completedLevels.length : 0;
+            });
+            
+            return Math.round((completedLevels / totalLevels) * 100);
+        }
+        
+        function showAddUserForm() {
+            document.getElementById('showAddFormBtn').style.display = 'none';
+            document.getElementById('addUserForm').classList.add('active');
+            document.getElementById('newUserName').focus();
+        }
+        
+        function hideAddUserForm() {
+            document.getElementById('showAddFormBtn').style.display = 'block';
+            document.getElementById('addUserForm').classList.remove('active');
+            document.getElementById('newUserName').value = '';
+            selectAvatar(1);
+        }
+        
+        function selectAvatar(num) {
+            selectedAvatar = num;
+            document.querySelectorAll('.avatar-option').forEach(el => {
+                el.classList.toggle('selected', el.getAttribute('data-avatar') == num);
+            });
+        }
+        
+        function createUser() {
+            const name = document.getElementById('newUserName').value.trim();
+            if (!name) {
+                alert('Entre ton prénom!');
+                return;
+            }
+            
+            const newUser = {
+                id: 'user_' + Date.now(),
+                name: name,
+                avatar: selectedAvatar,
+                progress: {}
+            };
+            
+            // Initialize progress for each section
+            sectionOrder.forEach(id => {
+                newUser.progress[id] = { 
+                    currentLevel: 1, // Start at level 1
+                    completedLevels: [],
+                    stars: {}
+                };
+            });
+            
+            appState.users.push(newUser);
+            saveAppState();
+            
+            hideAddUserForm();
+            selectUser(newUser.id);
+        }
+        
+        function deleteUser(userId) {
+            const user = appState.users.find(u => u.id === userId);
+            if (confirm(`Supprimer le profil de ${user.name}? Toute sa progression sera perdue.`)) {
+                appState.users = appState.users.filter(u => u.id !== userId);
+                if (appState.currentUserId === userId) {
+                    appState.currentUserId = null;
+                }
+                saveAppState();
+                renderUserProfiles();
+            }
+        }
+        
+        function selectUser(userId) {
+            const user = appState.users.find(u => u.id === userId);
+            if (!user) return;
+            
+            appState.currentUserId = userId;
+            saveAppState();
+            
+            // Load user's progress into gameState
+            gameState.progress = user.progress;
+            
+            // Update UI
+            document.getElementById('currentUserName').textContent = user.name;
+            document.getElementById('currentUserAvatar').className = `current-user-avatar avatar-${user.avatar}`;
+            document.getElementById('currentUserAvatar').textContent = avatarEmojis[user.avatar - 1];
+            
+            // Hide user selection, show game
+            document.getElementById('userSelection').classList.add('hidden');
+            
+            init();
+        }
+        
+        function showUserSelection() {
+            renderUserProfiles();
+            document.getElementById('userSelection').classList.remove('hidden');
+        }
+        
+        function getCurrentUser() {
+            return appState.users.find(u => u.id === appState.currentUserId);
+        }
+        
+        // Replace {NAME} placeholder with current user's name
+        function personalizePairs(pairs) {
+            const user = getCurrentUser();
+            const playerName = user ? user.name : 'Emma';
+            
+            return pairs.map(pair => ({
+                ...pair,
+                en: pair.en.replace(/{NAME}/g, playerName),
+                fr: pair.fr.replace(/{NAME}/g, playerName)
+            }));
+        }
+        
+        // ==================== INIT ====================
+        function init() {
+            renderSections();
+            updateGlobalProgress();
+        }
+        
+        function saveProgress() {
+            const user = getCurrentUser();
+            if (user) {
+                user.progress = gameState.progress;
+                saveAppState();
+            }
+        }
+        
+        function resetProgress() {
+            if (confirm('Es-tu sûr(e) de vouloir recommencer à zéro? Toute ta progression sera effacée.')) {
+                const user = getCurrentUser();
+                if (user) {
+                    sectionOrder.forEach(id => {
+                        user.progress[id] = { 
+                            currentLevel: 1,
+                            completedLevels: [],
+                            stars: {}
+                        };
+                    });
+                    gameState.progress = user.progress;
+                    saveAppState();
+                    init();
+                }
+            }
+        }
+        
+        // ==================== RENDER ====================
+        function renderSections() {
+            const grid = document.getElementById('sectionsGrid');
+            grid.innerHTML = '';
+            
+            sectionOrder.forEach((sectionId, index) => {
+                const section = sectionsData[sectionId];
+                const progress = gameState.progress[sectionId] || { currentLevel: 1, completedLevels: [], stars: {} };
+                
+                const totalLevels = section.pairs.length + 1; // +1 for final revision
+                const completedCount = progress.completedLevels ? progress.completedLevels.length : 0;
+                const isMastered = completedCount >= totalLevels;
+                const progressPercent = Math.round((completedCount / totalLevels) * 100);
+                
+                // Calculate total stars for this section
+                let totalStars = 0;
+                if (progress.stars) {
+                    Object.values(progress.stars).forEach(s => totalStars += s);
+                }
+                const maxStars = totalLevels * 3;
+                const starRatio = Math.min(3, Math.round((totalStars / maxStars) * 3));
+                
+                const card = document.createElement('div');
+                card.className = `section-card ${isMastered ? 'mastered' : ''}`;
+                card.setAttribute('data-section', sectionId);
+                card.onclick = () => showLevelSelection(sectionId);
+                
+                card.innerHTML = `
+                    <div class="section-header">
+                        <div class="section-title">${section.icon} ${section.nameFr}</div>
+                        <span class="section-badge ${isMastered ? 'mastered' : ''}">
+                            ${isMastered ? '✓ Maîtrisé' : `${completedCount}/${totalLevels}`}
+                        </span>
+                    </div>
+                    <div style="font-size: 0.9rem; color: #888;">${section.name}</div>
+                    <div class="section-progress">
+                        <div class="section-progress-fill" style="width: ${progressPercent}%"></div>
+                    </div>
+                    <div class="section-level-info">
+                        ${isMastered ? '🏆 Tous les niveaux complétés!' : `Niveau actuel: ${progress.currentLevel || 1}/${totalLevels}`}
+                    </div>
+                    <div class="section-stars">
+                        ${renderStars(starRatio, 3)}
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        function showLevelSelection(sectionId) {
+            gameState.currentSection = sectionId;
+            const section = sectionsData[sectionId];
+            const progress = gameState.progress[sectionId] || { currentLevel: 1, completedLevels: [], stars: {} };
+            
+            const totalLevels = section.pairs.length; // Number of progressive levels
+            const currentLevel = progress.currentLevel || 1;
+            const completedLevels = progress.completedLevels || [];
+            
+            document.getElementById('sectionsGrid').style.display = 'none';
+            document.getElementById('progressOverview').style.display = 'none';
+            document.getElementById('levelSelection').classList.add('active');
+            
+            document.getElementById('levelSelectionTitle').textContent = `${section.icon} ${section.nameFr}`;
+            document.getElementById('levelDescription').textContent = 
+                `Apprends les expressions une par une! Niveau ${currentLevel} sur ${totalLevels + 1}`;
+            
+            const grid = document.getElementById('levelGrid');
+            grid.innerHTML = '';
+            
+            // Create level buttons (1 to totalLevels)
+            for (let level = 1; level <= totalLevels; level++) {
+                const isCompleted = completedLevels.includes(level);
+                const isCurrent = level === currentLevel && !completedLevels.includes(level);
+                const isLocked = level > currentLevel && !completedLevels.includes(level);
+                
+                const btn = document.createElement('button');
+                btn.className = `level-btn ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''} ${isLocked ? 'locked' : ''}`;
+                btn.textContent = level;
+                
+                if (!isLocked) {
+                    btn.onclick = () => startLevel(sectionId, level);
+                }
+                
+                grid.appendChild(btn);
+            }
+            
+            // Add final revision button
+            const finalLevel = totalLevels + 1;
+            const isFinalCompleted = completedLevels.includes(finalLevel);
+            const isFinalUnlocked = completedLevels.length >= totalLevels;
+            
+            const finalBtn = document.createElement('button');
+            finalBtn.className = `level-btn final ${isFinalCompleted ? 'completed' : ''} ${!isFinalUnlocked ? 'locked' : ''}`;
+            finalBtn.textContent = '🎯';
+            finalBtn.title = 'Révision finale';
+            
+            if (isFinalUnlocked) {
+                finalBtn.onclick = () => startFinalRevision(sectionId);
+            }
+            
+            grid.appendChild(finalBtn);
+        }
+        
+        function renderStars(earned, total) {
+            let html = '';
+            for (let i = 0; i < total; i++) {
+                html += `<span class="star ${i < earned ? 'earned' : ''}">⭐</span>`;
+            }
+            return html;
+        }
+        
+        function updateGlobalProgress() {
+            let totalLevels = 0;
+            let completedLevels = 0;
+            let totalStars = 0;
+            
+            sectionOrder.forEach(sectionId => {
+                const section = sectionsData[sectionId];
+                const numPairs = section.pairs.length;
+                totalLevels += numPairs + 1;
+                
+                const progress = gameState.progress[sectionId] || { completedLevels: [], stars: {} };
+                completedLevels += progress.completedLevels ? progress.completedLevels.length : 0;
+                
+                if (progress.stars) {
+                    Object.values(progress.stars).forEach(s => totalStars += s);
+                }
+            });
+            
+            const progressPercent = Math.round((completedLevels / totalLevels) * 100);
+            
+            document.getElementById('globalProgress').style.width = `${Math.max(progressPercent, 5)}%`;
+            document.getElementById('globalProgressText').textContent = `${progressPercent}%`;
+            
+            // Update stars display
+            const maxStars = totalLevels * 3;
+            const displayStars = Math.min(7, Math.floor((totalStars / maxStars) * 7));
+            
+            const starsContainer = document.getElementById('globalStars');
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 7; i++) {
+                const span = document.createElement('span');
+                span.className = `star ${i < displayStars ? 'earned' : ''}`;
+                span.textContent = '⭐';
+                starsContainer.appendChild(span);
+            }
+        }
+        
+        // ==================== GAME LOGIC ====================
+        function startLevel(sectionId, level) {
+            gameState.currentSection = sectionId;
+            gameState.currentLevel = level;
+            gameState.isRevision = false;
+            gameState.isFinalRevision = false;
+            
+            const section = sectionsData[sectionId];
+            
+            // Get pairs for this level (first 'level' pairs)
+            const levelPairs = personalizePairs(section.pairs.slice(0, level));
+            
+            document.getElementById('levelSelection').classList.remove('active');
+            document.getElementById('gameArea').classList.add('active');
+            
+            document.getElementById('gameTitle').textContent = `${section.icon} ${section.nameFr}`;
+            document.getElementById('gameLevel').textContent = `Niveau ${level}`;
+            document.getElementById('gameInstructions').innerHTML = 
+                `<strong>Associe</strong> chaque expression anglaise avec sa traduction française!<br>
+                <span style="font-size: 0.9rem; color: #888;">${level} expression${level > 1 ? 's' : ''} à apprendre</span>`;
+            
+            startGame(levelPairs);
+        }
+        
+        function startFinalRevision(sectionId) {
+            gameState.currentSection = sectionId;
+            gameState.currentLevel = sectionsData[sectionId].pairs.length + 1;
+            gameState.isRevision = false;
+            gameState.isFinalRevision = true;
+            
+            const section = sectionsData[sectionId];
+            const allPairs = personalizePairs(section.pairs);
+            
+            document.getElementById('levelSelection').classList.remove('active');
+            document.getElementById('gameArea').classList.add('active');
+            
+            document.getElementById('gameTitle').textContent = `🎯 Révision - ${section.nameFr}`;
+            document.getElementById('gameLevel').textContent = `${allPairs.length} expressions`;
+            document.getElementById('gameInstructions').innerHTML = 
+                `<strong>Révision finale!</strong> Associe toutes les expressions de cette catégorie!`;
+            
+            startGame(allPairs);
+        }
+        
+        function startGame(pairs) {
+            gameState.score = 0;
+            gameState.totalPairs = pairs.length;
+            gameState.matchedPairs = 0;
+            gameState.errors = 0;
+            gameState.errorPairs = [];
+            gameState.selectedItem = null;
+            gameState.currentPairsPlayed = pairs;
+            
+            document.getElementById('scoreValue').textContent = '0';
+            document.getElementById('errorsValue').textContent = '0';
+            
+            const gameContent = document.getElementById('gameContent');
+            renderMatchingGame(pairs, gameContent);
+        }
+        
+        function renderMatchingGame(pairs, container) {
+            const shuffledEn = shuffleArray([...pairs]);
+            const shuffledFr = shuffleArray([...pairs]);
+            
+            gameState.currentPairs = pairs;
+            
+            container.innerHTML = `
+                <div class="matching-container">
+                    <div class="matching-column">
+                        <h3>🇬🇧 English</h3>
+                        ${shuffledEn.map((p, i) => `
+                            <div class="match-item" data-type="en" data-id="${pairs.indexOf(p)}" onclick="selectMatchItem(this)">
+                                ${p.en}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="matching-column">
+                        <h3>🇫🇷 Français</h3>
+                        ${shuffledFr.map((p, i) => `
+                            <div class="match-item" data-type="fr" data-id="${pairs.indexOf(p)}" onclick="selectMatchItem(this)">
+                                ${p.fr}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function selectMatchItem(element) {
+            if (element.classList.contains('matched')) return;
+            
+            const type = element.getAttribute('data-type');
+            const id = parseInt(element.getAttribute('data-id'));
+            
+            // If clicking same type, switch selection
+            if (gameState.selectedItem && gameState.selectedItem.type === type) {
+                gameState.selectedItem.element.classList.remove('selected');
+                gameState.selectedItem = { element, type, id };
+                element.classList.add('selected');
+                return;
+            }
+            
+            // If first selection
+            if (!gameState.selectedItem) {
+                gameState.selectedItem = { element, type, id };
+                element.classList.add('selected');
+                return;
+            }
+            
+            // Check match
+            const selectedId = gameState.selectedItem.id;
+            const clickedId = id;
+            
+            const selectedPair = gameState.currentPairs[selectedId];
+            const clickedPair = gameState.currentPairs[clickedId];
+            
+            let isMatch = false;
+            if (selectedId === clickedId) {
+                isMatch = true;
+            } else {
+                if (gameState.selectedItem.type === 'en' && type === 'fr') {
+                    isMatch = selectedPair.fr === clickedPair.fr;
+                } else if (gameState.selectedItem.type === 'fr' && type === 'en') {
+                    isMatch = clickedPair.fr === selectedPair.fr;
+                }
+            }
+            
+            if (isMatch) {
+                gameState.selectedItem.element.classList.remove('selected');
+                gameState.selectedItem.element.classList.add('matched');
+                element.classList.add('matched');
+                
+                gameState.matchedPairs++;
+                gameState.score += 10;
+                document.getElementById('scoreValue').textContent = gameState.matchedPairs;
+                
+                gameState.selectedItem = null;
+                
+                if (gameState.matchedPairs === gameState.totalPairs) {
+                    setTimeout(endGame, 500);
+                }
+            } else {
+                const previousElement = gameState.selectedItem.element;
+                element.classList.add('wrong');
+                previousElement.classList.add('wrong');
+                previousElement.classList.remove('selected');
+                
+                gameState.errors++;
+                document.getElementById('errorsValue').textContent = gameState.errors;
+                
+                const pairToAdd = gameState.selectedItem.type === 'en' ? selectedPair : clickedPair;
+                if (!gameState.errorPairs.find(p => p.en === pairToAdd.en)) {
+                    gameState.errorPairs.push(pairToAdd);
+                }
+                
+                gameState.selectedItem = null;
+                
+                setTimeout(() => {
+                    element.classList.remove('wrong');
+                    previousElement.classList.remove('wrong');
+                }, 600);
+            }
+        }
+        
+        function endGame() {
+            const totalPairs = gameState.totalPairs;
+            const errors = gameState.errors;
+            
+            const errorRatio = errors / totalPairs;
+            const accuracy = Math.max(0, Math.round(100 - (errorRatio * 100)));
+            
+            let stars = 0;
+            if (accuracy >= 90) stars = 3;
+            else if (accuracy >= 70) stars = 2;
+            else if (accuracy >= 50) stars = 1;
+            
+            const mastered = stars >= 2;
+            
+            gameState.originalAccuracy = accuracy;
+            gameState.originalStars = stars;
+            gameState.originalMastered = mastered;
+            
+            const modal = document.getElementById('resultModal');
+            const nextBtn = document.getElementById('modalNextBtn');
+            
+            let icon, title, message;
+            
+            if (gameState.isRevision) {
+                if (gameState.errorPairs.length === 0) {
+                    icon = '🌟';
+                    title = 'Révision terminée!';
+                    message = 'Bravo! Tu as corrigé toutes tes erreurs!';
+                    
+                    updateProgressAfterLevel();
+                    
+                    document.getElementById('modalMessage').innerHTML = `${message}`;
+                    document.getElementById('modalStars').innerHTML = renderStars(gameState.originalStars, 3);
+                    
+                    nextBtn.textContent = 'Niveau suivant →';
+                    nextBtn.onclick = nextLevel;
+                } else {
+                    icon = '📝';
+                    title = 'Continue!';
+                    message = `Il reste ${gameState.errorPairs.length} expression${gameState.errorPairs.length > 1 ? 's' : ''} à réviser.`;
+                    
+                    document.getElementById('modalMessage').innerHTML = `${message}`;
+                    document.getElementById('modalStars').innerHTML = '';
+                    
+                    nextBtn.textContent = '📝 Continuer la révision';
+                    nextBtn.onclick = startRevision;
+                }
+            } else {
+                if (stars === 3) {
+                    icon = '🏆';
+                    title = 'Parfait!';
+                    message = `Incroyable! ${errors === 0 ? 'Aucune erreur!' : `Seulement ${errors} erreur${errors > 1 ? 's' : ''}!`}`;
+                } else if (stars === 2) {
+                    icon = '🎉';
+                    title = 'Bravo!';
+                    message = `Bien joué! ${errors} erreur${errors > 1 ? 's' : ''}.`;
+                } else if (stars === 1) {
+                    icon = '💪';
+                    title = 'Pas mal!';
+                    message = `${errors} erreur${errors > 1 ? 's' : ''}. Continue!`;
+                } else {
+                    icon = '📚';
+                    title = 'Continue!';
+                    message = `${errors} erreur${errors > 1 ? 's' : ''}. Prends ton temps!`;
+                }
+                
+                document.getElementById('modalMessage').innerHTML = `
+                    ${message}<br>
+                    <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 15px;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: ${accuracy >= 70 ? 'var(--green-main)' : '#ff6b6b'};">
+                            ${accuracy}% de précision
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('modalStars').innerHTML = renderStars(stars, 3);
+                
+                if (gameState.errorPairs.length > 0) {
+                    nextBtn.textContent = '📝 Réviser mes erreurs';
+                    nextBtn.onclick = startRevision;
+                } else {
+                    updateProgressAfterLevel();
+                    nextBtn.textContent = 'Niveau suivant →';
+                    nextBtn.onclick = nextLevel;
+                }
+            }
+            
+            document.getElementById('modalIcon').textContent = icon;
+            document.getElementById('modalTitle').textContent = title;
+            
+            modal.classList.add('active');
+        }
+        
+        function updateProgressAfterLevel() {
+            const sectionId = gameState.currentSection;
+            const level = gameState.currentLevel;
+            const stars = gameState.originalStars || 0;
+            
+            if (!gameState.progress[sectionId]) {
+                gameState.progress[sectionId] = { currentLevel: 1, completedLevels: [], stars: {} };
+            }
+            
+            const progress = gameState.progress[sectionId];
+            
+            // Mark level as completed
+            if (!progress.completedLevels.includes(level)) {
+                progress.completedLevels.push(level);
+            }
+            
+            // Update stars for this level
+            if (!progress.stars[level] || stars > progress.stars[level]) {
+                progress.stars[level] = stars;
+            }
+            
+            // Update current level (next unlocked level)
+            const totalLevels = sectionsData[sectionId].pairs.length + 1;
+            for (let l = 1; l <= totalLevels; l++) {
+                if (!progress.completedLevels.includes(l)) {
+                    progress.currentLevel = l;
+                    break;
+                }
+            }
+            
+            saveProgress();
+        }
+        
+        function startRevision() {
+            document.getElementById('resultModal').classList.remove('active');
+            
+            gameState.isRevision = true;
+            
+            const revisionPairs = [...gameState.errorPairs];
+            
+            const section = sectionsData[gameState.currentSection];
+            document.getElementById('gameTitle').textContent = `📝 Révision - ${section.nameFr}`;
+            document.getElementById('gameLevel').textContent = `${revisionPairs.length} à revoir`;
+            document.getElementById('gameInstructions').innerHTML = 
+                `<strong>Révise</strong> les expressions que tu as manquées!`;
+            
+            startGame(revisionPairs);
+        }
+        
+        function nextLevel() {
+            document.getElementById('resultModal').classList.remove('active');
+            
+            gameState.isRevision = false;
+            
+            const sectionId = gameState.currentSection;
+            const section = sectionsData[sectionId];
+            const totalLevels = section.pairs.length;
+            const currentLevel = gameState.currentLevel;
+            
+            if (gameState.isFinalRevision) {
+                // Final revision done, go back to section
+                goBackToLevels();
+                return;
+            }
+            
+            if (currentLevel < totalLevels) {
+                // Go to next level
+                startLevel(sectionId, currentLevel + 1);
+            } else if (currentLevel === totalLevels) {
+                // Go to final revision
+                startFinalRevision(sectionId);
+            } else {
+                // All done, go back
+                goBackToLevels();
+            }
+        }
+        
+        function closeModal() {
+            document.getElementById('resultModal').classList.remove('active');
+            goBackToLevels();
+        }
+        
+        function goBackToLevels() {
+            document.getElementById('gameArea').classList.remove('active');
+            showLevelSelection(gameState.currentSection);
+            updateGlobalProgress();
+        }
+        
+        function goBackToSections() {
+            document.getElementById('levelSelection').classList.remove('active');
+            document.getElementById('sectionsGrid').style.display = 'grid';
+            document.getElementById('progressOverview').style.display = 'block';
+            
+            renderSections();
+            updateGlobalProgress();
+        }
+        
+        // ==================== HELPERS ====================
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        // Initialize
+        loadAppState();
+        
+        if (appState.currentUserId && appState.users.find(u => u.id === appState.currentUserId)) {
+            selectUser(appState.currentUserId);
+        } else {
+            renderUserProfiles();
+        }
+    </script>
+</body>
+</html>
