@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Anglais">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <title>🌟 Apprends l'anglais! 🌟</title>
+    <title>🌟 Apprends l'anglais! 🌟 v3.22</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,32 +23,56 @@
             --shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Fredoka', sans-serif; background: var(--bg-gradient); min-height: 100vh; }
+        body { font-family: 'Fredoka', sans-serif; background: var(--bg-gradient); min-height: 100vh; overflow-x: hidden; }
         
         .user-selection { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
         .user-selection.hidden { display: none; }
+        .language-selector { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; z-index: 2001; padding: 20px; }
+        .language-selector.hidden { display: none; }
+        .language-card { background: var(--card-bg); border-radius: 30px; padding: 50px 40px; text-align: center; max-width: 500px; width: 100%; box-shadow: var(--shadow); }
+        .language-card h2 { font-size: 2.2rem; color: var(--green-dark); margin-bottom: 15px; }
+        .language-card p { color: #666; margin-bottom: 40px; font-size: 1.1rem; }
+        .language-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .language-btn { background: white; border: 4px solid #e0e0e0; border-radius: 25px; padding: 30px 40px; cursor: pointer; transition: all 0.3s; font-family: 'Fredoka', sans-serif; min-width: 180px; }
+        .language-btn:hover { border-color: var(--purple); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .language-btn .flag { font-size: 2rem; margin-bottom: 15px; font-weight: 600; color: var(--purple); }
+        .language-btn .lang-name { font-size: 1.4rem; font-weight: 600; color: #333; }
+        .language-btn .lang-native { font-size: 1rem; color: #888; margin-top: 5px; }
+        
         .user-selection-card { background: var(--card-bg); border-radius: 30px; padding: 40px; text-align: center; max-width: 500px; width: 100%; box-shadow: var(--shadow); max-height: 90vh; overflow-y: auto; }
         .user-selection h2 { font-size: 2rem; color: var(--green-dark); margin-bottom: 10px; }
         .user-selection p { color: #666; margin-bottom: 30px; }
         .user-profiles { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
-        .user-profile-btn { display: flex; align-items: center; gap: 15px; background: white; border: 3px solid #e0e0e0; border-radius: 20px; padding: 20px; cursor: pointer; transition: all 0.2s ease; font-family: 'Fredoka', sans-serif; text-align: left; }
+        .user-profile-btn { display: flex; align-items: center; gap: 15px; background: white; border: 3px solid #e0e0e0; border-radius: 20px; padding: 20px; cursor: pointer; transition: all 0.2s ease; font-family: 'Fredoka', sans-serif; text-align: left; min-height: 100px; }
         .user-profile-btn:hover { border-color: var(--purple); transform: translateX(5px); }
-        .user-avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .user-avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
         .user-avatar.avatar-1 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
         .user-avatar.avatar-2 { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
         .user-avatar.avatar-3 { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
         .user-avatar.avatar-4 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
-        .user-info { flex: 1; }
-        .user-name { font-size: 1.3rem; font-weight: 600; color: #333; }
+        .user-avatar.avatar-5 { background: linear-gradient(135deg, #90ee90, #32cd32); }
+        .user-avatar.avatar-6 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .user-avatar.avatar-7 { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .user-avatar.avatar-8 { background: linear-gradient(135deg, #ffa751, #ffe259); }
+        .user-avatar.avatar-9 { background: linear-gradient(135deg, #d4a574, #f5deb3); }
+        .user-avatar.avatar-10 { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+        .user-avatar.avatar-11 { background: linear-gradient(135deg, #56ab2f, #a8e063); }
+        .user-avatar.avatar-12 { background: linear-gradient(135deg, #ffafbd, #ffc3a0); }
+        .user-avatar.avatar-13 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .user-avatar.avatar-14 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .user-avatar.avatar-15 { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+        .user-avatar.avatar-16 { background: linear-gradient(135deg, #ffb347, #ff7f50); }
+        .user-info { flex: 1; min-width: 0; }
+        .user-name { font-size: 1.3rem; font-weight: 600; color: #333; line-height: 1.3; word-break: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .user-progress-mini { font-size: 0.9rem; color: #888; margin-top: 3px; }
-        .user-delete-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; opacity: 0.4; padding: 10px; }
+        .user-delete-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; opacity: 0.4; padding: 10px; flex-shrink: 0; }
         .user-delete-btn:hover { opacity: 1; }
         .add-user-section { border-top: 2px dashed #e0e0e0; padding-top: 25px; margin-top: 10px; }
         .add-user-form { display: none; flex-direction: column; gap: 15px; }
         .add-user-form.active { display: flex; }
         .add-user-input { padding: 15px 20px; border: 3px solid #e0e0e0; border-radius: 15px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; text-align: center; }
         .add-user-input:focus { outline: none; border-color: var(--purple); }
-        .avatar-selector { display: flex; gap: 10px; justify-content: center; }
+        .avatar-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; justify-items: center; max-width: 280px; margin: 0 auto; }
         .avatar-option { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; border: 3px solid transparent; transition: all 0.2s; }
         .avatar-option:hover { transform: scale(1.1); }
         .avatar-option.selected { border-color: var(--purple); transform: scale(1.15); }
@@ -58,13 +82,13 @@
         .show-add-form-btn { background: none; border: 3px dashed #ccc; border-radius: 20px; padding: 20px; width: 100%; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; color: #888; cursor: pointer; }
         .show-add-form-btn:hover { border-color: var(--purple); color: var(--purple); }
         
-        .current-user-bar { background: var(--card-bg); border-radius: 15px; padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 3px 15px rgba(0,0,0,0.1); }
-        .current-user-info { display: flex; align-items: center; gap: 12px; }
-        .current-user-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-        .current-user-name { font-weight: 600; color: #333; }
-        .reset-user-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; opacity: 0.5; padding: 5px; border-radius: 50%; }
-        .reset-user-btn:hover { opacity: 1; background: #fee; }
-        .switch-user-btn { background: #f0f0f0; border: none; padding: 8px 16px; border-radius: 10px; font-family: 'Fredoka', sans-serif; font-size: 0.9rem; cursor: pointer; }
+        .current-user-bar { background: var(--card-bg); border-radius: 15px; padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 3px 15px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 10px; }
+        .current-user-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+        .current-user-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .current-user-name { font-weight: 600; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .reset-user-btn { background: #f0f0f0; border: none; font-size: 0.9rem; cursor: pointer; padding: 8px 12px; border-radius: 10px; flex-shrink: 0; font-family: 'Fredoka', sans-serif; white-space: nowrap; }
+        .reset-user-btn:hover { background: #ffe0e0; }
+        .switch-user-btn { background: #f0f0f0; border: none; padding: 8px 16px; border-radius: 10px; font-family: 'Fredoka', sans-serif; font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
         .switch-user-btn:hover { background: #e0e0e0; }
         
         .bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 0; }
@@ -77,9 +101,17 @@
         .bubble:nth-child(6) { left: 80%; width: 45px; height: 45px; animation-delay: 5s; }
         @keyframes rise { 0% { transform: translateY(0) rotate(0deg); opacity: 0.5; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
         
-        .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 20px 20px 100px 20px; overflow: hidden; }
         header { text-align: center; padding: 30px 20px; color: white; }
         header h1 { font-size: 2.5rem; font-weight: 700; text-shadow: 3px 3px 0 rgba(0,0,0,0.2); margin-bottom: 10px; }
+        
+        .level-selector { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); }
+        .level-selector-title { font-size: 1.1rem; font-weight: 600; color: var(--green-dark); margin-bottom: 15px; text-align: center; }
+        .level-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 100%; overflow: hidden; }
+        .level-btn { background: #f0f0f0; border: 2px solid #e0e0e0; padding: 12px 14px; border-radius: 12px; font-family: 'Fredoka', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; text-align: center; min-width: 0; width: 100%; }
+        .level-btn:hover { background: #e8e8ff; border-color: var(--purple); }
+        .level-btn.active { background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; border-color: transparent; }
+        .level-btn .level-num { font-weight: 600; }
         
         .progress-overview { background: var(--card-bg); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow); }
         .progress-title { font-size: 1.3rem; font-weight: 600; color: var(--green-dark); margin-bottom: 15px; }
@@ -90,25 +122,24 @@
         .star { opacity: 0.3; }
         .star.earned { opacity: 1; }
         
-        .path-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
-        .path-item { background: var(--card-bg); border-radius: 20px; padding: 20px 25px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 20px; border: 3px solid transparent; position: relative; overflow: hidden; }
-        .path-item::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 8px; }
-        .path-item.category::before { background: var(--blue); }
-        .path-item.revision::before { background: var(--purple); }
-        .path-item.current { border-color: var(--purple); animation: pulse 2s ease infinite; }
-        .path-item.locked { opacity: 0.5; }
-        .path-item.completed { border-color: var(--green-main); }
-        .path-item.completed::after { content: '✓'; position: absolute; top: 10px; right: 15px; background: var(--green-main); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,0.2), 0 0 0 0 rgba(165, 94, 234, 0.4); } 50% { box-shadow: 0 10px 40px rgba(0,0,0,0.2), 0 0 0 15px rgba(165, 94, 234, 0); } }
-        .path-icon { font-size: 2.5rem; flex-shrink: 0; }
-        .path-info { flex: 1; }
-        .path-letter { font-size: 0.9rem; color: #888; font-weight: 600; margin-bottom: 3px; }
-        .path-name { font-size: 1.2rem; font-weight: 600; color: #333; margin-bottom: 5px; }
-        .path-status { font-size: 0.9rem; color: #888; }
-        .path-btn { background: linear-gradient(135deg, var(--green-main), #2d8a1e); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; font-weight: 600; cursor: pointer; flex-shrink: 0; }
-        .path-btn:hover { transform: scale(1.05); }
-        .path-btn.locked { background: #ccc; cursor: not-allowed; }
-        .path-btn.locked:hover { transform: none; }
+        .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; overflow: hidden; max-width: 100%; }
+        .category-card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: var(--shadow); text-align: center; cursor: pointer; transition: all 0.2s; border: 3px solid transparent; position: relative; height: 200px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+        .category-card:hover { transform: translateY(-5px); border-color: var(--purple); }
+        .category-card.completed { border-color: var(--green-main); }
+        .category-card.completed::after { content: '✓'; position: absolute; top: 8px; right: 10px; background: var(--green-main); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
+        .category-card.locked { opacity: 0.5; cursor: not-allowed; }
+        .category-card.locked:hover { transform: none; border-color: transparent; }
+        .category-icon { font-size: 2.5rem; height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        .category-name { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 5px; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; line-height: 1.3; height: 2.6em; display: flex; align-items: center; justify-content: center; max-width: 100%; padding: 0 2px; }
+        .category-count { font-size: 0.8rem; color: #888; height: 1.2em; }
+        .category-count { font-size: 0.8rem; color: #888; }
+        .category-level-badge { position: absolute; top: 8px; left: 10px; background: var(--blue); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+        
+        .audio-btn { background: linear-gradient(135deg, var(--blue), #3867d6); color: white; border: none; padding: 12px 24px; border-radius: 15px; font-size: 1.3rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 15px rgba(69, 170, 242, 0.3); margin-top: 15px; }
+        .audio-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(69, 170, 242, 0.5); }
+        .audio-btn:active { transform: scale(0.95); }
+        .audio-btn.speaking { animation: pulse 0.6s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         
         .game-area { background: var(--card-bg); border-radius: 25px; padding: 30px; box-shadow: var(--shadow); display: none; }
         .game-area.active { display: block; animation: fadeIn 0.3s ease; }
@@ -120,7 +151,9 @@
         .back-btn:hover { background: #e0e0e0; }
         
         .matching-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 30px 0; }
+        .matching-container.side-by-side { flex-wrap: nowrap; gap: 15px; }
         .matching-column { display: flex; flex-direction: column; gap: 12px; min-width: 200px; }
+        .matching-container.side-by-side .matching-column { min-width: 0; flex: 1; }
         .matching-column h3 { text-align: center; color: #666; font-size: 1rem; margin-bottom: 10px; }
         .match-item { background: white; border: 3px solid #e0e0e0; border-radius: 15px; padding: 15px 20px; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; text-align: center; user-select: none; }
         .match-item:hover:not(.matched) { border-color: var(--blue); transform: scale(1.02); }
@@ -153,75 +186,116 @@
         
         @media (max-width: 600px) {
             header h1 { font-size: 1.8rem; }
-            .matching-container { flex-direction: column; }
-            .matching-column { width: 100%; }
+            .matching-container:not(.side-by-side) { flex-direction: column; }
+            .matching-container:not(.side-by-side) .matching-column { width: 100%; }
+            .matching-container.side-by-side .matching-column { min-width: 0; }
+            .matching-container.side-by-side .match-item { padding: 12px 8px; font-size: 0.9rem; }
             .game-header { flex-direction: column; text-align: center; }
-            .path-item { flex-direction: column; text-align: center; }
-            .path-btn { width: 100%; }
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .category-name { font-size: 0.9rem; }
+            .current-user-bar { padding: 10px 15px; }
+            .current-user-info { gap: 8px; }
+            .current-user-name { font-size: 0.9rem; }
+            .switch-user-btn { font-size: 0.85rem; padding: 6px 12px; }
         }
+        
+        /* Quick Test Toggle */
+        .quick-test-toggle { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; background: var(--card-bg); border-radius: 15px; padding: 12px 20px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); }
+        .quick-test-toggle label { font-size: 1rem; font-weight: 600; color: #333; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .toggle-switch { position: relative; width: 52px; height: 28px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: 0.3s; border-radius: 28px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
+        .toggle-switch input:checked + .toggle-slider { background: linear-gradient(135deg, #ff6b00, #ff9500); }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(24px); }
+        .quick-test-tooltip { font-size: 0.8rem; color: #888; font-weight: 400; }
+        .quick-test-badge { display: inline-block; background: linear-gradient(135deg, #ff6b00, #ff9500); color: white; padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 600; margin-left: 5px; animation: pulseBadge 2s infinite; }
+        @keyframes pulseBadge { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .category-card.quick-test-active { border-color: #ff9500; }
+        .category-card.quick-test-active:hover { border-color: #ff6b00; }
+        
+        /* Settings Section */
+        .settings-section { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 25px; box-shadow: var(--shadow); }
+        .settings-title { font-size: 1.2rem; font-weight: 600; color: var(--green-dark); margin-bottom: 20px; text-align: center; }
+        .settings-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .settings-btn { background: #f0f0f0; border: 2px solid #e0e0e0; padding: 12px 24px; border-radius: 15px; font-family: 'Fredoka', sans-serif; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        .settings-btn:hover { background: #e8e8ff; border-color: var(--purple); transform: translateY(-2px); }
     </style>
 </head>
 <body>
-    <div class="user-selection" id="userSelection">
-        <div class="user-selection-card">
-            <h2>👋 Qui joue?</h2>
-            <p>Choisis ton profil pour continuer</p>
-            <div class="user-profiles" id="userProfiles"></div>
-            <div class="add-user-section">
-                <button class="show-add-form-btn" id="showAddFormBtn" onclick="showAddUserForm()">➕ Ajouter un joueur</button>
-                <div class="add-user-form" id="addUserForm">
-                    <input type="text" class="add-user-input" id="newUserName" placeholder="Ton prénom" maxlength="20">
-                    <div class="avatar-selector" id="avatarSelector">
-                        <div class="avatar-option avatar-1 selected" data-avatar="1" onclick="selectAvatar(1)">🦋</div>
-                        <div class="avatar-option avatar-2" data-avatar="2" onclick="selectAvatar(2)">🌟</div>
-                        <div class="avatar-option avatar-3" data-avatar="3" onclick="selectAvatar(3)">🌸</div>
-                        <div class="avatar-option avatar-4" data-avatar="4" onclick="selectAvatar(4)">🦄</div>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="add-user-btn secondary" onclick="hideAddUserForm()" style="flex:1">Annuler</button>
-                        <button class="add-user-btn" onclick="createUser()" style="flex:1">Créer</button>
-                    </div>
-                </div>
+    <div class="language-selector" id="languageSelector">
+        <div class="language-card">
+            <h2>🌍</h2>
+            <p>Choose your language / Choisis ta langue</p>
+            <div class="language-buttons" id="languageButtons">
+                <!-- Les boutons seront générés par JavaScript -->
             </div>
-            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px dashed #ddd;">
-                <div style="font-size: 0.9rem; color: #888; margin-bottom: 10px;">💾 Sauvegarde</div>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <button onclick="exportProgress()" style="background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka; cursor: pointer;">📤 Exporter</button>
-                    <button onclick="document.getElementById('importFile').click()" style="background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka; cursor: pointer;">📥 Importer</button>
-                    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importProgress(event)">
-                </div>
-            </div>
+        </div>
+    </div>
+    
+    <div class="user-selection hidden" id="userSelection">
+        <div class="user-selection-card" id="userSelectionContent">
+            <!-- Le contenu sera généré par renderUserProfiles() -->
         </div>
     </div>
     
     <div class="bubbles"><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
     
     <div class="container">
-        <header><h1>🌟 Apprends l'anglais! 🌟</h1><p style="font-size: 1.1rem; opacity: 0.9;">Useful Language</p></header>
+        <header><h1>🌟 Apprends l'anglais! 🌟</h1><p style="font-size: 1.1rem; opacity: 0.9;">Vocabulaire du quotidien • v3.18</p></header>
         
         <div class="current-user-bar" id="currentUserBar">
             <div class="current-user-info">
                 <div class="current-user-avatar avatar-1" id="currentUserAvatar">🦋</div>
                 <span class="current-user-name" id="currentUserName">Joueur</span>
-                <button class="reset-user-btn" onclick="resetProgress()" title="Réinitialiser">🔄</button>
+                <div id="userStarDisplay" style="flex-shrink: 0;"></div>
             </div>
-            <button class="switch-user-btn" onclick="showUserSelection()">Changer</button>
+            <div style="display: flex; gap: 10px; flex-shrink: 0;">
+                <button class="switch-user-btn" onclick="showUserSelection()">Changer</button>
+            </div>
+        </div>
+        
+        <div class="level-selector" id="levelSelector">
+            <div class="level-selector-title">📚 Choisis ton niveau scolaire</div>
+            <div class="level-buttons" id="levelButtons"></div>
         </div>
         
         <div class="progress-overview" id="progressOverview">
-            <div class="progress-title">📊 Ma progression</div>
+            <div class="progress-title">📊 Progression globale</div>
             <div class="progress-bar-container">
                 <div class="progress-bar" id="globalProgress" style="width: 5%"><span class="progress-text" id="globalProgressText">0%</span></div>
             </div>
             <div class="stars-display" id="globalStars"></div>
         </div>
         
-        <div class="path-container" id="pathContainer"></div>
+        <div class="categories-grid" id="categoriesGrid"></div>
+        
+        <div class="quick-test-toggle" id="quickTestToggle">
+            <label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="quickTestCheckbox" onchange="toggleQuickTestMode()">
+                    <span class="toggle-slider"></span>
+                </div>
+                <span id="quickTestLabel">⚡ Mode test rapide</span>
+            </label>
+            <div class="quick-test-tooltip" id="quickTestTooltipText">Teste tous les mots d'une catégorie. Si tout est bon, la catégorie est complétée!</div>
+        </div>
+        
+        <div class="settings-section">
+            <div class="settings-title">⚙️ <span id="settingsTitle">Paramètres</span></div>
+            <div class="settings-buttons">
+                <button class="settings-btn" onclick="changeLanguage()" id="langBtn">🌍 <span id="langBtnText">FR</span></button>
+                <button class="settings-btn" onclick="resetProgress()" id="resetBtn">🔄 <span id="resetBtnText">Réinitialiser</span></button>
+            </div>
+        </div>
         
         <div class="game-area" id="gameArea">
             <div class="game-header">
-                <button class="back-btn" onclick="goBack()">← Retour</button>
-                <h2 class="game-title" id="gameTitle">Section</h2>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="back-btn" onclick="goBack()">← Retour</button>
+                    <button class="back-btn" onclick="toggleSound()" id="soundBtn" title="Activer/Désactiver le son">🔊</button>
+                </div>
+                <h2 class="game-title" id="gameTitle">Catégorie</h2>
                 <div class="game-level" id="gameLevel">Niveau 1</div>
             </div>
             <div class="instructions" id="gameInstructions"></div>
@@ -247,97 +321,1083 @@
     </div>
     
     <script>
-        const sectionsData = {
-            greetings: { nameFr: "Salutations", icon: "👋", pairs: [
-                { en: "Good morning", fr: "Bonjour (matin)" },
-                { en: "Good afternoon", fr: "Bonjour (après-midi)" },
-                { en: "Hi, my name is {NAME}", fr: "Salut, je m'appelle {NAME}" },
-                { en: "Hello, I'm {NAME}", fr: "Bonjour, je suis {NAME}" },
-                { en: "How are you today", fr: "Comment vas-tu aujourd'hui" },
-                { en: "I'm fine, thank you", fr: "Je vais bien, merci" },
-                { en: "This is my friend {NAME}", fr: "C'est mon ami(e) {NAME}" },
-                { en: "Hi, nice to meet you", fr: "Salut, enchanté(e)" },
-                { en: "See you later", fr: "À plus tard" },
-                { en: "Goodbye", fr: "Au revoir" },
-                { en: "Bye", fr: "Salut / Bye" }
+        // Système de traduction
+        let currentLanguage = 'fr'; // Langue par défaut
+        
+        const translations = {
+            fr: {
+                // Sélection utilisateur
+                whoPlays: "👋 Qui joue?",
+                chooseProfile: "Choisis ton profil pour continuer",
+                addPlayer: "➕ Ajouter un joueur",
+                yourName: "Ton prénom",
+                cancel: "Annuler",
+                create: "Créer",
+                saveBackup: "💾 Sauvegarde",
+                export: "📤 Exporter",
+                import: "📥 Importer",
+                
+                // En-tête
+                appTitle: "🌟 Apprends l'anglais! 🌟",
+                appSubtitle: "Vocabulaire du quotidien • v3.0",
+                change: "Changer",
+                
+                // Niveaux
+                chooseLevel: "📚 Choisis ton niveau",
+                level: "Niveau",
+                
+                // Progression
+                globalProgress: "📊 Progression globale",
+                
+                // Jeu
+                back: "← Retour",
+                instructions: "<strong>Associe</strong> chaque mot anglais avec sa traduction française!",
+                goodAnswers: "✓ Bonnes réponses",
+                errors: "✗ Erreurs",
+                clickToHear: "💡 Clique sur un mot pour l'entendre",
+                
+                // Résultats
+                perfect: "Parfait!",
+                great: "Bravo!",
+                good: "Pas mal!",
+                continue: "Continue!",
+                super: "Super!",
+                errorsCorrected: "Erreurs corrigées!",
+                wordsToReview: "mot(s) à revoir",
+                accuracy: "de réussite",
+                nextWord: "Mot suivant →",
+                done: "Terminé! →",
+                reviewErrors: "📝 Réviser mes erreurs",
+                continueBtn: "📝 Continuer",
+                menu: "Menu",
+                
+                // Révision
+                revision: "📝 Révision",
+                toReview: "à revoir",
+                reviewMissed: "<strong>Révise</strong> les mots manqués!",
+                
+                // Catégories (garder les noms en français + traduction)
+                completed: "✓ Complété",
+                words: "mots",
+                
+                // Réinitialisation
+                resetConfirm: "Recommencer à zéro pour ce niveau?",
+                exportSuccess: "✅ Sauvegarde exportée!",
+                importSuccess: "✅ Sauvegarde importée!",
+                
+                // Mode test rapide
+                quickTestMode: "⚡ Mode test rapide",
+                quickTestTooltip: "Teste tous les mots d'une catégorie. Si tout est bon, la catégorie est complétée!",
+                quickTestTitle: "⚡ TEST RAPIDE",
+                quickTestInstructions: "<strong>Test rapide!</strong> Associe TOUS les mots correctement pour valider la catégorie!",
+                quickTestPassed: "Catégorie validée! 🎉",
+                quickTestFailed: "Tu dois revoir cette catégorie",
+                quickTestFailedDetail: "erreur(s) - Tu devras faire les exercices normalement",
+                startExercises: "📝 Commencer les exercices",
+                
+                // Paramètres
+                settings: "Paramètres",
+                reset: "Réinitialiser"
+            },
+            en: {
+                // User selection
+                whoPlays: "👋 Who's playing?",
+                chooseProfile: "Choose your profile to continue",
+                addPlayer: "➕ Add a player",
+                yourName: "Your name",
+                cancel: "Cancel",
+                create: "Create",
+                saveBackup: "💾 Backup",
+                export: "📤 Export",
+                import: "📥 Import",
+                
+                // Header
+                appTitle: "🌟 Learn English! 🌟",
+                appSubtitle: "Everyday Vocabulary • v3.0",
+                change: "Change",
+                
+                // Levels
+                chooseLevel: "📚 Choose your level",
+                level: "Level",
+                
+                // Progress
+                globalProgress: "📊 Overall Progress",
+                
+                // Game
+                back: "← Back",
+                instructions: "<strong>Match</strong> each English word with its French translation!",
+                goodAnswers: "✓ Correct",
+                errors: "✗ Errors",
+                clickToHear: "💡 Click on a word to hear it",
+                
+                // Results
+                perfect: "Perfect!",
+                great: "Great!",
+                good: "Good job!",
+                continue: "Keep going!",
+                super: "Awesome!",
+                errorsCorrected: "Errors corrected!",
+                wordsToReview: "word(s) to review",
+                accuracy: "accuracy",
+                nextWord: "Next word →",
+                done: "Done! →",
+                reviewErrors: "📝 Review my errors",
+                continueBtn: "📝 Continue",
+                menu: "Menu",
+                
+                // Revision
+                revision: "📝 Review",
+                toReview: "to review",
+                reviewMissed: "<strong>Review</strong> the missed words!",
+                
+                // Categories
+                completed: "✓ Completed",
+                words: "words",
+                
+                // Reset
+                resetConfirm: "Reset progress for this level?",
+                exportSuccess: "✅ Backup exported!",
+                importSuccess: "✅ Backup imported!",
+                
+                // Quick test mode
+                quickTestMode: "⚡ Quick test mode",
+                quickTestTooltip: "Test all words in a category. If all correct, category is completed!",
+                quickTestTitle: "⚡ QUICK TEST",
+                quickTestInstructions: "<strong>Quick test!</strong> Match ALL words correctly to validate the category!",
+                quickTestPassed: "Category validated! 🎉",
+                quickTestFailed: "You need to review this category",
+                quickTestFailedDetail: "error(s) - You'll need to do the exercises normally",
+                startExercises: "📝 Start exercises",
+                
+                // Settings
+                settings: "Settings",
+                reset: "Reset"
+            }
+        };
+        
+        function t(key) {
+            return translations[currentLanguage][key] || key;
+        }
+        
+        function renderLanguageButtons() {
+            const container = document.getElementById('languageButtons');
+            if (!container) return;
+            
+            const languages = [
+                { code: 'fr', greeting: 'Bonjour', name: 'Français', native: 'French' },
+                { code: 'en', greeting: 'Hello', name: 'English', native: 'Anglais' }
+            ];
+            
+            // Mettre la langue actuelle en premier
+            if (currentLanguage === 'en') {
+                languages.reverse();
+            }
+            
+            container.innerHTML = '';
+            languages.forEach(lang => {
+                const btn = document.createElement('button');
+                btn.className = 'language-btn';
+                btn.onclick = () => selectLanguage(lang.code);
+                btn.innerHTML = `
+                    <div class="flag">${lang.greeting}</div>
+                    <div class="lang-name">${lang.name}</div>
+                    <div class="lang-native">${lang.native}</div>
+                `;
+                container.appendChild(btn);
+            });
+        }
+        
+        function selectLanguage(lang) {
+            currentLanguage = lang;
+            appState.language = lang;
+            saveAppState();
+            document.getElementById('languageSelector').classList.add('hidden');
+            updateLanguageButton();
+            
+            // Si un utilisateur était déjà sélectionné, recharger son interface
+            if (appState.currentUserId && appState.users.find(u => u.id === appState.currentUserId)) {
+                selectUser(appState.currentUserId);
+            } else {
+                renderUserProfiles();
+            }
+        }
+        
+        function changeLanguage() {
+            // Retourner à l'écran de sélection de langue
+            renderLanguageButtons(); // Régénérer les boutons dans le bon ordre
+            document.getElementById('languageSelector').classList.remove('hidden');
+            document.getElementById('userSelection').classList.add('hidden');
+            document.getElementById('gameArea').classList.remove('active');
+            document.getElementById('categoriesGrid').style.display = 'none';
+            document.getElementById('levelSelector').style.display = 'none';
+            document.getElementById('progressOverview').style.display = 'none';
+            document.getElementById('quickTestToggle').style.display = 'none';
+        }
+        
+        function updateLanguageButton() {
+            const btnText = document.getElementById('langBtnText');
+            if (btnText) {
+                btnText.textContent = currentLanguage === 'fr' ? 'FR' : 'EN';
+            }
+            const btn = document.getElementById('langBtn');
+            if (btn) {
+                btn.title = currentLanguage === 'fr' ? 'Changer de langue' : 'Change language';
+            }
+        }
+        
+        function resetAllData() {
+            if (confirm(currentLanguage === 'fr' ? '⚠️ ATTENTION! Ceci va effacer TOUTES les données (tous les utilisateurs et progressions). Continuer?' : '⚠️ WARNING! This will erase ALL data (all users and progress). Continue?')) {
+                localStorage.removeItem('englishVocabGameV2');
+                location.reload();
+            }
+        }
+        
+        // Système de paliers d'étoiles avec 20 niveaux
+        const starLevels = [
+            { min: 0, max: 19, color: '#FFD700', name: 'Jaune' },           // 1
+            { min: 20, max: 39, color: '#FF8C00', name: 'Orange' },         // 2
+            { min: 40, max: 59, color: '#FF4500', name: 'Rouge' },          // 3
+            { min: 60, max: 79, color: '#FF69B4', name: 'Rose' },           // 4
+            { min: 80, max: 99, color: '#9370DB', name: 'Violet' },         // 5
+            { min: 100, max: 119, color: '#87CEEB', name: 'Bleu clair' },   // 6
+            { min: 120, max: 139, color: '#4169E1', name: 'Bleu' },         // 7
+            { min: 140, max: 159, color: '#000080', name: 'Bleu foncé' },   // 8
+            { min: 160, max: 179, color: '#00CED1', name: 'Cyan' },         // 9
+            { min: 180, max: 199, color: '#40E0D0', name: 'Turquoise' },    // 10
+            { min: 200, max: 219, color: '#90EE90', name: 'Vert clair' },   // 11
+            { min: 220, max: 239, color: '#32CD32', name: 'Vert' },         // 12
+            { min: 240, max: 259, color: '#006400', name: 'Vert foncé' },   // 13
+            { min: 260, max: 279, color: '#ADFF2F', name: 'Lime' },         // 14
+            { min: 280, max: 299, color: '#FFD700', name: 'Doré', shine: true }, // 15
+            { min: 300, max: 319, color: '#C0C0C0', name: 'Argenté', shine: true }, // 16
+            { min: 320, max: 339, color: '#CD7F32', name: 'Bronze', shine: true }, // 17
+            { min: 340, max: 359, color: 'linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet)', name: 'Arc-en-ciel', rainbow: true }, // 18
+            { min: 360, max: 379, color: 'linear-gradient(45deg, #FF00FF, #00FFFF, #FF00FF)', name: 'Holographique', rainbow: true }, // 19
+            { min: 380, max: 999999, color: 'linear-gradient(135deg, #FF69B4, #87CEEB, #FF69B4, #87CEEB)', name: 'Barbe à papa', rainbow: true } // 20
+        ];
+        
+        function getStarLevel(totalStars) {
+            for (let level of starLevels) {
+                if (totalStars >= level.min && totalStars <= level.max) {
+                    // Vérifier si on est à 50% du palier (brillance)
+                    const progress = (totalStars - level.min) / (level.max - level.min + 1);
+                    const sparkle = progress >= 0.5;
+                    return { ...level, sparkle };
+                }
+            }
+            return starLevels[starLevels.length - 1]; // Dernier niveau par défaut
+        }
+        
+        function renderUserStar(totalStars) {
+            const level = getStarLevel(totalStars);
+            const isGradient = level.rainbow;
+            
+            let starStyle = 'font-size: 2rem; position: relative; display: inline-block;';
+            if (isGradient) {
+                starStyle += 'background: ' + level.color + '; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;';
+            } else {
+                starStyle += 'color: ' + level.color + '; text-shadow: 0 0 10px ' + level.color + ';';
+            }
+            
+            if (level.sparkle || level.shine) {
+                starStyle += 'filter: brightness(1.3) drop-shadow(0 0 8px ' + (isGradient ? '#fff' : level.color) + ');';
+            }
+            
+            const numberStyle = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.85rem; font-weight: bold; color: #fff; text-shadow: 0 0 3px #000, 0 0 3px #000;';
+            
+            return '<div style="position: relative; display: inline-block;"><span style="' + starStyle + '">⭐</span><span style="' + numberStyle + '">' + totalStars + '</span></div>';
+        }
+        
+        // Niveaux 1-11 (neutres pour ne pas stigmatiser)
+        function getLevelName(num) {
+            return currentLanguage === 'fr' ? 'Niveau ' + num : 'Level ' + num;
+        }
+        
+        function getCategoryName(category) {
+            if (currentLanguage === 'en' && category.nameEn) {
+                return category.nameEn;
+            }
+            return category.nameFr;
+        }
+        
+        const levelNames = {
+            1: "Niveau 1", 2: "Niveau 2", 3: "Niveau 3", 4: "Niveau 4", 5: "Niveau 5", 6: "Niveau 6",
+            7: "Niveau 7", 8: "Niveau 8", 9: "Niveau 9", 10: "Niveau 10", 11: "Niveau 11"
+        };
+        
+        const categoriesData = {
+            // NIVEAU 1 - 1re année primaire
+            colors: { nameFr: "Couleurs", nameEn: "Colors", nameEn: "Colors", icon: "🎨", level: 1, pairs: [
+                { en: "Red", fr: "Rouge" }, { en: "Blue", fr: "Bleu" }, { en: "Yellow", fr: "Jaune" },
+                { en: "Green", fr: "Vert" }, { en: "Orange", fr: "Orange" }, { en: "Purple", fr: "Violet" },
+                { en: "Pink", fr: "Rose" }, { en: "Black", fr: "Noir" }, { en: "White", fr: "Blanc" },
+                { en: "Brown", fr: "Brun" }
             ]},
-            polite: { nameFr: "Être poli", icon: "🙏", pairs: [
-                { en: "Excuse me", fr: "Excusez-moi" },
-                { en: "I'm sorry", fr: "Je suis désolé(e)" },
-                { en: "Thank you", fr: "Merci" },
-                { en: "Thanks", fr: "Merci" },
-                { en: "Thank you very much", fr: "Merci beaucoup" },
-                { en: "You're welcome", fr: "De rien" },
-                { en: "Please", fr: "S'il te plaît" }
+            numbers1: { nameFr: "Nombres 1-10", nameEn: "Numbers 1-10", nameEn: "Numbers 1-10", icon: "🔢", level: 1, pairs: [
+                { en: "One", fr: "Un" }, { en: "Two", fr: "Deux" }, { en: "Three", fr: "Trois" },
+                { en: "Four", fr: "Quatre" }, { en: "Five", fr: "Cinq" }, { en: "Six", fr: "Six" },
+                { en: "Seven", fr: "Sept" }, { en: "Eight", fr: "Huit" }, { en: "Nine", fr: "Neuf" },
+                { en: "Ten", fr: "Dix" }
             ]},
-            opinions: { nameFr: "Opinions", icon: "💭", pairs: [
-                { en: "Do you agree", fr: "Es-tu d'accord" },
-                { en: "I agree", fr: "Je suis d'accord" },
-                { en: "I think you're right", fr: "Je pense que tu as raison" },
-                { en: "That's right", fr: "C'est vrai" },
-                { en: "I don't agree", fr: "Je ne suis pas d'accord" },
-                { en: "I disagree", fr: "Je ne suis pas d'accord" },
-                { en: "I think you're wrong", fr: "Je pense que tu as tort" },
-                { en: "I don't think so", fr: "Je ne pense pas" },
-                { en: "What do you think", fr: "Qu'est-ce que tu penses" },
-                { en: "I think that...", fr: "Je pense que..." },
-                { en: "What's your opinion", fr: "Quelle est ton opinion" },
-                { en: "In my opinion...", fr: "À mon avis..." }
+            family: { nameFr: "Famille", nameEn: "Family", nameEn: "Family", icon: "👨‍👩‍👧‍👦", level: 1, pairs: [
+                { en: "Mom", fr: "Maman" }, { en: "Dad", fr: "Papa" }, { en: "Sister", fr: "Sœur" },
+                { en: "Brother", fr: "Frère" }, { en: "Baby", fr: "Bébé" }, { en: "Grandma", fr: "Grand-maman" },
+                { en: "Grandpa", fr: "Grand-papa" }, { en: "Family", fr: "Famille" }
             ]},
-            clarification: { nameFr: "Clarification", icon: "❓", pairs: [
-                { en: "I don't understand", fr: "Je ne comprends pas" },
-                { en: "I don't know", fr: "Je ne sais pas" },
-                { en: "Can you repeat please", fr: "Peux-tu répéter s'il te plaît" },
-                { en: "How do you say that in English", fr: "Comment dit-on ça en anglais" },
-                { en: "How do you spell that", fr: "Comment ça s'épelle" },
-                { en: "What does that mean", fr: "Qu'est-ce que ça veut dire" },
-                { en: "It means...", fr: "Ça veut dire..." }
+            animals1: { nameFr: "Animaux familiers", nameEn: "Pets", nameEn: "Pets", icon: "🐶", level: 1, pairs: [
+                { en: "Dog", fr: "Chien" }, { en: "Cat", fr: "Chat" }, { en: "Bird", fr: "Oiseau" },
+                { en: "Fish", fr: "Poisson" }, { en: "Rabbit", fr: "Lapin" }, { en: "Hamster", fr: "Hamster" },
+                { en: "Turtle", fr: "Tortue" }, { en: "Mouse", fr: "Souris" }
             ]},
-            help: { nameFr: "Aide", icon: "🆘", pairs: [
-                { en: "Can you help me please", fr: "Peux-tu m'aider s'il te plaît" },
-                { en: "Can I help you", fr: "Puis-je t'aider" },
-                { en: "I need help", fr: "J'ai besoin d'aide" },
-                { en: "Help me please", fr: "Aide-moi s'il te plaît" }
+            bodyParts1: { nameFr: "Corps (base)", nameEn: "Body (basic)", nameEn: "Body (basic)", icon: "🖐️", level: 1, pairs: [
+                { en: "Head", fr: "Tête" }, { en: "Hand", fr: "Main" }, { en: "Foot", fr: "Pied" },
+                { en: "Eye", fr: "Œil" }, { en: "Nose", fr: "Nez" }, { en: "Mouth", fr: "Bouche" },
+                { en: "Ear", fr: "Oreille" }, { en: "Hair", fr: "Cheveux" }
             ]},
-            permissions: { nameFr: "Permissions", icon: "✋", pairs: [
-                { en: "Can I speak French", fr: "Puis-je parler français" },
-                { en: "May I go to the washroom", fr: "Puis-je aller aux toilettes" },
-                { en: "Can I go drink please", fr: "Puis-je aller boire" },
-                { en: "Can I borrow your pencil", fr: "Puis-je emprunter ton crayon" },
-                { en: "Can I turn on the light", fr: "Puis-je allumer la lumière" },
-                { en: "Can I go get my snack", fr: "Puis-je aller chercher ma collation" }
+            greetings: { nameFr: "Salutations", nameEn: "Greetings", icon: "👋", level: 1, pairs: [
+                { en: "Hello", fr: "Bonjour" }, { en: "Goodbye", fr: "Au revoir" }, { en: "Please", fr: "S'il vous plaît" },
+                { en: "Thank you", fr: "Merci" }, { en: "Yes", fr: "Oui" }, { en: "No", fr: "Non" },
+                { en: "Excuse me", fr: "Excusez-moi" }, { en: "Sorry", fr: "Désolé" }, { en: "Good morning", fr: "Bon matin" },
+                { en: "Good night", fr: "Bonne nuit" }
             ]},
-            teamwork: { nameFr: "Travail d'équipe", icon: "🤝", pairs: [
-                { en: "Whose turn is it", fr: "C'est à qui le tour" },
-                { en: "It's my turn", fr: "C'est mon tour" },
-                { en: "It's your turn", fr: "C'est ton tour" },
-                { en: "Do you want to work with me", fr: "Veux-tu travailler avec moi" },
-                { en: "Good job!", fr: "Bon travail / Bravo" }
+            
+            toys: { nameFr: "Jouets", nameEn: "Toys", icon: "🧸", level: 1, pairs: [
+                { en: "Doll", fr: "Poupée" }, { en: "Ball", fr: "Ballon" }, { en: "Car", fr: "Auto" },
+                { en: "Teddy bear", fr: "Toutou" }, { en: "Block", fr: "Bloc" }, { en: "Puzzle", fr: "Casse-tête" },
+                { en: "Kite", fr: "Cerf-volant" }, { en: "Train", fr: "Train" }, { en: "Drum", fr: "Tambour" },
+                { en: "Robot", fr: "Robot" }, { en: "Balloon", fr: "Balloune" }, { en: "Game", fr: "Jeu" }
+            ]},
+            classroom: { nameFr: "Classe", nameEn: "Classroom", icon: "✏️", level: 1, pairs: [
+                { en: "Pencil", fr: "Crayon" }, { en: "Book", fr: "Livre" }, { en: "Paper", fr: "Papier" },
+                { en: "Desk", fr: "Pupitre" }, { en: "Chair", fr: "Chaise" }, { en: "Teacher", fr: "Professeur" },
+                { en: "Board", fr: "Tableau" }, { en: "Eraser", fr: "Efface" }, { en: "Scissors", fr: "Ciseaux" },
+                { en: "Glue", fr: "Colle" }, { en: "Ruler", fr: "Règle" }, { en: "Backpack", fr: "Sac à dos" }
+            ]},
+            
+            // NIVEAU 2 - 2e année primaire
+            fruits: { nameFr: "Fruits", nameEn: "Fruits", icon: "🍎", level: 2, pairs: [
+                { en: "Apple", fr: "Pomme" }, { en: "Banana", fr: "Banane" }, { en: "Orange", fr: "Orange" },
+                { en: "Grape", fr: "Raisin" }, { en: "Strawberry", fr: "Fraise" }, { en: "Watermelon", fr: "Melon d'eau" },
+                { en: "Pear", fr: "Poire" }, { en: "Peach", fr: "Pêche" }, { en: "Cherry", fr: "Cerise" },
+                { en: "Lemon", fr: "Citron" }
+            ]},
+            vegetables: { nameFr: "Légumes", nameEn: "Vegetables", icon: "🥕", level: 2, pairs: [
+                { en: "Carrot", fr: "Carotte" }, { en: "Potato", fr: "Patate" }, { en: "Tomato", fr: "Tomate" },
+                { en: "Cucumber", fr: "Concombre" }, { en: "Lettuce", fr: "Laitue" }, { en: "Corn", fr: "Maïs" },
+                { en: "Onion", fr: "Oignon" }, { en: "Pepper", fr: "Poivron" }, { en: "Broccoli", fr: "Brocoli" }
+            ]},
+            numbers2: { nameFr: "Nombres 11-20", nameEn: "Numbers 11-20", icon: "🔢", level: 2, pairs: [
+                { en: "Eleven", fr: "Onze" }, { en: "Twelve", fr: "Douze" }, { en: "Thirteen", fr: "Treize" },
+                { en: "Fourteen", fr: "Quatorze" }, { en: "Fifteen", fr: "Quinze" }, { en: "Sixteen", fr: "Seize" },
+                { en: "Seventeen", fr: "Dix-sept" }, { en: "Eighteen", fr: "Dix-huit" }, { en: "Nineteen", fr: "Dix-neuf" },
+                { en: "Twenty", fr: "Vingt" }
+            ]},
+            shapes: { nameFr: "Formes", nameEn: "Shapes", icon: "⬛", level: 2, pairs: [
+                { en: "Circle", fr: "Cercle" }, { en: "Square", fr: "Carré" }, { en: "Triangle", fr: "Triangle" },
+                { en: "Rectangle", fr: "Rectangle" }, { en: "Star", fr: "Étoile" }, { en: "Heart", fr: "Cœur" },
+                { en: "Diamond", fr: "Losange" }, { en: "Oval", fr: "Ovale" }
+            ]},
+            clothes1: { nameFr: "Vêtements (base)", nameEn: "Clothes (basic)", icon: "👕", level: 2, pairs: [
+                { en: "Shirt", fr: "Chandail" }, { en: "Pants", fr: "Pantalon" }, { en: "Shoes", fr: "Souliers" },
+                { en: "Hat", fr: "Chapeau" }, { en: "Socks", fr: "Bas" }, { en: "Coat", fr: "Manteau" },
+                { en: "Dress", fr: "Robe" }, { en: "Boots", fr: "Bottes" }
+            ]},
+            opposites: { nameFr: "Opposés", nameEn: "Opposites", icon: "⚖️", level: 2, pairs: [
+                { en: "Big", fr: "Grand" }, { en: "Small", fr: "Petit" }, { en: "Hot", fr: "Chaud" },
+                { en: "Cold", fr: "Froid" }, { en: "Fast", fr: "Rapide" }, { en: "Slow", fr: "Lent" },
+                { en: "Old", fr: "Vieux" }, { en: "Young", fr: "Jeune" }, { en: "Happy", fr: "Heureux" },
+                { en: "Sad", fr: "Triste" }
+            ]},
+            
+            drinks: { nameFr: "Boissons", nameEn: "Drinks", icon: "🥤", level: 2, pairs: [
+                { en: "Water", fr: "Eau" }, { en: "Milk", fr: "Lait" }, { en: "Juice", fr: "Jus" },
+                { en: "Hot chocolate", fr: "Chocolat chaud" }, { en: "Lemonade", fr: "Limonade" }, { en: "Tea", fr: "Thé" },
+                { en: "Smoothie", fr: "Smoothie" }, { en: "Soda", fr: "Boisson gazeuse" }, { en: "Milkshake", fr: "Lait frappé" },
+                { en: "Ice", fr: "Glace" }, { en: "Straw", fr: "Paille" }, { en: "Cup", fr: "Tasse" }
+            ]},
+            positions: { nameFr: "Positions", nameEn: "Positions", icon: "📍", level: 2, pairs: [
+                { en: "Up", fr: "En haut" }, { en: "Down", fr: "En bas" }, { en: "In", fr: "Dans" },
+                { en: "Out", fr: "Dehors" }, { en: "On", fr: "Sur" }, { en: "Under", fr: "Sous" },
+                { en: "Next to", fr: "À côté" }, { en: "Behind", fr: "Derrière" }, { en: "In front", fr: "Devant" },
+                { en: "Between", fr: "Entre" }, { en: "Left", fr: "Gauche" }, { en: "Right", fr: "Droite" }
+            ]},
+            
+            // NIVEAU 3 - 3e année primaire
+            bathroom: { nameFr: "Salle de bain", nameEn: "Bathroom", icon: "🛁", level: 3, pairs: [
+                { en: "Bathtub", fr: "Bain" }, { en: "Shower", fr: "Douche" }, { en: "Toilet", fr: "Toilette" },
+                { en: "Sink", fr: "Lavabo" }, { en: "Soap", fr: "Savon" }, { en: "Towel", fr: "Serviette" },
+                { en: "Toothbrush", fr: "Brosse à dents" }, { en: "Toothpaste", fr: "Dentifrice" },
+                { en: "Shampoo", fr: "Shampoing" }, { en: "Mirror", fr: "Miroir" }
+            ]},
+            kitchen: { nameFr: "Cuisine", nameEn: "Kitchen", icon: "🍽️", level: 3, pairs: [
+                { en: "Spoon", fr: "Cuillère" }, { en: "Fork", fr: "Fourchette" }, { en: "Knife", fr: "Couteau" },
+                { en: "Plate", fr: "Assiette" }, { en: "Bowl", fr: "Bol" }, { en: "Glass", fr: "Verre" },
+                { en: "Cup", fr: "Tasse" }, { en: "Pot", fr: "Casserole" }, { en: "Pan", fr: "Poêle" },
+                { en: "Fridge", fr: "Frigo" }
+            ]},
+            house: { nameFr: "Maison", nameEn: "House", icon: "🏠", level: 3, pairs: [
+                { en: "Kitchen", fr: "Cuisine" }, { en: "Bedroom", fr: "Chambre" }, { en: "Bathroom", fr: "Salle de bain" },
+                { en: "Living room", fr: "Salon" }, { en: "Door", fr: "Porte" }, { en: "Window", fr: "Fenêtre" },
+                { en: "Stairs", fr: "Escalier" }, { en: "Roof", fr: "Toit" }, { en: "Garden", fr: "Jardin" },
+                { en: "Garage", fr: "Garage" }
+            ]},
+            animals2: { nameFr: "Animaux ferme", nameEn: "Farm animals", icon: "🐄", level: 3, pairs: [
+                { en: "Cow", fr: "Vache" }, { en: "Pig", fr: "Cochon" }, { en: "Chicken", fr: "Poule" },
+                { en: "Horse", fr: "Cheval" }, { en: "Sheep", fr: "Mouton" }, { en: "Goat", fr: "Chèvre" },
+                { en: "Duck", fr: "Canard" }, { en: "Rooster", fr: "Coq" }, { en: "Donkey", fr: "Âne" }
+            ]},
+            school: { nameFr: "École", nameEn: "School", icon: "🏫", level: 3, pairs: [
+                { en: "Pencil", fr: "Crayon" }, { en: "Eraser", fr: "Efface" }, { en: "Book", fr: "Livre" },
+                { en: "Desk", fr: "Pupitre" }, { en: "Chair", fr: "Chaise" }, { en: "Teacher", fr: "Professeur" },
+                { en: "Student", fr: "Élève" }, { en: "Classroom", fr: "Classe" }, { en: "Ruler", fr: "Règle" },
+                { en: "Scissors", fr: "Ciseaux" }
+            ]},
+            dailyActions: { nameFr: "Actions quotidiennes", nameEn: "Daily actions", icon: "🌅", level: 3, pairs: [
+                { en: "Wake up", fr: "Se réveiller" }, { en: "Brush teeth", fr: "Se brosser les dents" }, { en: "Take a shower", fr: "Prendre une douche" },
+                { en: "Get dressed", fr: "S'habiller" }, { en: "Eat breakfast", fr: "Déjeuner" }, { en: "Go to bed", fr: "Aller au lit" },
+                { en: "Wash hands", fr: "Se laver les mains" }, { en: "Do homework", fr: "Faire les devoirs" }, { en: "Watch TV", fr: "Regarder la télé" },
+                { en: "Read", fr: "Lire" }
+            ]},
+            
+            insects: { nameFr: "Insectes", nameEn: "Insects", icon: "🐛", level: 3, pairs: [
+                { en: "Ant", fr: "Fourmi" }, { en: "Bee", fr: "Abeille" }, { en: "Butterfly", fr: "Papillon" },
+                { en: "Spider", fr: "Araignée" }, { en: "Ladybug", fr: "Coccinelle" }, { en: "Fly", fr: "Mouche" },
+                { en: "Mosquito", fr: "Moustique" }, { en: "Worm", fr: "Ver" }, { en: "Caterpillar", fr: "Chenille" },
+                { en: "Grasshopper", fr: "Sauterelle" }, { en: "Beetle", fr: "Scarabée" }, { en: "Dragonfly", fr: "Libellule" }
+            ]},
+            feelings1: { nameFr: "Sentiments", nameEn: "Feelings", icon: "🥰", level: 3, pairs: [
+                { en: "Happy", fr: "Content" }, { en: "Sad", fr: "Triste" }, { en: "Angry", fr: "Fâché" },
+                { en: "Scared", fr: "Peur" }, { en: "Tired", fr: "Fatigué" }, { en: "Hungry", fr: "Faim" },
+                { en: "Thirsty", fr: "Soif" }, { en: "Sick", fr: "Malade" }, { en: "Brave", fr: "Brave" },
+                { en: "Proud", fr: "Fier" }, { en: "Shy", fr: "Gêné" }, { en: "Excited", fr: "Excité" }
+            ]},
+            
+            // NIVEAU 4 - 4e année primaire
+            weather: { nameFr: "Météo", nameEn: "Weather", icon: "🌤️", level: 4, pairs: [
+                { en: "Sun", fr: "Soleil" }, { en: "Cloud", fr: "Nuage" }, { en: "Rain", fr: "Pluie" },
+                { en: "Snow", fr: "Neige" }, { en: "Wind", fr: "Vent" }, { en: "Storm", fr: "Tempête" },
+                { en: "Hot", fr: "Chaud" }, { en: "Cold", fr: "Froid" }, { en: "Rainbow", fr: "Arc-en-ciel" },
+                { en: "Thunder", fr: "Tonnerre" }
+            ]},
+            seasons: { nameFr: "Saisons & temps", nameEn: "Seasons & time", icon: "🍂", level: 4, pairs: [
+                { en: "Spring", fr: "Printemps" }, { en: "Summer", fr: "Été" }, { en: "Fall", fr: "Automne" },
+                { en: "Winter", fr: "Hiver" }, { en: "Day", fr: "Jour" }, { en: "Night", fr: "Nuit" },
+                { en: "Morning", fr: "Matin" }, { en: "Afternoon", fr: "Après-midi" }, { en: "Evening", fr: "Soir" },
+                { en: "Week", fr: "Semaine" }
+            ]},
+            days: { nameFr: "Jours semaine", nameEn: "Weekdays", icon: "📅", level: 4, pairs: [
+                { en: "Monday", fr: "Lundi" }, { en: "Tuesday", fr: "Mardi" }, { en: "Wednesday", fr: "Mercredi" },
+                { en: "Thursday", fr: "Jeudi" }, { en: "Friday", fr: "Vendredi" }, { en: "Saturday", fr: "Samedi" },
+                { en: "Sunday", fr: "Dimanche" }, { en: "Today", fr: "Aujourd'hui" }, { en: "Tomorrow", fr: "Demain" },
+                { en: "Yesterday", fr: "Hier" }
+            ]},
+            months: { nameFr: "Mois", nameEn: "Months", icon: "🗓️", level: 4, pairs: [
+                { en: "January", fr: "Janvier" }, { en: "February", fr: "Février" }, { en: "March", fr: "Mars" },
+                { en: "April", fr: "Avril" }, { en: "May", fr: "Mai" }, { en: "June", fr: "Juin" },
+                { en: "July", fr: "Juillet" }, { en: "August", fr: "Août" }, { en: "September", fr: "Septembre" },
+                { en: "October", fr: "Octobre" }, { en: "November", fr: "Novembre" }, { en: "December", fr: "Décembre" }
+            ]},
+            food: { nameFr: "Nourriture", nameEn: "Food", icon: "🍕", level: 4, pairs: [
+                { en: "Bread", fr: "Pain" }, { en: "Cheese", fr: "Fromage" }, { en: "Egg", fr: "Œuf" },
+                { en: "Milk", fr: "Lait" }, { en: "Butter", fr: "Beurre" }, { en: "Rice", fr: "Riz" },
+                { en: "Pasta", fr: "Pâtes" }, { en: "Chicken", fr: "Poulet" }, { en: "Fish", fr: "Poisson" },
+                { en: "Soup", fr: "Soupe" }
+            ]},
+            countries: { nameFr: "Pays du monde", nameEn: "Countries", icon: "🌍", level: 4, pairs: [
+                { en: "France", fr: "France" }, { en: "Canada", fr: "Canada" }, { en: "USA", fr: "États-Unis" },
+                { en: "England", fr: "Angleterre" }, { en: "Spain", fr: "Espagne" }, { en: "Italy", fr: "Italie" },
+                { en: "Germany", fr: "Allemagne" }, { en: "China", fr: "Chine" }, { en: "Japan", fr: "Japon" },
+                { en: "Mexico", fr: "Mexique" }
+            ]},
+            
+            ocean: { nameFr: "Océan et mer", nameEn: "Ocean & sea", icon: "🌊", level: 4, pairs: [
+                { en: "Ocean", fr: "Océan" }, { en: "Wave", fr: "Vague" }, { en: "Beach", fr: "Plage" },
+                { en: "Sand", fr: "Sable" }, { en: "Shell", fr: "Coquillage" }, { en: "Whale", fr: "Baleine" },
+                { en: "Shark", fr: "Requin" }, { en: "Dolphin", fr: "Dauphin" }, { en: "Crab", fr: "Crabe" },
+                { en: "Jellyfish", fr: "Méduse" }, { en: "Seaweed", fr: "Algue" }, { en: "Coral", fr: "Corail" }
+            ]},
+            camping: { nameFr: "Camping", nameEn: "Camping", icon: "⛺", level: 4, pairs: [
+                { en: "Tent", fr: "Tente" }, { en: "Fire", fr: "Feu" }, { en: "Flashlight", fr: "Lampe de poche" },
+                { en: "Sleeping bag", fr: "Sac de couchage" }, { en: "Backpack", fr: "Sac à dos" }, { en: "Lake", fr: "Lac" },
+                { en: "Forest", fr: "Forêt" }, { en: "Trail", fr: "Sentier" }, { en: "Map", fr: "Carte" },
+                { en: "Compass", fr: "Boussole" }, { en: "Fishing", fr: "Pêche" }, { en: "Canoe", fr: "Canot" }
+            ]},
+            
+            // NIVEAU 5 - 5e année primaire
+            bodyParts2: { nameFr: "Corps (avancé)", icon: "🦵", level: 5, pairs: [
+                { en: "Arm", fr: "Bras" }, { en: "Leg", fr: "Jambe" }, { en: "Knee", fr: "Genou" },
+                { en: "Elbow", fr: "Coude" }, { en: "Shoulder", fr: "Épaule" }, { en: "Back", fr: "Dos" },
+                { en: "Stomach", fr: "Ventre" }, { en: "Finger", fr: "Doigt" }, { en: "Toe", fr: "Orteil" },
+                { en: "Neck", fr: "Cou" }, { en: "Chin", fr: "Menton" }, { en: "Cheek", fr: "Joue" }
+            ]},
+            sports: { nameFr: "Sports", nameEn: "Sports", icon: "⚽", level: 5, pairs: [
+                { en: "Soccer", fr: "Soccer" }, { en: "Hockey", fr: "Hockey" }, { en: "Basketball", fr: "Basketball" },
+                { en: "Swimming", fr: "Natation" }, { en: "Running", fr: "Course" }, { en: "Skiing", fr: "Ski" },
+                { en: "Tennis", fr: "Tennis" }, { en: "Baseball", fr: "Baseball" }, { en: "Gymnastics", fr: "Gymnastique" },
+                { en: "Cycling", fr: "Vélo" }
+            ]},
+            hobbies: { nameFr: "Loisirs", nameEn: "Hobbies", icon: "🎮", level: 5, pairs: [
+                { en: "Reading", fr: "Lecture" }, { en: "Drawing", fr: "Dessin" }, { en: "Music", fr: "Musique" },
+                { en: "Dancing", fr: "Danse" }, { en: "Cooking", fr: "Cuisine" }, { en: "Gaming", fr: "Jeux vidéo" },
+                { en: "Camping", fr: "Camping" }, { en: "Fishing", fr: "Pêche" }, { en: "Gardening", fr: "Jardinage" }
+            ]},
+            transportation: { nameFr: "Transport", nameEn: "Transportation", icon: "🚗", level: 5, pairs: [
+                { en: "Car", fr: "Auto" }, { en: "Bus", fr: "Autobus" }, { en: "Train", fr: "Train" },
+                { en: "Plane", fr: "Avion" }, { en: "Boat", fr: "Bateau" }, { en: "Bicycle", fr: "Vélo" },
+                { en: "Motorcycle", fr: "Moto" }, { en: "Helicopter", fr: "Hélicoptère" }, { en: "Truck", fr: "Camion" },
+                { en: "Subway", fr: "Métro" }
+            ]},
+            places: { nameFr: "Lieux", nameEn: "Places", icon: "🏪", level: 5, pairs: [
+                { en: "Store", fr: "Magasin" }, { en: "Hospital", fr: "Hôpital" }, { en: "Library", fr: "Bibliothèque" },
+                { en: "Park", fr: "Parc" }, { en: "Beach", fr: "Plage" }, { en: "Mountain", fr: "Montagne" },
+                { en: "Forest", fr: "Forêt" }, { en: "Lake", fr: "Lac" }, { en: "City", fr: "Ville" },
+                { en: "Farm", fr: "Ferme" }
+            ]},
+            
+            cityStreet: { nameFr: "Ville et rue", nameEn: "City & street", icon: "🏙️", level: 5, pairs: [
+                { en: "Street", fr: "Rue" }, { en: "Avenue", fr: "Avenue" }, { en: "Building", fr: "Édifice" },
+                { en: "Sidewalk", fr: "Trottoir" }, { en: "Crosswalk", fr: "Passage piéton" }, { en: "Bridge", fr: "Pont" },
+                { en: "Park", fr: "Parc" }, { en: "Square", fr: "Place" }, { en: "Corner", fr: "Coin" },
+                { en: "Neighborhood", fr: "Quartier" }
+            ]},
+            cooking1: { nameFr: "Cuisiner", nameEn: "Cooking", icon: "👩‍🍳", level: 5, pairs: [
+                { en: "Recipe", fr: "Recette" }, { en: "Oven", fr: "Four" }, { en: "Stove", fr: "Poêle" },
+                { en: "Mix", fr: "Mélanger" }, { en: "Cut", fr: "Couper" }, { en: "Boil", fr: "Bouillir" },
+                { en: "Fry", fr: "Frire" }, { en: "Bake", fr: "Cuire au four" }, { en: "Spoon", fr: "Cuillère" },
+                { en: "Fork", fr: "Fourchette" }, { en: "Knife", fr: "Couteau" }, { en: "Plate", fr: "Assiette" }
+            ]},
+            materials: { nameFr: "Matériaux", nameEn: "Materials", icon: "🧱", level: 5, pairs: [
+                { en: "Wood", fr: "Bois" }, { en: "Metal", fr: "Métal" }, { en: "Plastic", fr: "Plastique" },
+                { en: "Glass", fr: "Verre" }, { en: "Paper", fr: "Papier" }, { en: "Fabric", fr: "Tissu" },
+                { en: "Stone", fr: "Pierre" }, { en: "Rubber", fr: "Caoutchouc" }, { en: "Leather", fr: "Cuir" },
+                { en: "Cotton", fr: "Coton" }, { en: "Wool", fr: "Laine" }, { en: "Cardboard", fr: "Carton" }
+            ]},
+            
+            // NIVEAU 6 - 6e année primaire
+            animals3: { nameFr: "Animaux sauvages", nameEn: "Wild animals", icon: "🦁", level: 6, pairs: [
+                { en: "Lion", fr: "Lion" }, { en: "Tiger", fr: "Tigre" }, { en: "Elephant", fr: "Éléphant" },
+                { en: "Monkey", fr: "Singe" }, { en: "Bear", fr: "Ours" }, { en: "Wolf", fr: "Loup" },
+                { en: "Fox", fr: "Renard" }, { en: "Deer", fr: "Chevreuil" }, { en: "Snake", fr: "Serpent" },
+                { en: "Eagle", fr: "Aigle" }, { en: "Whale", fr: "Baleine" }, { en: "Shark", fr: "Requin" }
+            ]},
+            emotions: { nameFr: "Émotions", nameEn: "Emotions", icon: "😊", level: 6, pairs: [
+                { en: "Happy", fr: "Content" }, { en: "Sad", fr: "Triste" }, { en: "Angry", fr: "Fâché" },
+                { en: "Scared", fr: "Effrayé" }, { en: "Tired", fr: "Fatigué" }, { en: "Excited", fr: "Excité" },
+                { en: "Surprised", fr: "Surpris" }, { en: "Worried", fr: "Inquiet" }, { en: "Proud", fr: "Fier" },
+                { en: "Jealous", fr: "Jaloux" }, { en: "Bored", fr: "Ennuyé" }, { en: "Confused", fr: "Confus" }
+            ]},
+            verbs1: { nameFr: "Verbes action", nameEn: "Action verbs", icon: "🏃", level: 6, pairs: [
+                { en: "To eat", fr: "Manger" }, { en: "To drink", fr: "Boire" }, { en: "To sleep", fr: "Dormir" },
+                { en: "To walk", fr: "Marcher" }, { en: "To run", fr: "Courir" }, { en: "To jump", fr: "Sauter" },
+                { en: "To play", fr: "Jouer" }, { en: "To read", fr: "Lire" }, { en: "To write", fr: "Écrire" },
+                { en: "To speak", fr: "Parler" }, { en: "To listen", fr: "Écouter" }, { en: "To watch", fr: "Regarder" }
+            ]},
+            adjectives1: { nameFr: "Adjectifs (base)", nameEn: "Adjectives (basic)", icon: "📝", level: 6, pairs: [
+                { en: "Big", fr: "Grand/Gros" }, { en: "Small", fr: "Petit" }, { en: "Fast", fr: "Rapide" },
+                { en: "Slow", fr: "Lent" }, { en: "New", fr: "Nouveau" }, { en: "Old", fr: "Vieux" },
+                { en: "Good", fr: "Bon" }, { en: "Bad", fr: "Mauvais" }, { en: "Easy", fr: "Facile" },
+                { en: "Hard", fr: "Difficile" }, { en: "Clean", fr: "Propre" }, { en: "Dirty", fr: "Sale" }
+            ]},
+            clothes2: { nameFr: "Vêtements (avancé)", nameEn: "Clothes (advanced)", icon: "👗", level: 6, pairs: [
+                { en: "Sweater", fr: "Chandail" }, { en: "Jacket", fr: "Veste" }, { en: "Scarf", fr: "Foulard" },
+                { en: "Gloves", fr: "Gants" }, { en: "Belt", fr: "Ceinture" }, { en: "Tie", fr: "Cravate" },
+                { en: "Skirt", fr: "Jupe" }, { en: "Shorts", fr: "Shorts" }, { en: "Sandals", fr: "Sandales" },
+                { en: "Pajamas", fr: "Pyjama" }, { en: "Underwear", fr: "Sous-vêtements" }
+            ]},
+            
+            music: { nameFr: "Musique et instruments", nameEn: "Music & instruments", icon: "🎵", level: 6, pairs: [
+                { en: "Piano", fr: "Piano" }, { en: "Guitar", fr: "Guitare" }, { en: "Drums", fr: "Batterie" },
+                { en: "Violin", fr: "Violon" }, { en: "Flute", fr: "Flûte" }, { en: "Trumpet", fr: "Trompette" },
+                { en: "Saxophone", fr: "Saxophone" }, { en: "Song", fr: "Chanson" }, { en: "Music", fr: "Musique" },
+                { en: "Concert", fr: "Concert" }
+            ]},
+            geography: { nameFr: "Géographie", nameEn: "Geography", icon: "🗺️", level: 6, pairs: [
+                { en: "Mountain", fr: "Montagne" }, { en: "River", fr: "Rivière" }, { en: "Island", fr: "Île" },
+                { en: "Desert", fr: "Désert" }, { en: "Valley", fr: "Vallée" }, { en: "Volcano", fr: "Volcan" },
+                { en: "Waterfall", fr: "Chute d'eau" }, { en: "Continent", fr: "Continent" }, { en: "Border", fr: "Frontière" },
+                { en: "Capital", fr: "Capitale" }, { en: "Population", fr: "Population" }, { en: "Climate", fr: "Climat" }
+            ]},
+            cinema: { nameFr: "Cinéma", nameEn: "Movies", icon: "🎬", level: 6, pairs: [
+                { en: "Movie", fr: "Film" }, { en: "Actor", fr: "Acteur" }, { en: "Actress", fr: "Actrice" },
+                { en: "Scene", fr: "Scène" }, { en: "Popcorn", fr: "Popcorn" }, { en: "Screen", fr: "Écran" },
+                { en: "Ticket", fr: "Billet" }, { en: "Cartoon", fr: "Dessin animé" }, { en: "Comedy", fr: "Comédie" },
+                { en: "Horror", fr: "Horreur" }, { en: "Hero", fr: "Héros" }, { en: "Villain", fr: "Méchant" }
+            ]},
+            
+            // NIVEAU 7 - Secondaire 1
+            irregularVerbs1: { nameFr: "Verbes irréguliers 1", nameEn: "Irregular verbs 1", icon: "📚", level: 7, pairs: [
+                { en: "Go → Went", fr: "Aller" }, { en: "Come → Came", fr: "Venir" },
+                { en: "See → Saw", fr: "Voir" }, { en: "Take → Took", fr: "Prendre" },
+                { en: "Make → Made", fr: "Faire" }, { en: "Get → Got", fr: "Obtenir" },
+                { en: "Give → Gave", fr: "Donner" }, { en: "Find → Found", fr: "Trouver" },
+                { en: "Know → Knew", fr: "Savoir" }, { en: "Think → Thought", fr: "Penser" }
+            ]},
+            school2: { nameFr: "Matières scolaires", nameEn: "School subjects", icon: "📖", level: 7, pairs: [
+                { en: "Math", fr: "Mathématiques" }, { en: "Science", fr: "Sciences" }, { en: "History", fr: "Histoire" },
+                { en: "Geography", fr: "Géographie" }, { en: "English", fr: "Anglais" }, { en: "French", fr: "Français" },
+                { en: "Art", fr: "Arts plastiques" }, { en: "Music", fr: "Musique" }, { en: "Physical education", fr: "Éducation physique" },
+                { en: "Computer science", fr: "Informatique" }
+            ]},
+            technology: { nameFr: "Technologie", nameEn: "Technology", icon: "💻", level: 7, pairs: [
+                { en: "Computer", fr: "Ordinateur" }, { en: "Phone", fr: "Téléphone" }, { en: "Tablet", fr: "Tablette" },
+                { en: "Keyboard", fr: "Clavier" }, { en: "Mouse", fr: "Souris" }, { en: "Screen", fr: "Écran" },
+                { en: "Internet", fr: "Internet" }, { en: "Website", fr: "Site web" }, { en: "Password", fr: "Mot de passe" },
+                { en: "Download", fr: "Télécharger" }
+            ]},
+            jobs: { nameFr: "Métiers", nameEn: "Jobs", icon: "👷", level: 7, pairs: [
+                { en: "Doctor", fr: "Médecin" }, { en: "Nurse", fr: "Infirmier/ère" }, { en: "Teacher", fr: "Enseignant" },
+                { en: "Police officer", fr: "Policier" }, { en: "Firefighter", fr: "Pompier" }, { en: "Chef", fr: "Cuisinier" },
+                { en: "Mechanic", fr: "Mécanicien" }, { en: "Electrician", fr: "Électricien" }, { en: "Lawyer", fr: "Avocat" },
+                { en: "Engineer", fr: "Ingénieur" }
+            ]},
+            nature: { nameFr: "Nature", nameEn: "Nature", icon: "🌳", level: 7, pairs: [
+                { en: "Tree", fr: "Arbre" }, { en: "Flower", fr: "Fleur" }, { en: "Grass", fr: "Herbe" },
+                { en: "River", fr: "Rivière" }, { en: "Ocean", fr: "Océan" }, { en: "Island", fr: "Île" },
+                { en: "Valley", fr: "Vallée" }, { en: "Desert", fr: "Désert" }, { en: "Waterfall", fr: "Cascade" },
+                { en: "Cave", fr: "Grotte" }
+            ]},
+            
+            history: { nameFr: "Histoire et temps", nameEn: "History & time", icon: "⏳", level: 7, pairs: [
+                { en: "Past", fr: "Passé" }, { en: "Present", fr: "Présent" }, { en: "Future", fr: "Futur" },
+                { en: "Century", fr: "Siècle" }, { en: "War", fr: "Guerre" }, { en: "Peace", fr: "Paix" },
+                { en: "Revolution", fr: "Révolution" }, { en: "Discovery", fr: "Découverte" }, { en: "Ancient", fr: "Ancien" },
+                { en: "Modern", fr: "Moderne" }
+            ]},
+            socialMedia: { nameFr: "Réseaux sociaux", nameEn: "Social media", icon: "📱", level: 7, pairs: [
+                { en: "Post", fr: "Publication" }, { en: "Like", fr: "J'aime" }, { en: "Share", fr: "Partager" },
+                { en: "Comment", fr: "Commentaire" }, { en: "Follow", fr: "Suivre" }, { en: "Profile", fr: "Profil" },
+                { en: "Hashtag", fr: "Mot-clic" }, { en: "Story", fr: "Story" }, { en: "Feed", fr: "Fil d'actualité" },
+                { en: "Notification", fr: "Notification" }, { en: "Block", fr: "Bloquer" }, { en: "Privacy", fr: "Vie privée" }
+            ]},
+            friendship: { nameFr: "Amitié", nameEn: "Friendship", icon: "🤗", level: 7, pairs: [
+                { en: "Friend", fr: "Ami" }, { en: "Best friend", fr: "Meilleur ami" }, { en: "Trust", fr: "Confiance" },
+                { en: "Loyalty", fr: "Loyauté" }, { en: "Support", fr: "Soutien" }, { en: "Advice", fr: "Conseil" },
+                { en: "Secret", fr: "Secret" }, { en: "Honest", fr: "Honnête" }, { en: "Forgive", fr: "Pardonner" },
+                { en: "Respect", fr: "Respect" }, { en: "Share", fr: "Partager" }, { en: "Kind", fr: "Gentil" }
+            ]},
+            
+            // NIVEAU 8 - Secondaire 2
+            irregularVerbs2: { nameFr: "Verbes irréguliers 2", nameEn: "Irregular verbs 2", icon: "📚", level: 8, pairs: [
+                { en: "Buy → Bought", fr: "Acheter" }, { en: "Bring → Brought", fr: "Apporter" },
+                { en: "Catch → Caught", fr: "Attraper" }, { en: "Choose → Chose", fr: "Choisir" },
+                { en: "Draw → Drew", fr: "Dessiner" }, { en: "Drive → Drove", fr: "Conduire" },
+                { en: "Feel → Felt", fr: "Sentir" }, { en: "Forget → Forgot", fr: "Oublier" },
+                { en: "Grow → Grew", fr: "Grandir" }, { en: "Hide → Hid", fr: "Cacher" }
+            ]},
+            adjectives2: { nameFr: "Adjectifs (avancé)", nameEn: "Adjectives (advanced)", icon: "📝", level: 8, pairs: [
+                { en: "Beautiful", fr: "Beau/Belle" }, { en: "Ugly", fr: "Laid" }, { en: "Strong", fr: "Fort" },
+                { en: "Weak", fr: "Faible" }, { en: "Rich", fr: "Riche" }, { en: "Poor", fr: "Pauvre" },
+                { en: "Dangerous", fr: "Dangereux" }, { en: "Safe", fr: "Sécuritaire" }, { en: "Famous", fr: "Célèbre" },
+                { en: "Quiet", fr: "Tranquille" }, { en: "Noisy", fr: "Bruyant" }, { en: "Crowded", fr: "Bondé" }
+            ]},
+            health: { nameFr: "Santé", nameEn: "Health", icon: "🏥", level: 8, pairs: [
+                { en: "Headache", fr: "Mal de tête" }, { en: "Fever", fr: "Fièvre" }, { en: "Cough", fr: "Toux" },
+                { en: "Cold", fr: "Rhume" }, { en: "Medicine", fr: "Médicament" }, { en: "Bandage", fr: "Pansement" },
+                { en: "Injury", fr: "Blessure" }, { en: "Pain", fr: "Douleur" }, { en: "Appointment", fr: "Rendez-vous" },
+                { en: "Prescription", fr: "Prescription" }
+            ]},
+            travel: { nameFr: "Voyage", icon: "✈️", level: 8, pairs: [
+                { en: "Airport", fr: "Aéroport" }, { en: "Hotel", fr: "Hôtel" }, { en: "Passport", fr: "Passeport" },
+                { en: "Luggage", fr: "Bagages" }, { en: "Ticket", fr: "Billet" }, { en: "Reservation", fr: "Réservation" },
+                { en: "Tourist", fr: "Touriste" }, { en: "Map", fr: "Carte" }, { en: "Currency", fr: "Devise" },
+                { en: "Vacation", fr: "Vacances" }
+            ]},
+            food2: { nameFr: "Restaurant", icon: "🍴", level: 8, pairs: [
+                { en: "Menu", fr: "Menu" }, { en: "Waiter", fr: "Serveur" }, { en: "Bill", fr: "Addition" },
+                { en: "Tip", fr: "Pourboire" }, { en: "Appetizer", fr: "Entrée" }, { en: "Main course", fr: "Plat principal" },
+                { en: "Dessert", fr: "Dessert" }, { en: "Beverage", fr: "Boisson" }, { en: "Recipe", fr: "Recette" },
+                { en: "Ingredient", fr: "Ingrédient" }
+            ]},
+            
+            communication: { nameFr: "Communication", nameEn: "Communication", icon: "💬", level: 8, pairs: [
+                { en: "Message", fr: "Message" }, { en: "Call", fr: "Appel" }, { en: "Email", fr: "Courriel" },
+                { en: "Letter", fr: "Lettre" }, { en: "Text", fr: "Texto" }, { en: "Chat", fr: "Clavardage" },
+                { en: "Voice", fr: "Voix" }, { en: "Listen", fr: "Écouter" }, { en: "Speak", fr: "Parler" },
+                { en: "Write", fr: "Écrire" }
+            ]},
+            personality: { nameFr: "Personnalité", nameEn: "Personality", icon: "🪞", level: 8, pairs: [
+                { en: "Kind", fr: "Gentil" }, { en: "Brave", fr: "Courageux" }, { en: "Funny", fr: "Drôle" },
+                { en: "Creative", fr: "Créatif" }, { en: "Patient", fr: "Patient" }, { en: "Stubborn", fr: "Têtu" },
+                { en: "Generous", fr: "Généreux" }, { en: "Curious", fr: "Curieux" }, { en: "Ambitious", fr: "Ambitieux" },
+                { en: "Confident", fr: "Confiant" }, { en: "Reliable", fr: "Fiable" }, { en: "Honest", fr: "Honnête" }
+            ]},
+            money1: { nameFr: "Argent", nameEn: "Money", icon: "💵", level: 8, pairs: [
+                { en: "Money", fr: "Argent" }, { en: "Bank", fr: "Banque" }, { en: "Save", fr: "Épargner" },
+                { en: "Spend", fr: "Dépenser" }, { en: "Budget", fr: "Budget" }, { en: "Coin", fr: "Pièce" },
+                { en: "Bill", fr: "Billet" }, { en: "Account", fr: "Compte" }, { en: "Deposit", fr: "Dépôt" },
+                { en: "Withdraw", fr: "Retrait" }, { en: "Borrow", fr: "Emprunter" }, { en: "Lend", fr: "Prêter" }
+            ]},
+            
+            // NIVEAU 9 - Secondaire 3
+            irregularVerbs3: { nameFr: "Verbes irréguliers 3", nameEn: "Irregular verbs 3", icon: "📚", level: 9, pairs: [
+                { en: "Break → Broke", fr: "Casser" }, { en: "Build → Built", fr: "Construire" },
+                { en: "Burn → Burnt", fr: "Brûler" }, { en: "Cost → Cost", fr: "Coûter" },
+                { en: "Cut → Cut", fr: "Couper" }, { en: "Dig → Dug", fr: "Creuser" },
+                { en: "Fall → Fell", fr: "Tomber" }, { en: "Feed → Fed", fr: "Nourrir" },
+                { en: "Fight → Fought", fr: "Se battre" }, { en: "Fly → Flew", fr: "Voler" }
+            ]},
+            environment: { nameFr: "Environnement", nameEn: "Environment", icon: "🌍", level: 9, pairs: [
+                { en: "Pollution", fr: "Pollution" }, { en: "Recycling", fr: "Recyclage" }, { en: "Climate", fr: "Climat" },
+                { en: "Global warming", fr: "Réchauffement" }, { en: "Renewable", fr: "Renouvelable" }, { en: "Energy", fr: "Énergie" },
+                { en: "Waste", fr: "Déchet" }, { en: "Endangered", fr: "En danger" }, { en: "Protect", fr: "Protéger" },
+                { en: "Sustainable", fr: "Durable" }
+            ]},
+            media: { nameFr: "Médias", nameEn: "Media", icon: "📺", level: 9, pairs: [
+                { en: "News", fr: "Nouvelles" }, { en: "Newspaper", fr: "Journal" }, { en: "Magazine", fr: "Magazine" },
+                { en: "Advertisement", fr: "Publicité" }, { en: "Channel", fr: "Chaîne" }, { en: "Broadcast", fr: "Diffusion" },
+                { en: "Reporter", fr: "Reporter" }, { en: "Interview", fr: "Entrevue" }, { en: "Headline", fr: "Manchette" },
+                { en: "Social media", fr: "Réseaux sociaux" }
+            ]},
+            business: { nameFr: "Affaires", nameEn: "Business", icon: "💼", level: 9, pairs: [
+                { en: "Company", fr: "Entreprise" }, { en: "Employee", fr: "Employé" }, { en: "Manager", fr: "Gestionnaire" },
+                { en: "Meeting", fr: "Réunion" }, { en: "Salary", fr: "Salaire" }, { en: "Contract", fr: "Contrat" },
+                { en: "Customer", fr: "Client" }, { en: "Invoice", fr: "Facture" }, { en: "Profit", fr: "Profit" },
+                { en: "Investment", fr: "Investissement" }
+            ]},
+            education: { nameFr: "Éducation avancée", nameEn: "Advanced education", icon: "🎓", level: 9, pairs: [
+                { en: "University", fr: "Université" }, { en: "Degree", fr: "Diplôme" }, { en: "Assignment", fr: "Devoir" },
+                { en: "Exam", fr: "Examen" }, { en: "Grade", fr: "Note" }, { en: "Research", fr: "Recherche" },
+                { en: "Thesis", fr: "Thèse" }, { en: "Scholarship", fr: "Bourse" }, { en: "Lecture", fr: "Cours magistral" },
+                { en: "Deadline", fr: "Date limite" }
+            ]},
+            
+            expressions: { nameFr: "Expressions courantes", nameEn: "Common expressions", icon: "💭", level: 9, pairs: [
+                { en: "I don't know", fr: "Je ne sais pas" }, { en: "See you later", fr: "À plus tard" }, { en: "How are you", fr: "Comment vas-tu" },
+                { en: "I'm fine", fr: "Je vais bien" }, { en: "What's up", fr: "Quoi de neuf" }, { en: "Take care", fr: "Prends soin de toi" },
+                { en: "Good luck", fr: "Bonne chance" }, { en: "You're welcome", fr: "De rien" }, { en: "Never mind", fr: "Laisse tomber" },
+                { en: "Of course", fr: "Bien sûr" }
+            ]},
+            career: { nameFr: "Carrière", nameEn: "Career", icon: "💼", level: 9, pairs: [
+                { en: "Resume", fr: "CV" }, { en: "Interview", fr: "Entrevue" }, { en: "Salary", fr: "Salaire" },
+                { en: "Hire", fr: "Embaucher" }, { en: "Experience", fr: "Expérience" }, { en: "Skill", fr: "Compétence" },
+                { en: "Internship", fr: "Stage" }, { en: "Promotion", fr: "Promotion" }, { en: "Boss", fr: "Patron" },
+                { en: "Colleague", fr: "Collègue" }, { en: "Office", fr: "Bureau" }, { en: "Deadline", fr: "Date limite" }
+            ]},
+            debate: { nameFr: "Débat et opinion", nameEn: "Debate & opinion", icon: "💬", level: 9, pairs: [
+                { en: "Agree", fr: "D'accord" }, { en: "Disagree", fr: "Pas d'accord" }, { en: "Argument", fr: "Argument" },
+                { en: "Evidence", fr: "Preuve" }, { en: "Persuade", fr: "Persuader" }, { en: "Convince", fr: "Convaincre" },
+                { en: "Point of view", fr: "Point de vue" }, { en: "Bias", fr: "Préjugé" }, { en: "Defend", fr: "Défendre" },
+                { en: "Criticize", fr: "Critiquer" }, { en: "Compromise", fr: "Compromis" }, { en: "Conclude", fr: "Conclure" }
+            ]},
+            
+            // NIVEAU 10 - Secondaire 4
+            irregularVerbs4: { nameFr: "Verbes irréguliers 4", nameEn: "Irregular verbs 4", icon: "📚", level: 10, pairs: [
+                { en: "Arise → Arose", fr: "Surgir" }, { en: "Bear → Bore", fr: "Porter" },
+                { en: "Beat → Beat", fr: "Battre" }, { en: "Become → Became", fr: "Devenir" },
+                { en: "Begin → Began", fr: "Commencer" }, { en: "Bend → Bent", fr: "Plier" },
+                { en: "Bet → Bet", fr: "Parier" }, { en: "Bite → Bit", fr: "Mordre" },
+                { en: "Blow → Blew", fr: "Souffler" }, { en: "Breed → Bred", fr: "Élever" }
+            ]},
+            politics: { nameFr: "Politique", nameEn: "Politics", icon: "🏛️", level: 10, pairs: [
+                { en: "Government", fr: "Gouvernement" }, { en: "Election", fr: "Élection" }, { en: "Vote", fr: "Vote" },
+                { en: "Law", fr: "Loi" }, { en: "Rights", fr: "Droits" }, { en: "Democracy", fr: "Démocratie" },
+                { en: "Citizen", fr: "Citoyen" }, { en: "Policy", fr: "Politique" }, { en: "Tax", fr: "Impôt" },
+                { en: "Minister", fr: "Ministre" }
+            ]},
+            science: { nameFr: "Sciences", nameEn: "Science", icon: "🔬", level: 10, pairs: [
+                { en: "Experiment", fr: "Expérience" }, { en: "Hypothesis", fr: "Hypothèse" }, { en: "Theory", fr: "Théorie" },
+                { en: "Cell", fr: "Cellule" }, { en: "Atom", fr: "Atome" }, { en: "Molecule", fr: "Molécule" },
+                { en: "Chemical", fr: "Chimique" }, { en: "Biology", fr: "Biologie" }, { en: "Physics", fr: "Physique" },
+                { en: "Laboratory", fr: "Laboratoire" }
+            ]},
+            arts: { nameFr: "Arts & Culture", nameEn: "Arts & Culture", icon: "🎭", level: 10, pairs: [
+                { en: "Painting", fr: "Peinture" }, { en: "Sculpture", fr: "Sculpture" }, { en: "Museum", fr: "Musée" },
+                { en: "Exhibition", fr: "Exposition" }, { en: "Performance", fr: "Spectacle" }, { en: "Theatre", fr: "Théâtre" },
+                { en: "Orchestra", fr: "Orchestre" }, { en: "Literature", fr: "Littérature" }, { en: "Poetry", fr: "Poésie" },
+                { en: "Novel", fr: "Roman" }
+            ]},
+            psychology: { nameFr: "Psychologie", nameEn: "Psychology", icon: "🧠", level: 10, pairs: [
+                { en: "Behavior", fr: "Comportement" }, { en: "Memory", fr: "Mémoire" }, { en: "Personality", fr: "Personnalité" },
+                { en: "Emotion", fr: "Émotion" }, { en: "Stress", fr: "Stress" }, { en: "Anxiety", fr: "Anxiété" },
+                { en: "Therapy", fr: "Thérapie" }, { en: "Motivation", fr: "Motivation" }, { en: "Perception", fr: "Perception" },
+                { en: "Consciousness", fr: "Conscience" }
+            ]},
+            
+            relationships: { nameFr: "Relations sociales", nameEn: "Social relationships", icon: "👥", level: 10, pairs: [
+                { en: "Friend", fr: "Ami" }, { en: "Colleague", fr: "Collègue" }, { en: "Neighbor", fr: "Voisin" },
+                { en: "Acquaintance", fr: "Connaissance" }, { en: "Partner", fr: "Partenaire" }, { en: "Teammate", fr: "Coéquipier" },
+                { en: "Mentor", fr: "Mentor" }, { en: "Rival", fr: "Rival" }, { en: "Ally", fr: "Allié" },
+                { en: "Stranger", fr: "Étranger" }
+            ]},
+            literature: { nameFr: "Littérature", nameEn: "Literature", icon: "📚", level: 10, pairs: [
+                { en: "Narrator", fr: "Narrateur" }, { en: "Plot", fr: "Intrigue" }, { en: "Theme", fr: "Thème" },
+                { en: "Metaphor", fr: "Métaphore" }, { en: "Symbol", fr: "Symbole" }, { en: "Irony", fr: "Ironie" },
+                { en: "Genre", fr: "Genre" }, { en: "Essay", fr: "Essai" }, { en: "Tragedy", fr: "Tragédie" },
+                { en: "Fiction", fr: "Fiction" }, { en: "Non-fiction", fr: "Non-fiction" }, { en: "Criticism", fr: "Critique" }
+            ]},
+            healthAdv: { nameFr: "Santé mentale", nameEn: "Mental health", icon: "🧠", level: 10, pairs: [
+                { en: "Anxiety", fr: "Anxiété" }, { en: "Stress", fr: "Stress" }, { en: "Therapy", fr: "Thérapie" },
+                { en: "Self-esteem", fr: "Estime de soi" }, { en: "Well-being", fr: "Bien-être" }, { en: "Depression", fr: "Dépression" },
+                { en: "Resilience", fr: "Résilience" }, { en: "Mindfulness", fr: "Pleine conscience" }, { en: "Empathy", fr: "Empathie" },
+                { en: "Boundary", fr: "Limite" }, { en: "Coping", fr: "Adaptation" }, { en: "Support", fr: "Soutien" }
+            ]},
+            
+            // NIVEAU 11 - Secondaire 5
+            irregularVerbs5: { nameFr: "Verbes irréguliers 5", nameEn: "Irregular verbs 5", icon: "📚", level: 11, pairs: [
+                { en: "Forbid → Forbade", fr: "Interdire" }, { en: "Forgive → Forgave", fr: "Pardonner" },
+                { en: "Freeze → Froze", fr: "Geler" }, { en: "Hang → Hung", fr: "Suspendre" },
+                { en: "Hold → Held", fr: "Tenir" }, { en: "Hurt → Hurt", fr: "Blesser" },
+                { en: "Keep → Kept", fr: "Garder" }, { en: "Kneel → Knelt", fr: "S'agenouiller" },
+                { en: "Lay → Laid", fr: "Poser" }, { en: "Lead → Led", fr: "Mener" }
+            ]},
+            philosophy: { nameFr: "Philosophie", nameEn: "Philosophy", icon: "💭", level: 11, pairs: [
+                { en: "Truth", fr: "Vérité" }, { en: "Knowledge", fr: "Connaissance" }, { en: "Wisdom", fr: "Sagesse" },
+                { en: "Ethics", fr: "Éthique" }, { en: "Morality", fr: "Moralité" }, { en: "Justice", fr: "Justice" },
+                { en: "Freedom", fr: "Liberté" }, { en: "Existence", fr: "Existence" }, { en: "Reality", fr: "Réalité" },
+                { en: "Consciousness", fr: "Conscience" }
+            ]},
+            economics: { nameFr: "Économie", nameEn: "Economics", icon: "📈", level: 11, pairs: [
+                { en: "Market", fr: "Marché" }, { en: "Supply", fr: "Offre" }, { en: "Demand", fr: "Demande" },
+                { en: "Inflation", fr: "Inflation" }, { en: "Recession", fr: "Récession" }, { en: "Budget", fr: "Budget" },
+                { en: "Stock", fr: "Action" }, { en: "Interest rate", fr: "Taux d'intérêt" }, { en: "Trade", fr: "Commerce" },
+                { en: "Export", fr: "Exportation" }
+            ]},
+            law: { nameFr: "Droit", nameEn: "Law", icon: "⚖️", level: 11, pairs: [
+                { en: "Court", fr: "Tribunal" }, { en: "Judge", fr: "Juge" }, { en: "Lawyer", fr: "Avocat" },
+                { en: "Trial", fr: "Procès" }, { en: "Evidence", fr: "Preuve" }, { en: "Guilty", fr: "Coupable" },
+                { en: "Innocent", fr: "Innocent" }, { en: "Sentence", fr: "Sentence" }, { en: "Appeal", fr: "Appel" },
+                { en: "Verdict", fr: "Verdict" }
+            ]},
+            academic: { nameFr: "Académique", nameEn: "Academic", icon: "📜", level: 11, pairs: [
+                { en: "Analysis", fr: "Analyse" }, { en: "Conclusion", fr: "Conclusion" }, { en: "Argument", fr: "Argument" },
+                { en: "Evidence", fr: "Évidence" }, { en: "Reference", fr: "Référence" }, { en: "Citation", fr: "Citation" },
+                { en: "Abstract", fr: "Résumé" }, { en: "Methodology", fr: "Méthodologie" }, { en: "Hypothesis", fr: "Hypothèse" },
+                { en: "Peer review", fr: "Révision par les pairs" }
+            ]},
+            artLiterature: { nameFr: "Art et littérature", nameEn: "Art & literature", icon: "🎨", level: 11, pairs: [
+                { en: "Painting", fr: "Peinture" }, { en: "Sculpture", fr: "Sculpture" }, { en: "Novel", fr: "Roman" },
+                { en: "Poem", fr: "Poème" }, { en: "Author", fr: "Auteur" }, { en: "Artist", fr: "Artiste" },
+                { en: "Gallery", fr: "Galerie" }, { en: "Museum", fr: "Musée" }, { en: "Masterpiece", fr: "Chef-d'œuvre" },
+                { en: "Exhibition", fr: "Exposition" }
+            ]},
+            
+            civics: { nameFr: "Citoyenneté", nameEn: "Civics", icon: "🏛️", level: 11, pairs: [
+                { en: "Vote", fr: "Voter" }, { en: "Election", fr: "Élection" }, { en: "Democracy", fr: "Démocratie" },
+                { en: "Citizen", fr: "Citoyen" }, { en: "Government", fr: "Gouvernement" }, { en: "Taxes", fr: "Impôts" },
+                { en: "Constitution", fr: "Constitution" }, { en: "Rights", fr: "Droits" }, { en: "Freedom", fr: "Liberté" },
+                { en: "Protest", fr: "Manifestation" }, { en: "Legislation", fr: "Législation" }, { en: "Parliament", fr: "Parlement" }
+            ]},
+            socialIssues: { nameFr: "Enjeux sociaux", nameEn: "Social issues", icon: "🤲", level: 11, pairs: [
+                { en: "Equality", fr: "Égalité" }, { en: "Poverty", fr: "Pauvreté" }, { en: "Racism", fr: "Racisme" },
+                { en: "Justice", fr: "Justice" }, { en: "Volunteer", fr: "Bénévole" }, { en: "Charity", fr: "Charité" },
+                { en: "Homeless", fr: "Sans-abri" }, { en: "Inclusion", fr: "Inclusion" }, { en: "Diversity", fr: "Diversité" },
+                { en: "Discrimination", fr: "Discrimination" }, { en: "Solidarity", fr: "Solidarité" }, { en: "Advocacy", fr: "Plaidoyer" }
+            ]},
+            
+            // NIVEAU 12 - Adulte avancé
+            finance: { nameFr: "Finance avancée", nameEn: "Advanced finance", icon: "💰", level: 12, pairs: [
+                { en: "Asset", fr: "Actif" }, { en: "Liability", fr: "Passif" }, { en: "Equity", fr: "Capital propre" },
+                { en: "Portfolio", fr: "Portefeuille" }, { en: "Dividend", fr: "Dividende" }, { en: "Revenue", fr: "Revenu" },
+                { en: "Expense", fr: "Dépense" }, { en: "Cash flow", fr: "Flux de trésorerie" }, { en: "Balance sheet", fr: "Bilan" },
+                { en: "Depreciation", fr: "Amortissement" }, { en: "Audit", fr: "Audit" }, { en: "Merger", fr: "Fusion" }
+            ]},
+            management: { nameFr: "Gestion", nameEn: "Management", icon: "👔", level: 12, pairs: [
+                { en: "Strategy", fr: "Stratégie" }, { en: "Leadership", fr: "Leadership" }, { en: "Delegation", fr: "Délégation" },
+                { en: "Accountability", fr: "Responsabilité" }, { en: "Performance", fr: "Performance" }, { en: "Stakeholder", fr: "Partie prenante" },
+                { en: "Milestone", fr: "Jalon" }, { en: "Initiative", fr: "Initiative" }, { en: "Risk management", fr: "Gestion des risques" },
+                { en: "Benchmarking", fr: "Étalonnage" }
+            ]},
+            negotiation: { nameFr: "Négociation", nameEn: "Negotiation", icon: "🤝", level: 12, pairs: [
+                { en: "Agreement", fr: "Accord" }, { en: "Compromise", fr: "Compromis" }, { en: "Deal", fr: "Marché" },
+                { en: "Leverage", fr: "Levier" }, { en: "Terms", fr: "Conditions" }, { en: "Clause", fr: "Clause" },
+                { en: "Proposal", fr: "Proposition" }, { en: "Counteroffer", fr: "Contre-offre" }, { en: "Settlement", fr: "Règlement" },
+                { en: "Concession", fr: "Concession" }
+            ]},
+            marketing: { nameFr: "Marketing", nameEn: "Marketing", icon: "📣", level: 12, pairs: [
+                { en: "Brand", fr: "Marque" }, { en: "Target audience", fr: "Public cible" }, { en: "Campaign", fr: "Campagne" },
+                { en: "Conversion", fr: "Conversion" }, { en: "Engagement", fr: "Engagement" }, { en: "Analytics", fr: "Analytique" },
+                { en: "ROI", fr: "Retour sur investissement" }, { en: "Positioning", fr: "Positionnement" }, { en: "Segmentation", fr: "Segmentation" },
+                { en: "Value proposition", fr: "Proposition de valeur" }
+            ]},
+            networking: { nameFr: "Réseautage", nameEn: "Networking", icon: "🌐", level: 12, pairs: [
+                { en: "Connection", fr: "Connexion" }, { en: "Referral", fr: "Recommandation" }, { en: "Mentor", fr: "Mentor" },
+                { en: "Collaboration", fr: "Collaboration" }, { en: "Partnership", fr: "Partenariat" }, { en: "Outreach", fr: "Sensibilisation" },
+                { en: "Follow-up", fr: "Suivi" }, { en: "Introduction", fr: "Présentation" }, { en: "Alliance", fr: "Alliance" },
+                { en: "Synergy", fr: "Synergie" }
+            ]},
+            presentation: { nameFr: "Présentation et persuasion", nameEn: "Presentation & persuasion", icon: "🎤", level: 12, pairs: [
+                { en: "Pitch", fr: "Présentation" }, { en: "Slide", fr: "Diapositive" }, { en: "Audience", fr: "Public" },
+                { en: "Convince", fr: "Convaincre" }, { en: "Argument", fr: "Argument" }, { en: "Data", fr: "Données" },
+                { en: "Chart", fr: "Graphique" }, { en: "Key point", fr: "Point clé" }, { en: "Summary", fr: "Résumé" },
+                { en: "Conclusion", fr: "Conclusion" }
+            ]},
+            
+            realEstate: { nameFr: "Immobilier", nameEn: "Real estate", icon: "🏠", level: 12, pairs: [
+                { en: "Mortgage", fr: "Hypothèque" }, { en: "Lease", fr: "Bail" }, { en: "Tenant", fr: "Locataire" },
+                { en: "Landlord", fr: "Propriétaire" }, { en: "Down payment", fr: "Mise de fonds" }, { en: "Appraisal", fr: "Évaluation" },
+                { en: "Closing costs", fr: "Frais de clôture" }, { en: "Equity", fr: "Équité" }, { en: "Property tax", fr: "Taxe foncière" },
+                { en: "Insurance", fr: "Assurance" }, { en: "Inspection", fr: "Inspection" }, { en: "Renovate", fr: "Rénover" }
+            ]},
+            legal: { nameFr: "Termes légaux", nameEn: "Legal terms", icon: "📜", level: 12, pairs: [
+                { en: "Contract", fr: "Contrat" }, { en: "Clause", fr: "Clause" }, { en: "Liability", fr: "Responsabilité" },
+                { en: "Warranty", fr: "Garantie" }, { en: "Disclosure", fr: "Divulgation" }, { en: "Compliance", fr: "Conformité" },
+                { en: "Arbitration", fr: "Arbitrage" }, { en: "Settlement", fr: "Règlement" }, { en: "Notary", fr: "Notaire" },
+                { en: "Power of attorney", fr: "Procuration" }, { en: "Amendment", fr: "Amendement" }, { en: "Statute", fr: "Statut" }
+            ]},
+            
+            // NIVEAU 13 - Adulte expert
+            innovation: { nameFr: "Innovation", nameEn: "Innovation", icon: "💡", level: 13, pairs: [
+                { en: "Breakthrough", fr: "Percée" }, { en: "Disruption", fr: "Disruption" }, { en: "Prototype", fr: "Prototype" },
+                { en: "Patent", fr: "Brevet" }, { en: "Iteration", fr: "Itération" }, { en: "Scalability", fr: "Évolutivité" },
+                { en: "Optimization", fr: "Optimisation" }, { en: "Implementation", fr: "Mise en œuvre" }, { en: "Feasibility", fr: "Faisabilité" },
+                { en: "Sustainability", fr: "Durabilité" }
+            ]},
+            ai_tech: { nameFr: "IA & Tech", nameEn: "AI & Tech", icon: "🤖", level: 13, pairs: [
+                { en: "Algorithm", fr: "Algorithme" }, { en: "Machine learning", fr: "Apprentissage automatique" }, { en: "Neural network", fr: "Réseau neuronal" },
+                { en: "Artificial intelligence", fr: "Intelligence artificielle" }, { en: "Data mining", fr: "Exploration de données" }, { en: "Big data", fr: "Mégadonnées" },
+                { en: "Cloud computing", fr: "Infonuagique" }, { en: "Encryption", fr: "Chiffrement" }, { en: "Cybersecurity", fr: "Cybersécurité" },
+                { en: "Automation", fr: "Automatisation" }
+            ]},
+            globalBusiness: { nameFr: "Affaires internationales", nameEn: "Global business", icon: "🌍", level: 13, pairs: [
+                { en: "Globalization", fr: "Mondialisation" }, { en: "Outsourcing", fr: "Externalisation" }, { en: "Tariff", fr: "Tarif" },
+                { en: "Import/Export", fr: "Import/Export" }, { en: "Supply chain", fr: "Chaîne d'approvisionnement" }, { en: "Logistics", fr: "Logistique" },
+                { en: "Distribution", fr: "Distribution" }, { en: "Customs", fr: "Douanes" }, { en: "Franchising", fr: "Franchisage" },
+                { en: "Joint venture", fr: "Coentreprise" }
+            ]},
+            consulting: { nameFr: "Conseil", nameEn: "Consulting", icon: "📊", level: 13, pairs: [
+                { en: "Assessment", fr: "Évaluation" }, { en: "Diagnosis", fr: "Diagnostic" }, { en: "Framework", fr: "Cadre" },
+                { en: "Deliverable", fr: "Livrable" }, { en: "Scope", fr: "Portée" }, { en: "Timeline", fr: "Échéancier" },
+                { en: "Workshop", fr: "Atelier" }, { en: "Roadmap", fr: "Feuille de route" }, { en: "Best practices", fr: "Meilleures pratiques" },
+                { en: "Change management", fr: "Gestion du changement" }
+            ]},
+            projectManagement: { nameFr: "Gestion de projet", nameEn: "Project management", icon: "📋", level: 13, pairs: [
+                { en: "Sprint", fr: "Sprint" }, { en: "Agile", fr: "Agile" }, { en: "Scrum", fr: "Scrum" },
+                { en: "Kanban", fr: "Kanban" }, { en: "Backlog", fr: "Arriéré" }, { en: "Retrospective", fr: "Rétrospective" },
+                { en: "Stand-up", fr: "Stand-up" }, { en: "User story", fr: "Récit utilisateur" }, { en: "MVP", fr: "Produit minimum viable" },
+                { en: "Deployment", fr: "Déploiement" }
+            ]},
+            ethics: { nameFr: "Éthique et responsabilité", nameEn: "Ethics & responsibility", icon: "⚖️", level: 13, pairs: [
+                { en: "Integrity", fr: "Intégrité" }, { en: "Transparency", fr: "Transparence" }, { en: "Accountability", fr: "Responsabilité" },
+                { en: "Compliance", fr: "Conformité" }, { en: "Ethics", fr: "Éthique" }, { en: "Responsibility", fr: "Responsabilité" },
+                { en: "Honesty", fr: "Honnêteté" }, { en: "Trust", fr: "Confiance" }, { en: "Fairness", fr: "Équité" },
+                { en: "Duty", fr: "Devoir" }
+            ]},
+            
+            insurance: { nameFr: "Assurances", nameEn: "Insurance", icon: "🛡️", level: 13, pairs: [
+                { en: "Premium", fr: "Prime" }, { en: "Deductible", fr: "Franchise" }, { en: "Claim", fr: "Réclamation" },
+                { en: "Coverage", fr: "Couverture" }, { en: "Beneficiary", fr: "Bénéficiaire" }, { en: "Underwriting", fr: "Souscription" },
+                { en: "Exclusion", fr: "Exclusion" }, { en: "Rider", fr: "Avenant" }, { en: "Adjuster", fr: "Expert en sinistres" },
+                { en: "Renewal", fr: "Renouvellement" }, { en: "Endorsement", fr: "Endorsement" }, { en: "Actuary", fr: "Actuaire" }
+            ]},
+            leadership: { nameFr: "Leadership", nameEn: "Leadership", icon: "👑", level: 13, pairs: [
+                { en: "Vision", fr: "Vision" }, { en: "Strategy", fr: "Stratégie" }, { en: "Delegate", fr: "Déléguer" },
+                { en: "Empower", fr: "Responsabiliser" }, { en: "Mentor", fr: "Mentor" }, { en: "Feedback", fr: "Rétroaction" },
+                { en: "Accountability", fr: "Imputabilité" }, { en: "Influence", fr: "Influence" }, { en: "Stakeholder", fr: "Partie prenante" },
+                { en: "Milestone", fr: "Jalon" }, { en: "Alignment", fr: "Alignement" }, { en: "Execution", fr: "Exécution" }
+            ]},
+            
+            // NIVEAU 14 - Voyage
+            airport: { nameFr: "Aéroport & Avion", nameEn: "Airport & Flight", icon: "✈️", level: 14, pairs: [
+                { en: "Flight", fr: "Vol" }, { en: "Gate", fr: "Porte d'embarquement" }, { en: "Boarding pass", fr: "Carte d'embarquement" },
+                { en: "Luggage", fr: "Bagages" }, { en: "Customs", fr: "Douanes" }, { en: "Immigration", fr: "Immigration" },
+                { en: "Security check", fr: "Contrôle de sécurité" }, { en: "Carry-on", fr: "Bagage à main" }, { en: "Layover", fr: "Escale" },
+                { en: "Delayed", fr: "Retardé" }, { en: "Departure", fr: "Départ" }, { en: "Arrival", fr: "Arrivée" }
+            ]},
+            hotelTravel: { nameFr: "Hôtel", nameEn: "Hotel", icon: "🏨", level: 14, pairs: [
+                { en: "Reservation", fr: "Réservation" }, { en: "Check-in", fr: "Enregistrement" }, { en: "Check-out", fr: "Départ" },
+                { en: "Room service", fr: "Service en chambre" }, { en: "Concierge", fr: "Concierge" }, { en: "Lobby", fr: "Vestibule" },
+                { en: "Single room", fr: "Chambre simple" }, { en: "Double room", fr: "Chambre double" }, { en: "Suite", fr: "Suite" },
+                { en: "Amenities", fr: "Commodités" }, { en: "Complaint", fr: "Plainte" }, { en: "Upgrade", fr: "Surclassement" }
+            ]},
+            restaurantTravel: { nameFr: "Restaurant (voyage)", nameEn: "Restaurant (travel)", icon: "🍽️", level: 14, pairs: [
+                { en: "Menu", fr: "Menu" }, { en: "Waiter", fr: "Serveur" }, { en: "Bill", fr: "Addition" },
+                { en: "Tip", fr: "Pourboire" }, { en: "Appetizer", fr: "Entrée" }, { en: "Main course", fr: "Plat principal" },
+                { en: "Dessert", fr: "Dessert" }, { en: "Reservation", fr: "Réservation" }, { en: "Vegetarian", fr: "Végétarien" },
+                { en: "Allergy", fr: "Allergie" }, { en: "Spicy", fr: "Épicé" }, { en: "To go", fr: "Pour emporter" }
+            ]},
+            directions: { nameFr: "Directions & Navigation", nameEn: "Directions & Navigation", icon: "🗺️", level: 14, pairs: [
+                { en: "Left", fr: "Gauche" }, { en: "Right", fr: "Droite" }, { en: "Straight ahead", fr: "Tout droit" },
+                { en: "Turn", fr: "Tourner" }, { en: "Block", fr: "Pâté de maisons" }, { en: "Corner", fr: "Coin" },
+                { en: "Intersection", fr: "Intersection" }, { en: "Traffic light", fr: "Feu de circulation" }, { en: "Roundabout", fr: "Rond-point" },
+                { en: "Map", fr: "Carte" }, { en: "GPS", fr: "GPS" }, { en: "Lost", fr: "Perdu" }
+            ]},
+            emergencyTravel: { nameFr: "Urgences voyage", nameEn: "Travel emergencies", icon: "🆘", level: 14, pairs: [
+                { en: "Help", fr: "Aide" }, { en: "Emergency", fr: "Urgence" }, { en: "Police", fr: "Police" },
+                { en: "Ambulance", fr: "Ambulance" }, { en: "Hospital", fr: "Hôpital" }, { en: "Pharmacy", fr: "Pharmacie" },
+                { en: "Lost", fr: "Perdu" }, { en: "Stolen", fr: "Volé" }, { en: "Passport", fr: "Passeport" },
+                { en: "Embassy", fr: "Ambassade" }, { en: "Insurance", fr: "Assurance" }, { en: "Doctor", fr: "Docteur" }
+            ]},
+            shoppingTravel: { nameFr: "Magasinage", nameEn: "Shopping", icon: "🛍️", level: 14, pairs: [
+                { en: "How much", fr: "Combien" }, { en: "Price", fr: "Prix" }, { en: "Discount", fr: "Rabais" },
+                { en: "Cash", fr: "Argent comptant" }, { en: "Credit card", fr: "Carte de crédit" }, { en: "Receipt", fr: "Reçu" },
+                { en: "Size", fr: "Taille" }, { en: "Color", fr: "Couleur" }, { en: "Refund", fr: "Remboursement" },
+                { en: "Exchange", fr: "Échange" }, { en: "Too expensive", fr: "Trop cher" }, { en: "Souvenir", fr: "Souvenir" }
+            ]},
+            languages: { nameFr: "Langues et cultures", nameEn: "Languages & cultures", icon: "🗣️", level: 14, pairs: [
+                { en: "Language", fr: "Langue" }, { en: "Translation", fr: "Traduction" }, { en: "Accent", fr: "Accent" },
+                { en: "Dialect", fr: "Dialecte" }, { en: "Culture", fr: "Culture" }, { en: "Tradition", fr: "Tradition" },
+                { en: "Custom", fr: "Coutume" }, { en: "Heritage", fr: "Patrimoine" }, { en: "Diversity", fr: "Diversité" },
+                { en: "Bilingual", fr: "Bilingue" }
+            ]},
+            
+            culture: { nameFr: "Culture locale", nameEn: "Local culture", icon: "🎭", level: 14, pairs: [
+                { en: "Museum", fr: "Musée" }, { en: "Monument", fr: "Monument" }, { en: "Festival", fr: "Festival" },
+                { en: "Souvenir", fr: "Souvenir" }, { en: "Guide", fr: "Guide" }, { en: "Tour", fr: "Visite" },
+                { en: "Heritage", fr: "Patrimoine" }, { en: "Architecture", fr: "Architecture" }, { en: "Landmark", fr: "Point de repère" },
+                { en: "Gallery", fr: "Galerie" }, { en: "Temple", fr: "Temple" }, { en: "Palace", fr: "Palais" }
+            ]},
+            transportTravel: { nameFr: "Transport voyage", nameEn: "Travel transport", icon: "🚆", level: 14, pairs: [
+                { en: "Train", fr: "Train" }, { en: "Subway", fr: "Métro" }, { en: "Bus", fr: "Autobus" },
+                { en: "Taxi", fr: "Taxi" }, { en: "Rental car", fr: "Auto de location" }, { en: "Ferry", fr: "Traversier" },
+                { en: "Schedule", fr: "Horaire" }, { en: "Ticket", fr: "Billet" }, { en: "Platform", fr: "Quai" },
+                { en: "Transfer", fr: "Correspondance" }, { en: "Delay", fr: "Retard" }, { en: "One-way", fr: "Aller simple" }
+            ]},
+            
+            // NIVEAU 15 - Métiers spécialisés
+            medical: { nameFr: "Médecin/Santé", nameEn: "Medical/Health", icon: "👨‍⚕️", level: 15, pairs: [
+                { en: "Symptoms", fr: "Symptômes" }, { en: "Diagnosis", fr: "Diagnostic" }, { en: "Treatment", fr: "Traitement" },
+                { en: "Prescription", fr: "Ordonnance" }, { en: "Vital signs", fr: "Signes vitaux" }, { en: "Blood pressure", fr: "Tension artérielle" },
+                { en: "X-ray", fr: "Radiographie" }, { en: "Surgery", fr: "Chirurgie" }, { en: "Recovery", fr: "Rétablissement" },
+                { en: "Anesthesia", fr: "Anesthésie" }, { en: "Infection", fr: "Infection" }, { en: "Antibiotic", fr: "Antibiotique" }
+            ]},
+            construction: { nameFr: "Construction/Plomberie", nameEn: "Construction/Plumbing", icon: "👨‍🔧", level: 15, pairs: [
+                { en: "Pipe", fr: "Tuyau" }, { en: "Leak", fr: "Fuite" }, { en: "Drain", fr: "Drain" },
+                { en: "Wrench", fr: "Clé" }, { en: "Valve", fr: "Valve" }, { en: "Pressure", fr: "Pression" },
+                { en: "Blueprint", fr: "Plan" }, { en: "Concrete", fr: "Béton" }, { en: "Hammer", fr: "Marteau" },
+                { en: "Nail", fr: "Clou" }, { en: "Drill", fr: "Perceuse" }, { en: "Measure", fr: "Mesurer" }
+            ]},
+            automotive: { nameFr: "Mécanique/Auto", nameEn: "Automotive/Mechanic", icon: "🔧", level: 15, pairs: [
+                { en: "Engine", fr: "Moteur" }, { en: "Oil change", fr: "Changement d'huile" }, { en: "Brake", fr: "Frein" },
+                { en: "Tire", fr: "Pneu" }, { en: "Battery", fr: "Batterie" }, { en: "Transmission", fr: "Transmission" },
+                { en: "Alternator", fr: "Alternateur" }, { en: "Spark plug", fr: "Bougie" }, { en: "Radiator", fr: "Radiateur" },
+                { en: "Exhaust", fr: "Échappement" }, { en: "Steering wheel", fr: "Volant" }, { en: "Dashboard", fr: "Tableau de bord" }
+            ]},
+            culinary: { nameFr: "Cuisine professionnelle", nameEn: "Professional cooking", icon: "👨‍🍳", level: 15, pairs: [
+                { en: "Prep", fr: "Préparation" }, { en: "Sauté", fr: "Sauter" }, { en: "Blanch", fr: "Blanchir" },
+                { en: "Marinate", fr: "Mariner" }, { en: "Reduce", fr: "Réduire" }, { en: "Simmer", fr: "Mijoter" },
+                { en: "Dice", fr: "Couper en dés" }, { en: "Julienne", fr: "Julienne" }, { en: "Garnish", fr: "Garnir" },
+                { en: "Plating", fr: "Dressage" }, { en: "Mise en place", fr: "Mise en place" }, { en: "Chef", fr: "Chef" }
+            ]},
+            itDeveloper: { nameFr: "Informatique/Développeur", nameEn: "IT/Developer", icon: "👨‍💻", level: 15, pairs: [
+                { en: "Debug", fr: "Déboguer" }, { en: "Code review", fr: "Revue de code" }, { en: "Deploy", fr: "Déployer" },
+                { en: "Bug", fr: "Bogue" }, { en: "Commit", fr: "Commit" }, { en: "Branch", fr: "Branche" },
+                { en: "API", fr: "API" }, { en: "Database", fr: "Base de données" }, { en: "Server", fr: "Serveur" },
+                { en: "Frontend", fr: "Interface" }, { en: "Backend", fr: "Arrière-plan" }, { en: "Repository", fr: "Dépôt" }
+            ]},
+            retail: { nameFr: "Commerce/Vente", nameEn: "Retail/Sales", icon: "👔", level: 15, pairs: [
+                { en: "Customer", fr: "Client" }, { en: "Sale", fr: "Vente" }, { en: "Inventory", fr: "Inventaire" },
+                { en: "Stock", fr: "Stock" }, { en: "Cashier", fr: "Caissier" }, { en: "Promotion", fr: "Promotion" },
+                { en: "Display", fr: "Étalage" }, { en: "Discount", fr: "Rabais" }, { en: "Return", fr: "Retour" },
+                { en: "Commission", fr: "Commission" }, { en: "Closing sale", fr: "Conclure une vente" }, { en: "Upsell", fr: "Vente incitative" }
+            ]},
+            research: { nameFr: "Recherche et académique", nameEn: "Research & academic", icon: "🔬", level: 15, pairs: [
+                { en: "Research", fr: "Recherche" }, { en: "Study", fr: "Étude" }, { en: "Experiment", fr: "Expérience" },
+                { en: "Theory", fr: "Théorie" }, { en: "Data", fr: "Données" }, { en: "Result", fr: "Résultat" },
+                { en: "Publication", fr: "Publication" }, { en: "Scholar", fr: "Chercheur" }, { en: "Thesis", fr: "Thèse" },
+                { en: "Peer review", fr: "Révision par les pairs" }, { en: "Hypothesis", fr: "Hypothèse" }, { en: "Analysis", fr: "Analyse" }
             ]}
         };
         
-        const sectionOrder = ['greetings', 'polite', 'opinions', 'clarification', 'help', 'permissions', 'teamwork'];
-        const sectionLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-        const avatarEmojis = ['🦋', '🌟', '🌸', '🦄'];
+        const avatarEmojis = ['🦋', '🌟', '🌸', '🦄', '🦖', '🚗', '🚀', '🐱', '🐶', '🎬', '⛺', '🍣', '🎮', '🎨', '⚽', '🏀'];
         
-        function buildPath() {
-            const path = [];
-            for (let i = 0; i < sectionOrder.length; i++) {
-                path.push({ type: 'category', sectionIndex: i, sectionId: sectionOrder[i], letter: sectionLetters[i] });
-                if (i >= 1) {
-                    path.push({ type: 'revision', upToIndex: i, letters: sectionLetters.slice(0, i + 1).join('+') });
-                }
-            }
-            return path;
-        }
-        const gamePath = buildPath();
-        
-        let appState = { users: [], currentUserId: null };
-        let gameState = { progress: {}, currentPathIndex: 0, currentLevel: 1, score: 0, totalPairs: 0, matchedPairs: 0, errors: 0, errorPairs: [], selectedItem: null, isRevision: false, isCategory: false, maxLevel: 1, currentSectionId: null };
+        let appState = { users: [], currentUserId: null, soundEnabled: true };
+        let currentLevel = 1;
+        let quickTestMode = false;
+        let gameState = { score: 0, totalPairs: 0, matchedPairs: 0, errors: 0, errorPairs: [], selectedItem: null, currentPairs: [], currentCategoryId: null, isRevision: false, isQuickTest: false };
         let selectedAvatar = 1;
         
-        function loadAppState() { const saved = localStorage.getItem('englishGameAppV3'); if (saved) appState = JSON.parse(saved); }
-        function saveAppState() { localStorage.setItem('englishGameAppV3', JSON.stringify(appState)); }
+        function loadAppState() { const saved = localStorage.getItem('englishVocabGameV2'); if (saved) appState = JSON.parse(saved); if (appState.soundEnabled === undefined) appState.soundEnabled = true; }
+        function saveAppState() { localStorage.setItem('englishVocabGameV2', JSON.stringify(appState)); }
         
         function exportProgress() {
             const dataStr = JSON.stringify(appState, null, 2);
@@ -345,7 +1405,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'anglais-sauvegarde.json';
+            a.download = 'anglais-vocabulaire-sauvegarde.json';
             a.click();
             URL.revokeObjectURL(url);
             alert('✅ Sauvegarde exportée!');
@@ -371,17 +1431,55 @@
         }
         
         function renderUserProfiles() {
-            const container = document.getElementById('userProfiles');
+            document.getElementById('userSelection').classList.remove('hidden');
+            const container = document.getElementById('userSelectionContent');
             container.innerHTML = '';
+            
+            // Titre et description
+            const header = document.createElement('div');
+            header.innerHTML = '<h2>' + t('whoPlays') + '</h2><p>' + t('chooseProfile') + '</p>';
+            container.appendChild(header);
+            
+            // Liste des profils utilisateurs
+            const listContainer = document.createElement('div');
+            listContainer.className = 'user-profiles';
+            
             appState.users.forEach(user => {
-                const progress = Math.round(((user.progress.completedPaths || []).length / gamePath.length) * 100);
+                const totalCats = Object.keys(categoriesData).length;
+                const completed = (user.progress.completedCategories || []).length;
                 const div = document.createElement('div');
                 div.className = 'user-profile-btn';
-                div.innerHTML = '<div class="user-avatar avatar-' + user.avatar + '">' + avatarEmojis[user.avatar - 1] + '</div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-progress-mini">Progression: ' + progress + '%</div></div><button class="user-delete-btn" onclick="event.stopPropagation(); deleteUser(\'' + user.id + '\')" title="Supprimer">🗑️</button>';
+                div.innerHTML = '<div class="user-avatar avatar-' + user.avatar + '">' + avatarEmojis[user.avatar - 1] + '</div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-progress-mini">' + completed + ' ' + (currentLanguage === 'fr' ? 'catégories complétées' : 'categories completed') + '</div></div><button class="user-delete-btn" onclick="event.stopPropagation(); deleteUser(\'' + user.id + '\')" title="' + (currentLanguage === 'fr' ? 'Supprimer' : 'Delete') + '">🗑️</button>';
                 div.onclick = () => selectUser(user.id);
-                container.appendChild(div);
+                listContainer.appendChild(div);
             });
-            if (appState.users.length === 0) container.innerHTML = '<p style="color: #888; padding: 20px;">Aucun joueur. Crée ton profil!</p>';
+            
+            if (appState.users.length === 0) {
+                listContainer.innerHTML = '<p style="color: #888; padding: 20px; text-align: center;">' + (currentLanguage === 'fr' ? 'Aucun joueur. Crée ton profil!' : 'No player. Create your profile!') + '</p>';
+            }
+            
+            container.appendChild(listContainer);
+            
+            // Section ajouter un joueur
+            const addSection = document.createElement('div');
+            addSection.className = 'add-user-section';
+            
+            // Générer dynamiquement les options d'avatar
+            let avatarOptionsHTML = '';
+            for (let i = 0; i < avatarEmojis.length; i++) {
+                const avatarNum = i + 1;
+                const isSelected = avatarNum === 1 ? ' selected' : '';
+                avatarOptionsHTML += '<div class="avatar-option avatar-' + avatarNum + isSelected + '" data-avatar="' + avatarNum + '" onclick="selectAvatar(' + avatarNum + ')">' + avatarEmojis[i] + '</div>';
+            }
+            
+            addSection.innerHTML = '<button class="show-add-form-btn" id="showAddFormBtn" onclick="showAddUserForm()">' + t('addPlayer') + '</button><div class="add-user-form" id="addUserForm"><input type="text" class="add-user-input" id="newUserName" placeholder="' + t('yourName') + '" maxlength="20"><div class="avatar-selector" id="avatarSelector">' + avatarOptionsHTML + '</div><div style="display: flex; gap: 10px;"><button class="add-user-btn secondary" onclick="hideAddUserForm()" style="flex:1">' + t('cancel') + '</button><button class="add-user-btn" onclick="createUser()" style="flex:1">' + t('create') + '</button></div></div>';
+            container.appendChild(addSection);
+            
+            // Section sauvegarde
+            const backupSection = document.createElement('div');
+            backupSection.style.cssText = 'margin-top: 25px; padding-top: 20px; border-top: 1px dashed #ddd;';
+            backupSection.innerHTML = '<div style="font-size: 0.9rem; color: #888; margin-bottom: 10px;">' + t('saveBackup') + '</div><div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"><button onclick="exportProgress()" style="background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka; cursor: pointer;">' + t('export') + '</button><button onclick="document.getElementById(\'importFile\').click()" style="background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka; cursor: pointer;">' + t('import') + '</button><button onclick="resetAllData()" style="background: #ffe0e0; border: none; padding: 10px 20px; border-radius: 10px; font-family: Fredoka; cursor: pointer; color: #c00;">🗑️ ' + (currentLanguage === 'fr' ? 'Tout effacer' : 'Erase all') + '</button><input type="file" id="importFile" accept=".json" style="display:none" onchange="importProgress(event)"></div>';
+            container.appendChild(backupSection);
         }
         
         function showAddUserForm() { document.getElementById('showAddFormBtn').style.display = 'none'; document.getElementById('addUserForm').classList.add('active'); document.getElementById('newUserName').focus(); }
@@ -390,8 +1488,8 @@
         
         function createUser() {
             const name = document.getElementById('newUserName').value.trim();
-            if (!name) { alert('Entre ton prénom!'); return; }
-            const newUser = { id: 'user_' + Date.now(), name: name, avatar: selectedAvatar, progress: { currentPathIndex: 0, currentLevel: 1, completedPaths: [], stars: {} } };
+            if (!name) { alert(currentLanguage === 'fr' ? 'Entre ton prénom!' : 'Enter your name!'); return; }
+            const newUser = { id: 'user_' + Date.now(), name: name, avatar: selectedAvatar, progress: { completedCategories: [], currentLevel: 1, categoryLevels: {} } };
             appState.users.push(newUser);
             saveAppState();
             hideAddUserForm();
@@ -400,7 +1498,8 @@
         
         function deleteUser(userId) {
             const user = appState.users.find(u => u.id === userId);
-            if (confirm('Supprimer ' + user.name + '?')) {
+            const confirmMsg = currentLanguage === 'fr' ? 'Supprimer ' + user.name + '?' : 'Delete ' + user.name + '?';
+            if (confirm(confirmMsg)) {
                 appState.users = appState.users.filter(u => u.id !== userId);
                 if (appState.currentUserId === userId) appState.currentUserId = null;
                 saveAppState();
@@ -413,123 +1512,282 @@
             if (!user) return;
             appState.currentUserId = userId;
             saveAppState();
-            gameState.progress = user.progress;
+            currentLevel = user.progress.currentLevel || 1;
             document.getElementById('currentUserName').textContent = user.name;
             document.getElementById('currentUserAvatar').className = 'current-user-avatar avatar-' + user.avatar;
             document.getElementById('currentUserAvatar').textContent = avatarEmojis[user.avatar - 1];
             document.getElementById('userSelection').classList.add('hidden');
+            updateLanguageButton();
+            updateUILanguage();
             init();
         }
         
         function showUserSelection() { renderUserProfiles(); document.getElementById('userSelection').classList.remove('hidden'); }
         function getCurrentUser() { return appState.users.find(u => u.id === appState.currentUserId); }
-        function personalizePairs(pairs) {
-            const user = getCurrentUser();
-            const name = user ? user.name : 'Emma';
-            return pairs.map(p => ({ en: p.en.replace(/{NAME}/g, name), fr: p.fr.replace(/{NAME}/g, name) }));
+        
+        function updateUILanguage() {
+            // Mettre à jour le header
+            document.querySelector('header h1').textContent = t('appTitle');
+            document.querySelector('header p').textContent = t('appSubtitle');
+            
+            // Mettre à jour les boutons de la barre utilisateur
+            const switchBtn = document.querySelector('.switch-user-btn:not(#langBtn)');
+            if (switchBtn) switchBtn.textContent = t('change');
+            updateLanguageButton();
+            
+            // Mettre à jour les titres de sections
+            document.querySelector('.level-selector-title').textContent = t('chooseLevel');
+            document.querySelector('.progress-title').textContent = t('globalProgress');
+            
+            // Mettre à jour le bouton retour si visible
+            const backBtn = document.querySelector('.back-btn');
+            if (backBtn) backBtn.textContent = t('back');
+            
+            // Mettre à jour le toggle test rapide
+            updateQuickTestLabels();
+            
+            // Mettre à jour la section paramètres
+            updateSettingsLabels();
         }
         
-        function init() { renderPath(); updateGlobalProgress(); }
-        function saveProgress() { const user = getCurrentUser(); if (user) { user.progress = gameState.progress; saveAppState(); } }
+        function toggleQuickTestMode() {
+            quickTestMode = document.getElementById('quickTestCheckbox').checked;
+            renderCategories();
+        }
+        
+        function updateQuickTestLabels() {
+            const label = document.getElementById('quickTestLabel');
+            const tooltip = document.getElementById('quickTestTooltipText');
+            if (label) label.textContent = t('quickTestMode');
+            if (tooltip) tooltip.textContent = t('quickTestTooltip');
+        }
+        
+        function updateSettingsLabels() {
+            const settingsTitle = document.getElementById('settingsTitle');
+            const resetBtnText = document.getElementById('resetBtnText');
+            if (settingsTitle) settingsTitle.textContent = t('settings');
+            if (resetBtnText) resetBtnText.textContent = t('reset');
+        }
+        
+        function updateUserStarDisplay() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const totalStars = user.progress.totalStars || 0;
+            const starDisplay = document.getElementById('userStarDisplay');
+            if (starDisplay) {
+                starDisplay.innerHTML = renderUserStar(totalStars);
+            }
+        }
+        
+        function addStarsToUser(starsEarned) {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            if (!user.progress.totalStars) user.progress.totalStars = 0;
+            user.progress.totalStars += starsEarned;
+            saveAppState();
+            updateUserStarDisplay();
+        }
+        
+        function init() {
+            // S'assurer que les éléments principaux sont visibles
+            document.getElementById('categoriesGrid').style.display = 'grid';
+            document.getElementById('levelSelector').style.display = 'block';
+            document.getElementById('progressOverview').style.display = 'block';
+            document.getElementById('quickTestToggle').style.display = 'flex';
+            const settingsSection = document.querySelector('.settings-section');
+            if (settingsSection) settingsSection.style.display = 'block';
+            
+            renderLevelButtons();
+            renderCategories();
+            updateGlobalProgress();
+            updateUserStarDisplay();
+            updateQuickTestLabels();
+            updateSettingsLabels();
+        }
+        
+        function renderLevelButtons() {
+            const container = document.getElementById('levelButtons');
+            container.innerHTML = '';
+            for (let i = 1; i <= 15; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'level-btn' + (i === currentLevel ? ' active' : '');
+                btn.innerHTML = '<span class="level-num">' + getLevelName(i) + '</span>';
+                btn.onclick = () => selectLevel(i);
+                container.appendChild(btn);
+            }
+        }
+        
+        function selectLevel(level) {
+            currentLevel = level;
+            const user = getCurrentUser();
+            if (user) {
+                user.progress.currentLevel = level;
+                saveAppState();
+            }
+            renderLevelButtons();
+            renderCategories();
+            updateGlobalProgress();
+        }
+        
+        function renderCategories() {
+            const container = document.getElementById('categoriesGrid');
+            container.innerHTML = '';
+            
+            const user = getCurrentUser();
+            const completed = user ? (user.progress.completedCategories || []) : [];
+            const categoryLevels = user ? (user.progress.categoryLevels || {}) : {};
+            
+            const levelCategories = Object.entries(categoriesData).filter(([id, cat]) => cat.level === currentLevel);
+            
+            if (levelCategories.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888; grid-column: 1/-1; padding: 40px;">' + (currentLanguage === 'fr' ? 'Aucune catégorie pour ce niveau.' : 'No category for this level.') + '</p>';
+                return;
+            }
+            
+            levelCategories.forEach(([catId, cat]) => {
+                const isCompleted = completed.includes(catId);
+                const catLevel = categoryLevels[catId] || 1;
+                const progressText = isCompleted ? t('completed') : catLevel + '/' + cat.pairs.length + ' ' + t('words');
+                
+                const div = document.createElement('div');
+                let cardClass = 'category-card' + (isCompleted ? ' completed' : '');
+                if (quickTestMode && !isCompleted) cardClass += ' quick-test-active';
+                div.className = cardClass;
+                
+                let badgeHtml = '';
+                if (quickTestMode && !isCompleted) {
+                    badgeHtml = '<span class="quick-test-badge">⚡ TEST</span>';
+                }
+                
+                div.innerHTML = '<span class="category-level-badge">' + t('level') + ' ' + cat.level + '</span>' + badgeHtml + '<div class="category-icon">' + cat.icon + '</div><div class="category-name">' + getCategoryName(cat) + '</div><div class="category-count">' + progressText + '</div>';
+                div.onclick = () => startCategory(catId);
+                container.appendChild(div);
+            });
+        }
+        
+        function updateGlobalProgress() {
+            const user = getCurrentUser();
+            const completed = user ? (user.progress.completedCategories || []) : [];
+            const totalCats = Object.keys(categoriesData).length;
+            const percent = totalCats > 0 ? Math.round((completed.length / totalCats) * 100) : 0;
+            
+            // Progression pour le niveau actuel (pour les étoiles)
+            const levelCategories = Object.entries(categoriesData).filter(([id, cat]) => cat.level === currentLevel);
+            const levelCompleted = levelCategories.filter(([id]) => completed.includes(id)).length;
+            const levelPercent = levelCategories.length > 0 ? Math.round((levelCompleted / levelCategories.length) * 100) : 0;
+            
+            document.getElementById('globalProgress').style.width = Math.max(percent, 5) + '%';
+            document.getElementById('globalProgressText').textContent = percent + '%';
+            
+            const starsCount = Math.min(5, Math.floor((levelPercent / 100) * 5));
+            let starsHtml = '';
+            for (let i = 0; i < 5; i++) starsHtml += '<span class="star' + (i < starsCount ? ' earned' : '') + '">⭐</span>';
+            document.getElementById('globalStars').innerHTML = starsHtml;
+        }
+        
+        function saveProgress() { const user = getCurrentUser(); if (user) saveAppState(); }
+        
         function resetProgress() {
-            if (confirm('Recommencer à zéro?')) {
+            if (confirm(t('resetConfirm'))) {
                 const user = getCurrentUser();
                 if (user) {
-                    user.progress = { currentPathIndex: 0, currentLevel: 1, completedPaths: [], stars: {} };
-                    gameState.progress = user.progress;
+                    const levelCats = Object.entries(categoriesData).filter(([id, cat]) => cat.level === currentLevel).map(([id]) => id);
+                    user.progress.completedCategories = (user.progress.completedCategories || []).filter(c => !levelCats.includes(c));
+                    // Réinitialiser aussi les niveaux de catégories
+                    if (user.progress.categoryLevels) {
+                        levelCats.forEach(catId => { delete user.progress.categoryLevels[catId]; });
+                    }
                     saveAppState();
                     init();
                 }
             }
         }
         
-        function renderPath() {
-            const container = document.getElementById('pathContainer');
-            container.innerHTML = '';
-            const currentPathIndex = gameState.progress.currentPathIndex || 0;
-            const completedPaths = gameState.progress.completedPaths || [];
-            
-            gamePath.forEach((item, index) => {
-                const isCompleted = completedPaths.includes(index);
-                const isCurrent = index === currentPathIndex;
-                const isLocked = index > currentPathIndex;
-                
-                const div = document.createElement('div');
-                div.className = 'path-item ' + item.type + (isCompleted ? ' completed' : '') + (isCurrent ? ' current' : '') + (isLocked ? ' locked' : '');
-                
-                let icon, letter, name, status, btnText;
-                if (item.type === 'category') {
-                    const section = sectionsData[item.sectionId];
-                    icon = section.icon;
-                    letter = 'Catégorie ' + item.letter;
-                    name = section.nameFr;
-                    status = isCompleted ? '✓ Terminé' : (isCurrent ? 'En cours' : '🔒');
-                    btnText = isCurrent ? 'Jouer ▶' : (isCompleted ? 'Refaire' : '🔒');
-                } else {
-                    icon = '🎯';
-                    letter = 'Révision';
-                    name = 'Catégories ' + item.letters;
-                    status = isCompleted ? '✓ Terminé' : (isCurrent ? 'Prêt!' : '🔒');
-                    btnText = isCurrent ? 'Jouer ▶' : (isCompleted ? 'Refaire' : '🔒');
-                }
-                
-                div.innerHTML = '<div class="path-icon">' + icon + '</div><div class="path-info"><div class="path-letter">' + letter + '</div><div class="path-name">' + name + '</div><div class="path-status">' + status + '</div></div><button class="path-btn' + (isLocked ? ' locked' : '') + '"' + (isLocked ? ' disabled' : '') + '>' + btnText + '</button>';
-                
-                if (!isLocked) div.querySelector('.path-btn').onclick = (e) => { e.stopPropagation(); startPathItem(index); };
-                container.appendChild(div);
-            });
+        function exportProgress() {
+            const dataStr = JSON.stringify(appState, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'anglais-vocabulaire-sauvegarde.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            alert(t('exportSuccess'));
         }
         
-        function updateGlobalProgress() {
-            const completedPaths = gameState.progress.completedPaths || [];
-            const percent = Math.round((completedPaths.length / gamePath.length) * 100);
-            document.getElementById('globalProgress').style.width = Math.max(percent, 5) + '%';
-            document.getElementById('globalProgressText').textContent = percent + '%';
-            const starsCount = Math.min(7, Math.floor((percent / 100) * 7));
-            let starsHtml = '';
-            for (let i = 0; i < 7; i++) starsHtml += '<span class="star' + (i < starsCount ? ' earned' : '') + '">⭐</span>';
-            document.getElementById('globalStars').innerHTML = starsHtml;
+        function importProgress(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.users) {
+                        appState = data;
+                        if (data.language) currentLanguage = data.language;
+                        saveAppState();
+                        renderUserProfiles();
+                        alert(t('importSuccess'));
+                    }
+                } catch (err) { alert(currentLanguage === 'fr' ? '❌ Fichier invalide.' : '❌ Invalid file.'); }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
         
-        function startPathItem(pathIndex) {
-            const item = gamePath[pathIndex];
-            gameState.currentPathIndex = pathIndex;
+        function startCategory(catId) {
+            const category = categoriesData[catId];
+            const user = getCurrentUser();
+            gameState.currentCategoryId = catId;
             gameState.isRevision = false;
-            const isCurrent = pathIndex === gameState.progress.currentPathIndex;
+            gameState.isQuickTest = false;
             
-            if (item.type === 'category') {
-                const section = sectionsData[item.sectionId];
-                const currentLevel = isCurrent ? (gameState.progress.currentLevel || 1) : 1;
-                const levelPairs = personalizePairs(section.pairs.slice(0, currentLevel));
-                
-                document.getElementById('pathContainer').style.display = 'none';
-                document.getElementById('progressOverview').style.display = 'none';
-                document.getElementById('gameArea').classList.add('active');
-                document.getElementById('gameTitle').textContent = section.icon + ' ' + section.nameFr;
-                document.getElementById('gameLevel').textContent = 'Catégorie ' + item.letter;
-                document.getElementById('gameInstructions').innerHTML = '<strong>Associe</strong> chaque expression anglaise avec sa traduction française!';
-                
-                gameState.currentLevel = currentLevel;
-                gameState.maxLevel = section.pairs.length;
-                gameState.currentSectionId = item.sectionId;
-                gameState.isCategory = true;
-                startGame(levelPairs);
+            // Récupérer le niveau actuel dans cette catégorie (nombre de mots)
+            if (!user.progress.categoryLevels) user.progress.categoryLevels = {};
+            const catLevel = user.progress.categoryLevels[catId] || 1;
+            gameState.currentCatLevel = catLevel;
+            gameState.maxCatLevel = category.pairs.length;
+            
+            let pairsToPlay;
+            
+            // Mode test rapide: tester TOUS les mots de la catégorie
+            if (quickTestMode) {
+                gameState.isQuickTest = true;
+                pairsToPlay = [...category.pairs]; // Tous les mots
             } else {
-                const sectionsToInclude = sectionOrder.slice(0, item.upToIndex + 1);
-                let allPairs = [];
-                sectionsToInclude.forEach(sid => { allPairs = allPairs.concat(sectionsData[sid].pairs); });
-                allPairs = shuffleArray(personalizePairs(allPairs)).slice(0, 12);
-                
-                document.getElementById('pathContainer').style.display = 'none';
-                document.getElementById('progressOverview').style.display = 'none';
-                document.getElementById('gameArea').classList.add('active');
-                document.getElementById('gameTitle').textContent = '🎯 Révision ' + item.letters;
-                document.getElementById('gameLevel').textContent = allPairs.length + ' expressions';
-                document.getElementById('gameInstructions').innerHTML = '<strong>Révision!</strong> Associe les expressions de toutes les catégories!';
-                
-                gameState.isCategory = false;
-                startGame(allPairs);
+                // Mode normal: prendre seulement les X premiers mots selon le niveau
+                pairsToPlay = category.pairs.slice(0, catLevel);
             }
+            
+            document.getElementById('categoriesGrid').style.display = 'none';
+            document.getElementById('levelSelector').style.display = 'none';
+            document.getElementById('progressOverview').style.display = 'none';
+            document.getElementById('quickTestToggle').style.display = 'none';
+            const settingsSection = document.querySelector('.settings-section');
+            if (settingsSection) settingsSection.style.display = 'none';
+            document.getElementById('gameArea').classList.add('active');
+            
+            if (gameState.isQuickTest) {
+                document.getElementById('gameTitle').textContent = category.icon + ' ' + getCategoryName(category);
+                document.getElementById('gameLevel').textContent = t('quickTestTitle');
+                document.getElementById('gameLevel').style.background = 'linear-gradient(135deg, #ff6b00, #ff9500)';
+                document.getElementById('gameInstructions').innerHTML = t('quickTestInstructions');
+            } else {
+                document.getElementById('gameTitle').textContent = category.icon + ' ' + getCategoryName(category);
+                document.getElementById('gameLevel').textContent = catLevel + '/' + category.pairs.length + ' ' + t('words');
+                document.getElementById('gameLevel').style.background = '';
+                document.getElementById('gameInstructions').innerHTML = t('instructions');
+            }
+            
+            // Mettre à jour les labels du score
+            document.querySelector('.score-item:not(.errors) .score-label').textContent = t('goodAnswers');
+            document.querySelector('.score-item.errors .score-label').textContent = t('errors');
+            document.querySelector('.back-btn').textContent = t('back');
+            updateSoundButton();
+            
+            startGame([...pairsToPlay]);
         }
         
         function startGame(pairs) {
@@ -545,15 +1803,168 @@
             renderMatchingGame(pairs);
         }
         
+        // Fonction de prononciation audio
+        let currentSpeech = null;
+        
+        function speakWord(text, lang = 'en', button = null) {
+            // Ne rien faire si le son est désactivé
+            if (!appState.soundEnabled) return;
+            
+            // Arrêter toute prononciation en cours
+            if (currentSpeech) {
+                window.speechSynthesis.cancel();
+                if (button) button.classList.remove('speaking');
+            }
+            
+            // Détecter si le texte contient une flèche (verbe irrégulier)
+            if (text.includes('→')) {
+                const parts = text.split('→').map(p => p.trim());
+                
+                if (parts.length === 2 && parts[0] && parts[1]) {
+                    // Lire avec pause entre présent et passé
+                    speakWithPause(parts[0], parts[1], lang, button);
+                    return;
+                }
+            }
+            
+            // Nettoyer le texte pour la lecture audio normale
+            let cleanText = text.replace(/→/g, ' ');
+            cleanText = cleanText.replace(/\(passé\)/g, '');
+            cleanText = cleanText.trim().replace(/\s+/g, ' ');
+            
+            // Créer une nouvelle prononciation
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = lang === 'en' ? 'en-US' : 'fr-CA';
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            
+            const voices = window.speechSynthesis.getVoices();
+            const targetVoice = voices.find(v => v.lang.startsWith(lang === 'en' ? 'en-' : 'fr-'));
+            if (targetVoice) utterance.voice = targetVoice;
+            
+            if (button) {
+                button.classList.add('speaking');
+                utterance.onend = () => button.classList.remove('speaking');
+                utterance.onerror = () => button.classList.remove('speaking');
+            }
+            
+            currentSpeech = utterance;
+            window.speechSynthesis.speak(utterance);
+        }
+        
+        function speakWithPause(firstWord, secondWord, lang = 'en', button = null) {
+            // Créer la première prononciation (présent)
+            const utterance1 = new SpeechSynthesisUtterance(firstWord);
+            utterance1.lang = lang === 'en' ? 'en-US' : 'fr-CA';
+            utterance1.rate = 0.9;
+            utterance1.pitch = 1;
+            
+            const voices = window.speechSynthesis.getVoices();
+            const targetVoice = voices.find(v => v.lang.startsWith(lang === 'en' ? 'en-' : 'fr-'));
+            if (targetVoice) utterance1.voice = targetVoice;
+            
+            if (button) button.classList.add('speaking');
+            
+            // Quand le premier mot est fini, attendre 250ms puis dire le deuxième
+            utterance1.onend = () => {
+                setTimeout(() => {
+                    const utterance2 = new SpeechSynthesisUtterance(secondWord);
+                    utterance2.lang = lang === 'en' ? 'en-US' : 'fr-CA';
+                    utterance2.rate = 0.9;
+                    utterance2.pitch = 1;
+                    if (targetVoice) utterance2.voice = targetVoice;
+                    
+                    utterance2.onend = () => {
+                        if (button) button.classList.remove('speaking');
+                    };
+                    utterance2.onerror = () => {
+                        if (button) button.classList.remove('speaking');
+                    };
+                    
+                    window.speechSynthesis.speak(utterance2);
+                }, 250); // Pause de 250ms (1/4 de seconde)
+            };
+            
+            utterance1.onerror = () => {
+                if (button) button.classList.remove('speaking');
+            };
+            
+            currentSpeech = utterance1;
+            window.speechSynthesis.speak(utterance1);
+        }
+        
+        function toggleSound() {
+            appState.soundEnabled = !appState.soundEnabled;
+            saveAppState();
+            updateSoundButton();
+        }
+        
+        function updateSoundButton() {
+            const btn = document.getElementById('soundBtn');
+            if (btn) {
+                btn.textContent = appState.soundEnabled ? '🔊' : '🔇';
+                btn.title = appState.soundEnabled ? 
+                    (currentLanguage === 'fr' ? 'Désactiver le son' : 'Mute sound') : 
+                    (currentLanguage === 'fr' ? 'Activer le son' : 'Unmute sound');
+            }
+        }
+        
+        // S'assurer que les voix sont chargées
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+        
         function renderMatchingGame(pairs) {
             const shuffledEn = shuffleArray([...pairs]);
             const shuffledFr = shuffleArray([...pairs]);
-            document.getElementById('gameContent').innerHTML = '<div class="matching-container"><div class="matching-column"><h3>🇬🇧 English</h3>' + shuffledEn.map((p, i) => '<div class="match-item" data-type="en" data-id="' + pairs.indexOf(p) + '" onclick="selectMatchItem(this)">' + p.en + '</div>').join('') + '</div><div class="matching-column"><h3>🇫🇷 Français</h3>' + shuffledFr.map((p, i) => '<div class="match-item" data-type="fr" data-id="' + pairs.indexOf(p) + '" onclick="selectMatchItem(this)">' + p.fr + '</div>').join('') + '</div></div>';
+            
+            // Vérifier si les mots sont courts (max 20 caractères) pour afficher côte à côte
+            const maxLen = Math.max(
+                ...pairs.map(p => p.en.length),
+                ...pairs.map(p => p.fr.length)
+            );
+            const sideBySide = maxLen <= 20;
+            
+            // Détecter si c'est une catégorie de verbes irréguliers
+            const isIrregularVerbs = gameState.currentCategoryId && gameState.currentCategoryId.includes('irregularVerbs');
+            
+            // Adapter les titres des colonnes
+            const enTitle = isIrregularVerbs ? 'Present → Past' : '🔊 English';
+            const frTitle = isIrregularVerbs ? (currentLanguage === 'fr' ? 'Présent' : 'Infinitive') : '🔊 Français';
+            
+            // Créer les colonnes
+            const enColumn = '<div class="matching-column"><h3>' + enTitle + '</h3>' + 
+                shuffledEn.map((p, i) => '<div class="match-item" data-type="en" data-id="' + pairs.indexOf(p) + '" data-word="' + p.en.replace(/'/g, "\\'") + '" onclick="selectMatchItem(this)">' + p.en + '</div>').join('') + 
+                '</div>';
+            
+            const frColumn = '<div class="matching-column"><h3>' + frTitle + '</h3>' + 
+                shuffledFr.map((p, i) => '<div class="match-item" data-type="fr" data-id="' + pairs.indexOf(p) + '" data-word="' + p.fr.replace(/'/g, "\\'") + '" onclick="selectMatchItem(this)">' + p.fr + '</div>').join('') + 
+                '</div>';
+            
+            // Ordre selon la langue: langue native à gauche
+            let html = '<div class="matching-container' + (sideBySide ? ' side-by-side' : '') + '">';
+            if (currentLanguage === 'fr') {
+                html += frColumn + enColumn; // Français à gauche
+            } else {
+                html += enColumn + frColumn; // English à gauche
+            }
+            html += '</div>';
+            html += '<div style="text-align: center; margin-top: 10px; color: #888; font-size: 0.85rem;">' + t('clickToHear') + '</div>';
+            
+            document.getElementById('gameContent').innerHTML = html;
         }
         
         function selectMatchItem(element) {
             if (element.classList.contains('matched')) return;
+            
+            // Jouer l'audio du mot cliqué
+            const word = element.dataset.word;
             const type = element.dataset.type;
+            const lang = type === 'en' ? 'en' : 'fr';
+            speakWord(word, lang, element);
+            
             const id = parseInt(element.dataset.id);
             
             if (gameState.selectedItem && gameState.selectedItem.type === type) {
@@ -598,38 +2009,114 @@
         function endGame() {
             const accuracy = Math.max(0, Math.round(100 - (gameState.errors / gameState.totalPairs) * 100));
             let stars = accuracy >= 90 ? 3 : (accuracy >= 70 ? 2 : (accuracy >= 50 ? 1 : 0));
-            gameState.originalStars = stars;
+            
+            // Ajouter les étoiles au total si ce n'est pas une révision
+            if (!gameState.isRevision && stars > 0) {
+                addStarsToUser(stars);
+            }
             
             const modal = document.getElementById('resultModal');
             const nextBtn = document.getElementById('modalNextBtn');
             let icon, title, message;
             
+            // Mettre à jour le bouton "Menu"
+            const menuBtn = document.querySelector('.modal-btn.secondary');
+            if (menuBtn) menuBtn.textContent = t('menu');
+            
+            // Mode test rapide
+            if (gameState.isQuickTest) {
+                if (gameState.errors === 0) {
+                    // Test réussi! Marquer la catégorie comme complétée
+                    icon = '🏆';
+                    title = t('perfect');
+                    message = t('quickTestPassed');
+                    document.getElementById('modalStars').innerHTML = renderStars(3, 3);
+                    
+                    // Marquer comme complétée directement
+                    const user = getCurrentUser();
+                    if (user && gameState.currentCategoryId) {
+                        if (!user.progress.completedCategories) user.progress.completedCategories = [];
+                        const catId = gameState.currentCategoryId;
+                        if (!user.progress.completedCategories.includes(catId)) {
+                            user.progress.completedCategories.push(catId);
+                        }
+                        // Mettre le niveau au max aussi
+                        if (!user.progress.categoryLevels) user.progress.categoryLevels = {};
+                        user.progress.categoryLevels[catId] = gameState.maxCatLevel;
+                        saveAppState();
+                    }
+                    
+                    nextBtn.textContent = t('done');
+                    nextBtn.onclick = closeModal;
+                } else {
+                    // Test échoué - doit faire les exercices normalement
+                    icon = '📝';
+                    title = t('quickTestFailed');
+                    message = gameState.errors + ' ' + t('quickTestFailedDetail');
+                    document.getElementById('modalStars').innerHTML = '';
+                    
+                    nextBtn.textContent = t('startExercises');
+                    nextBtn.onclick = function() {
+                        document.getElementById('resultModal').classList.remove('active');
+                        gameState.isQuickTest = false;
+                        // Désactiver le mode test rapide
+                        quickTestMode = false;
+                        document.getElementById('quickTestCheckbox').checked = false;
+                        // Relancer en mode normal
+                        startCategory(gameState.currentCategoryId);
+                    };
+                }
+                
+                document.getElementById('modalIcon').textContent = icon;
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalMessage').textContent = message;
+                modal.classList.add('active');
+                return;
+            }
+            
             if (gameState.isRevision) {
                 if (gameState.errorPairs.length === 0) {
-                    icon = '🌟'; title = 'Super!'; message = 'Erreurs corrigées!';
-                    completeCurrentLevel();
+                    icon = '🌟'; 
+                    title = t('super'); 
+                    message = t('errorsCorrected');
+                    completeCategory();
                     document.getElementById('modalStars').innerHTML = renderStars(stars, 3);
-                    nextBtn.textContent = 'Continuer →';
-                    nextBtn.onclick = continueToNext;
+                    
+                    // Vérifier s'il reste des mots à apprendre
+                    if (gameState.currentCatLevel < gameState.maxCatLevel) {
+                        nextBtn.textContent = t('nextWord');
+                        nextBtn.onclick = continueCategory;
+                    } else {
+                        nextBtn.textContent = t('done');
+                        nextBtn.onclick = closeModal;
+                    }
                 } else {
-                    icon = '📝'; title = 'Continue!'; message = gameState.errorPairs.length + ' expression(s) à revoir';
+                    icon = '📝'; 
+                    title = t('continue'); 
+                    message = gameState.errorPairs.length + ' ' + t('wordsToReview');
                     document.getElementById('modalStars').innerHTML = '';
-                    nextBtn.textContent = '📝 Continuer';
+                    nextBtn.textContent = t('continueBtn');
                     nextBtn.onclick = startErrorRevision;
                 }
             } else {
                 icon = stars === 3 ? '🏆' : (stars >= 2 ? '🎉' : (stars >= 1 ? '💪' : '📚'));
-                title = stars === 3 ? 'Parfait!' : (stars >= 2 ? 'Bravo!' : (stars >= 1 ? 'Pas mal!' : 'Continue!'));
-                message = accuracy + '% de réussite';
+                title = stars === 3 ? t('perfect') : (stars >= 2 ? t('great') : (stars >= 1 ? t('good') : t('continue')));
+                message = accuracy + '% ' + t('accuracy');
                 document.getElementById('modalStars').innerHTML = renderStars(stars, 3);
                 
                 if (gameState.errorPairs.length > 0) {
-                    nextBtn.textContent = '📝 Réviser mes erreurs';
+                    nextBtn.textContent = t('reviewErrors');
                     nextBtn.onclick = startErrorRevision;
                 } else {
-                    completeCurrentLevel();
-                    nextBtn.textContent = 'Continuer →';
-                    nextBtn.onclick = continueToNext;
+                    completeCategory();
+                    // Vérifier s'il reste des mots à apprendre
+                    if (gameState.currentCatLevel < gameState.maxCatLevel) {
+                        nextBtn.textContent = t('nextWord');
+                        nextBtn.onclick = continueCategory;
+                    } else {
+                        nextBtn.textContent = t('done');
+                        nextBtn.onclick = closeModal;
+                    }
                 }
             }
             
@@ -639,58 +2126,57 @@
             modal.classList.add('active');
         }
         
-        function completeCurrentLevel() {
-            const pathIndex = gameState.currentPathIndex;
-            if (gameState.isCategory) {
-                if (gameState.currentLevel >= gameState.maxLevel) {
-                    if (!gameState.progress.completedPaths.includes(pathIndex)) gameState.progress.completedPaths.push(pathIndex);
-                    gameState.progress.currentPathIndex = pathIndex + 1;
-                    gameState.progress.currentLevel = 1;
+        function continueCategory() {
+            document.getElementById('resultModal').classList.remove('active');
+            startCategory(gameState.currentCategoryId);
+        }
+        
+        function completeCategory() {
+            const user = getCurrentUser();
+            if (user && gameState.currentCategoryId) {
+                if (!user.progress.completedCategories) user.progress.completedCategories = [];
+                if (!user.progress.categoryLevels) user.progress.categoryLevels = {};
+                
+                const catId = gameState.currentCategoryId;
+                const currentCatLevel = gameState.currentCatLevel;
+                const maxCatLevel = gameState.maxCatLevel;
+                
+                if (currentCatLevel >= maxCatLevel) {
+                    // Catégorie terminée!
+                    if (!user.progress.completedCategories.includes(catId)) {
+                        user.progress.completedCategories.push(catId);
+                    }
                 } else {
-                    gameState.progress.currentLevel = gameState.currentLevel + 1;
+                    // Passer au niveau suivant (un mot de plus)
+                    user.progress.categoryLevels[catId] = currentCatLevel + 1;
                 }
-            } else {
-                if (!gameState.progress.completedPaths.includes(pathIndex)) gameState.progress.completedPaths.push(pathIndex);
-                gameState.progress.currentPathIndex = pathIndex + 1;
-                gameState.progress.currentLevel = 1;
+                saveAppState();
             }
-            saveProgress();
         }
         
         function startErrorRevision() {
             document.getElementById('resultModal').classList.remove('active');
             gameState.isRevision = true;
             const pairs = [...gameState.errorPairs];
-            document.getElementById('gameTitle').textContent = '📝 Révision';
-            document.getElementById('gameLevel').textContent = pairs.length + ' à revoir';
-            document.getElementById('gameInstructions').innerHTML = '<strong>Révise</strong> les expressions manquées!';
+            document.getElementById('gameTitle').textContent = t('revision');
+            document.getElementById('gameLevel').textContent = pairs.length + ' ' + t('toReview');
+            document.getElementById('gameInstructions').innerHTML = t('reviewMissed');
             startGame(pairs);
         }
         
-        function continueToNext() {
-            document.getElementById('resultModal').classList.remove('active');
-            gameState.isRevision = false;
-            const currentPathIndex = gameState.progress.currentPathIndex;
-            
-            if (currentPathIndex >= gamePath.length) {
-                alert('🎉 Félicitations! Tu as terminé tout le jeu!');
-                goBack();
-                return;
-            }
-            
-            if (gameState.isCategory && gameState.currentLevel < gameState.maxLevel) {
-                startPathItem(gameState.currentPathIndex);
-            } else {
-                startPathItem(currentPathIndex);
-            }
-        }
-        
         function closeModal() { document.getElementById('resultModal').classList.remove('active'); goBack(); }
+        
         function goBack() {
             document.getElementById('gameArea').classList.remove('active');
-            document.getElementById('pathContainer').style.display = 'flex';
+            document.getElementById('categoriesGrid').style.display = 'grid';
+            document.getElementById('levelSelector').style.display = 'block';
             document.getElementById('progressOverview').style.display = 'block';
-            renderPath();
+            document.getElementById('quickTestToggle').style.display = 'flex';
+            const settingsSection = document.querySelector('.settings-section');
+            if (settingsSection) settingsSection.style.display = 'block';
+            // Restaurer le style du badge de niveau
+            document.getElementById('gameLevel').style.background = '';
+            renderCategories();
             updateGlobalProgress();
         }
         
@@ -707,8 +2193,15 @@
         }
         
         loadAppState();
-        if (appState.currentUserId && appState.users.find(u => u.id === appState.currentUserId)) selectUser(appState.currentUserId);
-        else renderUserProfiles();
+        if (appState.language) currentLanguage = appState.language;
+        renderLanguageButtons(); // Générer les boutons de langue dans le bon ordre
+        if (appState.currentUserId && appState.users.find(u => u.id === appState.currentUserId)) {
+            document.getElementById('languageSelector').classList.add('hidden');
+            selectUser(appState.currentUserId);
+        } else if (appState.language) {
+            document.getElementById('languageSelector').classList.add('hidden');
+            renderUserProfiles();
+        }
     </script>
 </body>
 </html>
